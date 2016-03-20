@@ -1,0 +1,21 @@
+#hotel-features #hotel-availability article img.custom_amenity {
+	margin-top: 5px;
+	margin-right: 5px;
+	opacity: 0.7
+}
+#hotel-features #hotel-availability article img.custom_amenity:hover {
+	opacity: 1;
+}
+#hotel-features #hotel-availability .age-of-children {
+	margin-top: 20px;
+}
+#hotel-features #hotel-amenities .custom_amenity {
+	width: 42px;
+	margin-right: 15px;
+	display: inline-block;
+	float: left;
+}
+#hotel-features #hotel-amenities .custom_amenity img {
+	margin: 0 auto;
+	display: block;
+}

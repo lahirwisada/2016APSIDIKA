@@ -1,0 +1,18 @@
+
+/* Main color */
+.def-panel .panel-title h2,
+.content .widget > h3,
+.header .widget > h3 {
+	color: #2c3e50;
+}
+.widget > h3,
+.def-panel .panel-title h2 {
+	border-bottom: 2px solid #2c3e50;
+}
+
+/* Main menu/footer */
+.header .header-menu,
+.footer .footer-widgets,
+.header .main-menu > ul li > ul {
+	background-color: #3f484f;
+}
