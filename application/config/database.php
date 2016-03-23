@@ -49,12 +49,12 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = '127.0.0.1';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '123456';
+$db['default']['username'] = 'postgres';
+$db['default']['password'] = 'postgres';
 //$db['default']['database'] = 'db_dummy_gurita_store';
 //$db['default']['database'] = 'prod_aplikasi_kosan';
-$db['default']['database'] = 'db_framework_ciwrapper';
-$db['default']['dbdriver'] = 'mysql';
+$db['default']['database'] = 'db_sidika';
+$db['default']['dbdriver'] = 'postgre';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = FALSE;
 $db['default']['db_debug'] = TRUE;

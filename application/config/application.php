@@ -25,6 +25,14 @@ $config['backend_login_uri'] = 'back_end/member/login';
 
 $config['application_upload_location'] = '_assets/uploads/';
 
+$config['application_active_layout'] = 'atlant';
+
+/**
+ * ini digunakan untuk memberikan nama schema
+ * ketika menggunakan basis data postgres
+ */
+$config['application_db_schema_name'] = 'sc_sidika';
+
 /** ini digunakan ketika aplikasi telah diupload ke hosting */
 $config['application_path_location'] = '/home/ikatifau/public_html/';
 
