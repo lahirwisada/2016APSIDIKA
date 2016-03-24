@@ -22,10 +22,9 @@ class Back_end extends Main {
     private function init_back_end(){
         $this->my_location = "back_end/";
         
-        $this->load->model('model_ref_modul');
-        $menu_item = $this->model_ref_modul->get_backend_menu();
+        $this->init_backend_menu();
+        
         $this->backend_controller_location = $this->my_location.$this->_name;
-        $this->set("menu_item", $menu_item);
         $this->set("controller_location", $this->backend_controller_location);
         
     }

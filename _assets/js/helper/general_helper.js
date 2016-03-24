@@ -80,8 +80,7 @@ function formatdecimal(sep, dec, obj)
     {
         afterdec = afterdec.replace(/[\Wa-zA-Z]/g, '');
         obj.value = result + dec + afterdec;
-    }
-    else
+    } else
         obj.value = result;
 }
 
@@ -352,8 +351,7 @@ function getValue(citem, data)
         if (item == citem)
         {
             return myvalue;
-        }
-        else
+        } else
         {
             if (typeof (myvalue) == 'object')
             {
@@ -425,7 +423,7 @@ function CreateTableContentOrderDetail(data)
 
 function SumArray(someArray) {
     var total = 0;
-    
+
     if (typeof someArray === 'undefined' && someArray.length > 0) {
         for (var i = 0; i < someArray.length; i++) {
             total += parseInt(someArray[i]);
@@ -500,7 +498,13 @@ function CreateTableContent(data, format, title)
     return html;
 }
 
-
-
-
-
+/**
+ * 
+ * @see http://stackoverflow.com/questions/5999998/how-can-i-check-if-a-javascript-variable-is-function-type
+ * @param {type} functionToCheck
+ * @returns {Boolean}
+ */
+function isFunction(functionToCheck) {
+    var getType = {};
+    return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+}

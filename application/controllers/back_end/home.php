@@ -10,7 +10,7 @@ class Home extends Back_end {
     }
 
     public function index() {
-        echo "dipanggil";exit;
+        echo "eko dipanggil";exit;
 //        $this->load->model(array("model_tr_pembayaran", "model_ref_penghuni"));
 //        $terbayar_perbulan = toJsonString($this->model_tr_pembayaran->get_record_terbayar_perbulan(), FALSE);
 //        $pendaftar_perbulan = toJsonString($this->model_ref_penghuni->get_record_pendaftar_perbulan(), FALSE);

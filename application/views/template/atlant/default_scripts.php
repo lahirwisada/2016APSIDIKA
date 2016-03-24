@@ -20,6 +20,8 @@
 
 <script type="text/javascript" src="<?php echo js(); ?>atlant/plugins/moment.min.js"></script>
 <script type="text/javascript" src="<?php echo js(); ?>atlant/plugins/daterangepicker/daterangepicker.js"></script>
+
+<script type="text/javascript" src="<?php echo js(); ?>atlant/plugins/bootstrap/bootstrap-dialog.js"></script>
 <!-- END THIS PAGE PLUGINS-->        
 
 <!-- START TEMPLATE -->
@@ -27,6 +29,7 @@
 
 <script type="text/javascript" src="<?php echo js(); ?>atlant/plugins.js"></script>        
 <script type="text/javascript" src="<?php echo js(); ?>atlant/actions.js"></script>
+<script type="text/javascript" src="<?php echo js(); ?>atlant/helper.js"></script>
 
 <!-- <script type="text/javascript" src="<?php echo js(); ?>atlant/demo_dashboard.js"></script> -->
 <!-- END TEMPLATE -->

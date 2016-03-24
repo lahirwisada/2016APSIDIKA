@@ -41,9 +41,11 @@
 //$route['default_controller'] = "front_end/etalase";
 $route['default_controller'] = "front_end/home";
 $route['back_end'] = "back_end/home";
-$route['back_end/user'] = "back_end/member";
-$route['back_end/login'] = "back_end/member/login";
-$route['back_end/user/(.*)'] = "back_end/member/$1";
+
+$route['back_bone/user'] = "back_bone/member";
+$route['back_bone/login'] = "back_bone/member/login";
+$route['back_bone/user/(.*)'] = "back_bone/member/$1";
+
 $route['(\w{2})/(.*)'] = '$2';
 $route['(\w{2})'] = $route['default_controller'];
 $route['404_override'] = '';

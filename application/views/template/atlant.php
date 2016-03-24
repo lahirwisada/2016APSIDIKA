@@ -15,7 +15,6 @@ $template_body_class = isset($template_body_class) ? $template_body_class : '';
 /**
  * User information
  */
-
 $target_sub_page = isset($target_sub_page) ? $target_sub_page : FALSE;
 $slogan = isset($slogan) ? $slogan : FALSE;
 
@@ -33,10 +32,10 @@ $current_user_roles = isset($current_user_roles) ? $current_user_roles : "Tamu";
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="<?php echo $site_description; ?>" />
         <meta name="author" content="<?php echo $app_author; ?>" />
-        
+
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <!-- END META SECTION -->
-        
+
         <!-- CSS INCLUDE -->        
         <link rel="stylesheet" type="text/css" id="theme" href="<?php echo css(); ?>atlant/theme-default.css"/>
         <!-- EOF CSS INCLUDE -->                                    
@@ -44,7 +43,7 @@ $current_user_roles = isset($current_user_roles) ? $current_user_roles : "Tamu";
     <body class="<?php echo $template_body_class; ?>">
         <!-- START PAGE CONTAINER -->
         <div class="page-container">
-            
+
             <!-- START PAGE SIDEBAR -->
             <div class="page-sidebar">
                 <!-- START X-NAVIGATION -->
@@ -52,10 +51,10 @@ $current_user_roles = isset($current_user_roles) ? $current_user_roles : "Tamu";
                 <!-- END X-NAVIGATION -->
             </div>
             <!-- END PAGE SIDEBAR -->
-            
+
             <!-- PAGE CONTENT -->
             <div class="page-content">
-                
+
                 <!-- START X-NAVIGATION VERTICAL -->
                 <?php echo load_partial('template/atlant/vertical_menu'); ?>
                 <!-- END X-NAVIGATION VERTICAL -->                     
@@ -63,7 +62,7 @@ $current_user_roles = isset($current_user_roles) ? $current_user_roles : "Tamu";
                 <!-- START BREADCRUMB -->
                 <?php echo load_partial('template/atlant/breadcrumb'); ?>
                 <!-- END BREADCRUMB -->                       
-                
+
                 <!-- PAGE CONTENT WRAPPER -->
                 <div class="page-content-wrap">
                     <?php echo $content_for_layout; ?>
@@ -94,14 +93,27 @@ $current_user_roles = isset($current_user_roles) ? $current_user_roles : "Tamu";
         </div>
         <!-- END MESSAGE BOX-->
 
+        <div id="whateverelement"></div>
+
         <!-- START PRELOADS -->
         <audio id="audio-alert" src="<?php echo assets(); ?>audio/atlant/alert.mp3" preload="auto"></audio>
         <audio id="audio-fail" src="<?php echo assets(); ?>audio/atlant/fail.mp3" preload="auto"></audio>
         <!-- END PRELOADS -->                  
+
+
         
-    <!-- START SCRIPTS -->
+
+
+        <!-- START SCRIPTS -->
         <?php echo load_partial('template/atlant/default_scripts'); ?>
-    <!-- END SCRIPTS -->         
+
+        <?php echo isset($js) ? $js : ''; ?>
+
+        <script type="text/javascript" src="<?php echo assets(); ?>js/helper/general_helper.js"></script>
+
+        <?php echo load_partial('template/additional_js'); ?>
+        <?php echo $view_js_default; ?>
+        <!-- END SCRIPTS -->         
     </body>
 </html>
 
