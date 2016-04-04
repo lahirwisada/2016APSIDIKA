@@ -10,9 +10,9 @@ class Back_end extends Main {
     public function __construct() {
         $this->is_front_end = FALSE;
         parent::__construct();
-         $this->_layout = "backend";
+         $this->_layout = "atlant";
          $this->my_location = "back_end/";
-//        $this->init_back_end();
+        $this->init_back_end();
     }
     
     public function can_access(){

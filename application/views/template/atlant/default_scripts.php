@@ -25,7 +25,6 @@
 <!-- END THIS PAGE PLUGINS-->        
 
 <!-- START TEMPLATE -->
-<script type="text/javascript" src="<?php echo js(); ?>atlant/settings.js"></script>
 
 <script type="text/javascript" src="<?php echo js(); ?>atlant/plugins.js"></script>        
 <script type="text/javascript" src="<?php echo js(); ?>atlant/actions.js"></script>

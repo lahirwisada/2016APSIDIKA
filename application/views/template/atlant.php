@@ -12,6 +12,8 @@ $view_css_default = isset($css_default) ? $css_default : '';
 
 $template_body_class = isset($template_body_class) ? $template_body_class : '';
 
+$is_authenticated = isset($is_authenticated) ? $is_authenticated : FALSE;
+
 /**
  * User information
  */
@@ -84,7 +86,7 @@ $current_user_roles = isset($current_user_roles) ? $current_user_roles : "Tamu";
                     </div>
                     <div class="mb-footer">
                         <div class="pull-right">
-                            <a href="pages-login.html" class="btn btn-success btn-lg">Ya</a>
+                            <a href="<?php echo base_url('back_bone/member/logout'); ?>" class="btn btn-success btn-lg">Ya</a>
                             <button class="btn btn-default btn-lg mb-control-close">Tidak</button>
                         </div>
                     </div>

@@ -16,6 +16,8 @@
         <a href="#" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>                        
     </li> 
     <!-- END SIGN OUT -->
+    <?php
+    /**
     <!-- MESSAGES -->
     <li class="xn-icon-button pull-right">
         <a href="#"><span class="fa fa-comments"></span></a>
@@ -106,4 +108,7 @@
         </div>                        
     </li>
     <!-- END TASKS -->
+     * 
+     */
+    ?>
 </ul>
