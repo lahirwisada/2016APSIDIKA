@@ -20,7 +20,7 @@ class Cjenis_diklat extends Back_end {
         $this->set("keyword", $records->keyword);
         $this->set('field_id', $this->model_ref_jenis_diklat->primary_key);
         $this->set("paging_set", $paging_set);
-        $this->set("header_title", "Modul");
+        $this->set("header_title", "Pustaka Data Jenis Diklat");
         
         $this->set("additional_js", "back_end/cjenis_diklat/js/index_js");
         

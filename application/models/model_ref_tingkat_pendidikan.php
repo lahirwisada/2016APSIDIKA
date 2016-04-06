@@ -2,13 +2,13 @@
 
 if (!defined("BASEPATH")) {
     exit("No direct script access allowed");
-} include_once "entity/ref_jenis_diklat.php";
+} include_once "entity/ref_tingkat_pendidikan.php";
 
-class model_ref_jenis_diklat extends ref_jenis_diklat {
+class model_ref_tingkat_pendidikan extends ref_tingkat_pendidikan {
 
     protected $rules = array(
-        array("jenis_diklat", "required|min_length[3]|max_length[300]"),
-        array("keterangan", "min_length[3]"),
+        array("kode_tingkat_pendidikan", "required|min_length[2]|max_length[300]|alpha_dash"),
+        array("tingkat_pendidikan", "required|min_length[3]"),
     );
 
     public function __construct() {
@@ -17,8 +17,8 @@ class model_ref_jenis_diklat extends ref_jenis_diklat {
 
     public function all($force_limit = FALSE, $force_offset = FALSE) {
         return parent::get_all(array(
-                    "jenis_diklat",
-                    "keterangan",
+                    "kode_tingkat_pendidikan",
+                    "tingkat_pendidikan",
                         ), FALSE, TRUE, FALSE, 1, TRUE, $force_limit, $force_offset);
     }
 }

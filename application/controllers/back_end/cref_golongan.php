@@ -1,0 +1,35 @@
+<?php
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
+include_once "cpustaka_data.php";
+
+class Cref_golongan extends Cpustaka_data {
+    
+    public $model = 'model_ref_golongan';
+
+    public function __construct() {
+        parent::__construct('kelola_pustaka_golongan', 'Pustaka Data Golongan');
+    }
+
+    public function index() {
+        parent::index();
+        $this->set("bread_crumb", array(
+            "#" => $this->_header_title
+        ));
+    }
+
+    public function detail($id = FALSE) {
+        parent::detail($id, array("kode_golongan", "golongan", "keterangan"));
+        
+        $this->set("bread_crumb", array(
+            "back_end/".$this->_name => $this->_header_title,
+            "#" => 'Pendaftaran '.$this->_header_title
+        ));
+//        $this->add_jsfiles(array("avant/plugins/form-jasnyupload/fileinput.min.js"));
+    }
+
+}
+
+?>
