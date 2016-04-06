@@ -17,6 +17,7 @@ class model_ref_golongan extends ref_golongan {
     }
 
     public function all($force_limit = FALSE, $force_offset = FALSE) {
+        $this->db->order_by("id_golongan", "desc");
         return parent::get_all(array(
                     "kode_golongan",
                     "golongan",
