@@ -47,19 +47,19 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                             <table class="table no-footer" id="DataTables_Table_0">
                                 <thead>
                                     <tr role="row">
-                                        <th>
+                                        <th width="5%">
                                             No
                                         </th>
                                         <th>
                                             Nama Diklat
                                         </th>
-                                        <th>
+                                        <th width="5%">
                                             Tanggal Pelaksanaan
                                         </th>
-                                        <th>
+                                        <th width="15%">
                                             Penyelenggara
                                         </th>
-                                        <th width="15%">Aksi</th>
+                                        <th width="20%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -89,9 +89,21 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                                                         <a class="btn btn-default" href="<?php echo base_url("back_end/" . $active_modul . "/detail") . "/" . $record->id_diklat; ?>">Ubah</a>
                                                         <a class="btn btn-default btn-hapus-row" href="javascript:void(0);" rel="<?php echo base_url("back_end/" . $active_modul . "/delete") . "/" . $record->id_diklat; ?>">Hapus</a>
                                                     </div>
-                                                    <div class="btn-group btn-group-sm">
-                                                        <a class="btn btn-default" href="javascript:void(0);" rel="<?php echo base_url("back_end/" . $active_modul . "/detail") . "/" . $record->id_diklat; ?>">Upload Peserta</a>
+                                                    <br />
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">Peserta Diklat <span class="caret"></span></a>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li>
+                                                                <a class="btn-lihat-peserta" href="javascript:void(0);" id="btn-lihat-peserta-<?php echo $record->id_diklat ?>"><small>Lihat Daftar</small></a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="btn-upload-peserta" href="javascript:void(0);" id="btn-upload-peserta-<?php echo $record->id_diklat ?>"><small>Upload</small></a>
+                                                            </li>
+                                                        </ul>
                                                     </div>
+                                                    <br />
+
+                                                    <a class="btn btn-default btn-sm btn-unduh-spt" href="javascript:void(0);" id="btn-unduh-spt-<?php echo $record->id_diklat ?>">Unduh SPT</a>
                                                 </td>
                                             </tr>
                                             <tr>
