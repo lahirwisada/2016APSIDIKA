@@ -42,6 +42,7 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                 </div>
                 <div class="block">
                     <div class="dataTables_wrapper no-footer">
+                        <div class="table-responsive">
                         <table class="table no-footer" id="DataTables_Table_0">
                             <thead>
                                 <tr role="row">
@@ -73,7 +74,7 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                                             <td>
                                                 <div class="btn-group btn-group-sm">
                                                     <a class="btn btn-default" href="<?php echo base_url("back_end/cjenis_diklat/detail") . "/" . $record->id_jenis_diklat; ?>">Ubah</a>
-                                                    <a class="btn btn-default btn-hapus-row" href="javascript:void(0);" rel="<?php echo base_url("back_bone/cjenis_diklat/delete") . "/" . $record->id_jenis_diklat; ?>">Hapus</a>
+                                                    <a class="btn btn-default btn-hapus-row" href="javascript:void(0);" rel="<?php echo base_url("back_end/cjenis_diklat/delete") . "/" . $record->id_jenis_diklat; ?>">Hapus</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -91,6 +92,7 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                         <?php
                         echo $paging_set;
                         ?>
+                    </div>
                     </div>
                 </div>
             </div>

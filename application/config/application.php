@@ -13,7 +13,7 @@ $config['hashed'] = 'VFUUl2rWS6I5EdSFU2JJyQ==';
 
 $config['appkey'] = '1029384756';
 
-$config['default_limit_row'] = 32;
+$config['default_limit_row'] = 20;
 $config['limit_key_param'] = 'limit';
 $config['offset_key_param'] = 'offset';
 $config['keyword_key_param'] = 'keyword';

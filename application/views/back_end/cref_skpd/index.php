@@ -34,7 +34,7 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <a href="<?php echo base_url('back_end/'.$active_modul.'/detail'); ?>" class="btn btn-success btn-block">
+                                <a href="<?php echo base_url('back_end/' . $active_modul . '/detail'); ?>" class="btn btn-success btn-block">
                                     <span class="fa fa-plus"></span> Tambah baru
                                 </a>
                             </div>
@@ -43,55 +43,57 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                 </div>
                 <div class="block">
                     <div class="dataTables_wrapper no-footer">
-                        <table class="table no-footer" id="DataTables_Table_0">
-                            <thead>
-                                <tr role="row">
-                                    <th>
-                                        No
-                                    </th>
-                                    <th>
-                                        Nama SKPD
-                                    </th>
-                                    <th>
-                                        No. Urut
-                                    </th>
-                                    <th width="15%">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php if ($records != FALSE): ?>
-                                    <?php foreach ($records as $key => $record): ?>
-                                        <tr>
-                                            <td>
-                                                <?php echo $next_list_number; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo beautify_str($record->nama_skpd) ?>
-                                            </td>
-                                            <td>
-                                                <?php echo beautify_str($record->col_order) ?>
-                                            </td>
-                                            <td>
-                                                <div class="btn-group btn-group-sm">
-                                                    <a class="btn btn-default" href="<?php echo base_url("back_end/".$active_modul."/detail") . "/" . $record->id_skpd; ?>">Ubah</a>
-                                                    <a class="btn btn-default btn-hapus-row" href="javascript:void(0);" rel="<?php echo base_url("back_bone/".$active_modul."/delete") . "/" . $record->id_skpd; ?>">Hapus</a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <?php $next_list_number++; ?>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
-                                    <tr>
-                                        <td colspan="5"> Kosong / Data tidak ditemukan. </td>
+                        <div class="table-responsive">
+                            <table class="table no-footer" id="DataTables_Table_0">
+                                <thead>
+                                    <tr role="row">
+                                        <th>
+                                            No
+                                        </th>
+                                        <th>
+                                            Nama SKPD
+                                        </th>
+                                        <th>
+                                            No. Urut
+                                        </th>
+                                        <th width="15%">Aksi</th>
                                     </tr>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php if ($records != FALSE): ?>
+                                        <?php foreach ($records as $key => $record): ?>
+                                            <tr>
+                                                <td>
+                                                    <?php echo $next_list_number; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo beautify_str($record->nama_skpd) ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo beautify_str($record->col_order) ?>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group btn-group-sm">
+                                                        <a class="btn btn-default" href="<?php echo base_url("back_end/" . $active_modul . "/detail") . "/" . $record->id_skpd; ?>">Ubah</a>
+                                                        <a class="btn btn-default btn-hapus-row" href="javascript:void(0);" rel="<?php echo base_url("back_end/" . $active_modul . "/delete") . "/" . $record->id_skpd; ?>">Hapus</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <?php $next_list_number++; ?>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="5"> Kosong / Data tidak ditemukan. </td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
 
-                        <?php /** <div class="dataTables_info" id="DataTables_Table_0_info">Showing 1 to 10 of 57 entries</div> */ ?>
-                        <?php
-                        echo $paging_set;
-                        ?>
+                            <?php /** <div class="dataTables_info" id="DataTables_Table_0_info">Showing 1 to 10 of 57 entries</div> */ ?>
+                            <?php
+                            echo $paging_set;
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>

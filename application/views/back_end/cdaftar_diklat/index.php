@@ -51,10 +51,13 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                                             No
                                         </th>
                                         <th>
-                                            Kode
+                                            Nama Diklat
                                         </th>
                                         <th>
-                                            Tingkat Pendidikan
+                                            Tanggal Pelaksanaan
+                                        </th>
+                                        <th>
+                                            Penyelenggara
                                         </th>
                                         <th width="15%">Aksi</th>
                                     </tr>
@@ -63,20 +66,40 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                                     <?php if ($records != FALSE): ?>
                                         <?php foreach ($records as $key => $record): ?>
                                             <tr>
-                                                <td>
+                                                <td rowspan="2">
                                                     <?php echo $next_list_number; ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo beautify_str($record->kode_tingkat_pendidikan) ?>
+                                                    <?php echo beautify_str($record->nama_diklat) ?>
+                                                    <br />
+                                                    Angkatan <?php echo $record->angkatan ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo beautify_str($record->tingkat_pendidikan) ?>
+                                                    <?php echo beautify_str(show_date_with_format($record->tgl_pelaksanaan), FALSE, "-") ?>
+                                                    <br />
+                                                    s/d
+                                                    <br />
+                                                    <?php echo beautify_str(show_date_with_format($record->tgl_selesai), FALSE, "-") ?>
                                                 </td>
                                                 <td>
+                                                    <?php echo beautify_str($record->penyelenggara, FALSE, "-") ?>
+                                                </td>
+                                                <td rowspan="2">
                                                     <div class="btn-group btn-group-sm">
-                                                        <a class="btn btn-default" href="<?php echo base_url("back_end/" . $active_modul . "/detail") . "/" . $record->id_tingkat_pendidikan; ?>">Ubah</a>
-                                                        <a class="btn btn-default btn-hapus-row" href="javascript:void(0);" rel="<?php echo base_url("back_end/" . $active_modul . "/delete") . "/" . $record->id_tingkat_pendidikan; ?>">Hapus</a>
+                                                        <a class="btn btn-default" href="<?php echo base_url("back_end/" . $active_modul . "/detail") . "/" . $record->id_diklat; ?>">Ubah</a>
+                                                        <a class="btn btn-default btn-hapus-row" href="javascript:void(0);" rel="<?php echo base_url("back_end/" . $active_modul . "/delete") . "/" . $record->id_diklat; ?>">Hapus</a>
                                                     </div>
+                                                    <div class="btn-group btn-group-sm">
+                                                        <a class="btn btn-default" href="javascript:void(0);" rel="<?php echo base_url("back_end/" . $active_modul . "/detail") . "/" . $record->id_diklat; ?>">Upload Peserta</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    Total Jam : <?php echo beautify_str($record->total_jam, FALSE, "-") ?><br />
+                                                    Alamat Lokasi : <?php echo beautify_str($record->alamat_lokasi, FALSE, "-") ?><br />
+                                                    Kota : <?php echo beautify_str($record->nama_kabupaten, FALSE, "-") ?><br />
+                                                    Provinsi : <?php echo beautify_str($record->nama_provinsi, FALSE, "-") ?>
                                                 </td>
                                             </tr>
                                             <?php $next_list_number++; ?>
