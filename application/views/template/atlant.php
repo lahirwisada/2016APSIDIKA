@@ -40,7 +40,9 @@ $current_user_roles = isset($current_user_roles) ? $current_user_roles : "Tamu";
 
         <!-- CSS INCLUDE -->        
         <link rel="stylesheet" type="text/css" id="theme" href="<?php echo css(); ?>atlant/theme-default.css"/>
-        <!-- EOF CSS INCLUDE -->                                    
+        <!-- EOF CSS INCLUDE -->
+        
+        <?php echo isset($css) ? $css : ''; ?>
     </head>
     <body class="<?php echo $template_body_class; ?>">
         <!-- START PAGE CONTAINER -->
