@@ -22,6 +22,8 @@
 <script type="text/javascript" src="<?php echo js(); ?>atlant/plugins/daterangepicker/daterangepicker.js"></script>
 
 <script type="text/javascript" src="<?php echo js(); ?>atlant/plugins/bootstrap/bootstrap-dialog.js"></script>
+<script type="text/javascript" src="<?php echo js(); ?>atlant/plugins/bootstrap/bootstrap-file-input.js"></script>
+<script type="text/javascript" src="<?php echo js(); ?>atlant/plugins/bootstrap/bootstrap-select.js"></script>
 <!-- END THIS PAGE PLUGINS-->        
 
 <!-- START TEMPLATE -->

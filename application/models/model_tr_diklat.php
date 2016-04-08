@@ -28,6 +28,15 @@ class model_tr_diklat extends tr_diklat {
         $this->db->order_by("id_diklat", "desc");
         $this->db->order_by("tgl_pelaksanaan", "desc");
     }
+    
+    protected function after_get_data_post() {
+        if($this->tgl_pelaksanaan == ''){
+            $this->tgl_pelaksanaan = NULL;
+        }
+        if($this->tgl_selesai == ''){
+            $this->tgl_selesai = NULL;
+        }
+    }
 
     public function all($force_limit = FALSE, $force_offset = FALSE) {
         return parent::get_all(array(
