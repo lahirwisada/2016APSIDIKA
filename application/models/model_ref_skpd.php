@@ -34,6 +34,19 @@ class model_ref_skpd extends ref_skpd {
                     "website",
                         ), FALSE, TRUE, FALSE, 1, TRUE, $force_limit, $force_offset);
     }
+    
+    public function get_like($keyword = FALSE) {
+
+        $result = FALSE;
+        if ($keyword) {
+            $this->db->order_by("col_order", "asc");
+            $where_keyword = "lower(" . $this->table_name . ".nama_skpd) LIKE lower('%" . $keyword . "%') OR ".
+                    "lower(" . $this->table_name . ".abbr_skpd) LIKE lower('%" . $keyword . "%') ";
+            $this->db->where($where_keyword, NULL, FALSE);
+            $result = $this->get_where();
+        }
+        return $result;
+    }
 }
 
 ?>

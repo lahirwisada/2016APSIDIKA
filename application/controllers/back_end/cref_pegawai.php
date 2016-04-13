@@ -42,6 +42,15 @@ class Cref_pegawai extends Cpustaka_data {
         ));
 //        $this->add_jsfiles(array("avant/plugins/form-jasnyupload/fileinput.min.js"));
     }
+    
+    public function get_like() {
+        $keyword = $this->input->post("keyword");
+        $id_skpd = $this->input->post("id_skpd");
+
+        $data_found = $this->{$this->model}->get_like($keyword, $id_skpd);
+        
+        $this->to_json($data_found);
+    }
 
 }
 

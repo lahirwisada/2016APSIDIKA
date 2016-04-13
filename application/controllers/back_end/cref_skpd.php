@@ -38,6 +38,14 @@ class Cref_skpd extends Cpustaka_data {
         ));
 //        $this->add_jsfiles(array("avant/plugins/form-jasnyupload/fileinput.min.js"));
     }
+    
+    public function get_like() {
+        $keyword = $this->input->post("keyword");
+
+        $skpd_found = $this->{$this->model}->get_like($keyword);
+        
+        $this->to_json($skpd_found);
+    }
 
 }
 
