@@ -9,6 +9,12 @@ class model_ref_skpd extends ref_skpd {
     protected $rules = array(
         array("nama_skpd", "required|min_length[2]|max_length[300]"),
         array("col_order", "numeric"),
+        array("abbr_skpd", "min_length[2]|max_length[100]"),
+        array("alamat_skpd", "min_length[2]|max_length[300]"),
+        array("kodepos", "min_length[4]|max_length[60]|numeric"),
+        array("no_telp", "min_length[5]|max_length[100]|numeric"),
+        array("email", "min_length[4]|max_length[100]|valid_email"),
+        array("website", "min_length[4]|max_length[200]"),
     );
 
     public function __construct() {
@@ -20,6 +26,12 @@ class model_ref_skpd extends ref_skpd {
         return parent::get_all(array(
                     "nama_skpd",
                     "col_order",
+                    "abbr_skpd",
+                    "alamat_skpd",
+                    "kodepos",
+                    "no_telp",
+                    "email",
+                    "website",
                         ), FALSE, TRUE, FALSE, 1, TRUE, $force_limit, $force_offset);
     }
 }

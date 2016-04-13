@@ -51,16 +51,13 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                                             No
                                         </th>
                                         <th>
-                                            Nama SKPD
+                                            Kode
                                         </th>
                                         <th>
-                                            Alamat
+                                            Provinsi
                                         </th>
                                         <th>
-                                            Website
-                                        </th>
-                                        <th>
-                                            No. Urut
+                                            Kab/Kota
                                         </th>
                                         <th width="15%">Aksi</th>
                                     </tr>
@@ -73,23 +70,18 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                                                     <?php echo $next_list_number; ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo beautify_str($record->nama_skpd)." ".beautify_str($record->abbr_skpd) ?>
+                                                    <?php echo beautify_str($record->kode_kabupaten) ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo beautify_str($record->alamat_skpd)." ".beautify_str($record->kodepos) ?>
-                                                    <br />
-                                                    <?php echo beautify_str($record->no_telp)." ".$record->email ?>
+                                                    <?php echo beautify_str($record->nama_provinsi) ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $record->website ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo beautify_str($record->col_order) ?>
+                                                    <?php echo beautify_str($record->nama_kabupaten) ?>
                                                 </td>
                                                 <td>
                                                     <div class="btn-group btn-group-sm">
-                                                        <a class="btn btn-default" href="<?php echo base_url("back_end/" . $active_modul . "/detail") . "/" . $record->id_skpd; ?>">Ubah</a>
-                                                        <a class="btn btn-default btn-hapus-row" href="javascript:void(0);" rel="<?php echo base_url("back_end/" . $active_modul . "/delete") . "/" . $record->id_skpd; ?>">Hapus</a>
+                                                        <a class="btn btn-default" href="<?php echo base_url("back_end/" . $active_modul . "/detail") . "/" . $record->id_kabupaten_kota; ?>">Ubah</a>
+                                                        <a class="btn btn-default btn-hapus-row" href="javascript:void(0);" rel="<?php echo base_url("back_end/" . $active_modul . "/delete") . "/" . $record->id_kabupaten_kota; ?>">Hapus</a>
                                                     </div>
                                                 </td>
                                             </tr>

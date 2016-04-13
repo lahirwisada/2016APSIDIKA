@@ -29,6 +29,7 @@ class Tr_diklat extends LWS_model {
         "modified_by" => array("modified_by", "modified_by"),
         "record_active" => array("record_active", "record_active"),
     );
+    
     protected $rules = array(
         array("id_diklat", ""),
         array("id_kabupaten_kota", ""),
@@ -47,7 +48,6 @@ class Tr_diklat extends LWS_model {
         array("modified_by", ""),
         array("record_active", ""),
     );
-    
     
     protected $related_tables = array(
         "ref_kabupaten_kota" => array(
@@ -76,7 +76,12 @@ class Tr_diklat extends LWS_model {
             "referenced" => "LEFT"
         ),
     );
-    protected $attribute_types = array();
+    
+    protected $attribute_types = array(
+        "tgl_pelaksanaan" => "DATE",
+        "tgl_selesai" => "DATE",
+        "total_jam" => "NUMERIC",
+    );
 
 }
 

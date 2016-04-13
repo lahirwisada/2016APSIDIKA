@@ -1,14 +1,13 @@
 <?php
 $detail = isset($detail) ? $detail : FALSE;
 ?>
+<script>
 
-<script type="text/javascript">
-
-    var slc_kab_kota_cfg = {
+    var slc_provinsi_cfg = {
         data: [],
         ajax: {
-            url: "<?php echo base_url(); ?>back_end/cref_kabupaten_kota/get_like",
-            placeholder: 'Pilih Kota',
+            url: "<?php echo base_url(); ?>back_end/cref_provinsi/get_like",
+            placeholder: 'Pilih Provinsi',
             dataType: 'json',
             delay: 250,
             method: 'post',
@@ -22,8 +21,8 @@ $detail = isset($detail) ? $detail : FALSE;
             processResults: function (data, params) {
 
                 var data = $.map(data, function (obj) {
-                    obj.id = obj.id || obj.id_kabupaten_kota;
-                    obj.text = obj.text || obj.kode_kabupaten + " " + obj.nama_kabupaten;
+                    obj.id = obj.id || obj.id_provinsi;
+                    obj.text = obj.text || obj.kode_provinsi + " " + obj.nama_provinsi;
                     return obj;
                 });
                 params.page = params.page || 1;
@@ -39,18 +38,18 @@ $detail = isset($detail) ? $detail : FALSE;
         minimumInputLength: 2
     };
 
-<?php if ($detail && $detail->id_kabupaten_kota != ""): ?>
-        slc_kab_kota_cfg.data = [
+<?php if ($detail && $detail->id_provinsi != ""): ?>
+        slc_provinsi_cfg.data = [
             {
-                id: '<?php echo $detail->id_kabupaten_kota ?>',
-                text: '<?php echo $detail->kode_kabupaten . " " . $detail->nama_kabupaten; ?>'
+                id: '<?php echo $detail->id_provinsi ?>',
+                text: '<?php echo $detail->kode_provinsi . " " . $detail->nama_provinsi; ?>'
             }
         ];
 <?php endif; ?>
     $(document).ready(function () {
-        $("#slc-kab-kota").select2(slc_kab_kota_cfg);
-<?php if ($detail && $detail->id_kabupaten_kota != ""): ?>
-            $("#slc-kab-kota").val(<?php echo $detail->id_kabupaten_kota ?>).trigger("change");
+        $("#slc-provinsi").select2(slc_provinsi_cfg);
+<?php if ($detail && $detail->id_provinsi != ""): ?>
+            $("#slc-provinsi").val(<?php echo $detail->id_provinsi ?>).trigger("change");
             ;
 <?php endif; ?>
     });

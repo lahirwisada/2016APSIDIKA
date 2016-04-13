@@ -21,13 +21,17 @@ class Cref_kabupaten_kota extends Cpustaka_data {
     }
 
     public function detail($id = FALSE) {
-        parent::detail($id, array("kode_kabupaten", "nama_kabupaten", "keterangan"));
+        parent::detail($id, array("id_provinsi","kode_kabupaten", "nama_kabupaten", "keterangan", "is_ibukota"));
 
         $this->set("bread_crumb", array(
             "back_end/" . $this->_name => $this->_header_title,
             "#" => 'Pendaftaran ' . $this->_header_title
         ));
-//        $this->add_jsfiles(array("avant/plugins/form-jasnyupload/fileinput.min.js"));
+        
+        $this->set("additional_js", "back_end/".$this->_name."/js/detail_js");
+        
+        $this->add_cssfiles(array("plugins/select2/select2.min.css"));
+        $this->add_jsfiles(array("plugins/select2/select2.full.min.js"));
     }
 
     public function get_like() {

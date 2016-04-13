@@ -19,6 +19,7 @@ class Cdaftar_diklat extends Cpustaka_data {
 
     public function index() {
         parent::index();
+        
         $this->set("bread_crumb", array(
             "#" => $this->_header_title
         ));
@@ -39,15 +40,12 @@ class Cdaftar_diklat extends Cpustaka_data {
         ));
 
         $jenis_diklat = $this->model_ref_jenis_diklat->combobox(array("key"=>"id_jenis_diklat", "value"=>"jenis_diklat"));
-//        $kabupaten_kota = $this->model_ref_kabupaten_kota->combobox(array("key"=>"id_kabupaten_kota", "value"=>"nama_kabupaten"));
-//        var_dump($jenis_diklat);exit;
         $this->set("bread_crumb", array(
             "back_end/" . $this->_name => $this->_header_title,
             "#" => 'Pendaftaran ' . $this->_header_title
         ));
         
         $this->set("cb_jenis_diklat", $jenis_diklat);
-//        $this->set("cb_kabupaten_kota", $kabupaten_kota);
         
         $this->set("additional_js", "back_end/".$this->_name."/js/detail_js");
         

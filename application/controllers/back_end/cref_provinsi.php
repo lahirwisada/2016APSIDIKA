@@ -5,12 +5,12 @@ if (!defined('BASEPATH'))
 
 include_once "cpustaka_data.php";
 
-class Cref_skpd extends Cpustaka_data {
+class Cref_provinsi extends Cpustaka_data {
 
-    public $model = 'model_ref_skpd';
+    public $model = 'model_ref_provinsi';
 
     public function __construct() {
-        parent::__construct('kelola_pustaka_skpd', 'Pustaka Data SKPD');
+        parent::__construct('kelola_pustaka_provinsi', 'Pustaka Data Provinsi');
     }
 
     public function index() {
@@ -22,14 +22,8 @@ class Cref_skpd extends Cpustaka_data {
 
     public function detail($id = FALSE) {
         parent::detail($id, array(
-            "nama_skpd",
-            "col_order",
-            "abbr_skpd",
-            "alamat_skpd",
-            "kodepos",
-            "no_telp",
-            "email",
-            "website",
+            "kode_provinsi",
+            "nama_provinsi",
         ));
 
         $this->set("bread_crumb", array(
@@ -37,6 +31,14 @@ class Cref_skpd extends Cpustaka_data {
             "#" => 'Pendaftaran ' . $this->_header_title
         ));
 //        $this->add_jsfiles(array("avant/plugins/form-jasnyupload/fileinput.min.js"));
+    }
+    
+    public function get_like() {
+        $keyword = $this->input->post("keyword");
+
+        $provinsi_found = $this->model_ref_provinsi->get_like($keyword);
+        
+        $this->to_json($provinsi_found);
     }
 
 }
