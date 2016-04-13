@@ -71,25 +71,6 @@ class model_ref_pegawai extends ref_pegawai {
         $this->db->join($table_pegawai_skpd, $table_pegawai_skpd . ".id_pegawai = " . $this->table_name . ".id_pegawai AND " . $table_pegawai_skpd . ".is_active = '1'", "LEFT");
         $this->__join_tr_pegawai_skpd_ref_skpd($table_pegawai_skpd);
     }
-    
-    private function __select_fields(){
-        $this->db->select(
-                $this->table_name . ".id_pegawai, " .
-                $this->table_name . ".nama_sambung, " .
-                $this->table_name . ".nip, " .
-                $this->table_name . ".gelar_depan, " .
-                $this->table_name . ".gelar_belakang, " .
-                $this->table_name . ".nama_depan, " .
-                $this->table_name . ".nama_tengah, " .
-                $this->table_name . ".nama_belakang, " .
-                $this->table_name . ".tgl_lahir, " .
-                $this->table_name . ".tempat_lahir, " .
-                $this->table_name . ".no_kep, " .
-                $this->table_name . ".tmt_peg, " .
-                $this->table_name . ".id_status_perkawinan, " .
-                $this->table_name . ".foto_profil ", FALSE
-        );
-    }
 
     public function get_like($keyword = FALSE, $id_skpd = FALSE) {
         $result = FALSE;
@@ -98,7 +79,7 @@ class model_ref_pegawai extends ref_pegawai {
             $id_skpd = $id_skpd == 'false' ? FALSE : $id_skpd;
             $this->__where_id_skpd($id_skpd);
             $this->__select_tr_pegawai_active_skpd();
-            $this->__select_fields();
+            $this->select_field();
 
             $this->db->order_by("nip", "asc");
             $where_keyword = " ( lower(" . $this->table_name . ".nama_depan) LIKE lower('%" . $keyword . "%') OR " .
