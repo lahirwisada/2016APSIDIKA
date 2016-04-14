@@ -8,16 +8,25 @@ class model_tr_diklat extends tr_diklat {
 
     protected $rules = array(
         array("id_diklat", ""),
-        array("id_kabupaten_kota", ""),
-        array("id_jenis_diklat", ""),
-        array("nama_diklat", ""),
-        array("angkatan", ""),
+        array("id_kabupaten_kota", "numeric"),
+        array("id_jenis_diklat", "numeric|required"),
+        array("nama_diklat", "required"),
+        array("angkatan", "required"),
         array("alamat_lokasi", ""),
         array("penyelenggara", ""),
         array("tgl_pelaksanaan", ""),
         array("tgl_selesai", ""),
-        array("total_jam", ""),
-        array("postfix_no_sttpp", ""),
+        array("total_jam", "required|numeric"),
+        array("postfix_no_sttpp", "required"),
+        array("no_spt_a", "numeric"),
+        array("no_spt_b", "numeric"),
+        array("no_spt_c", ""),
+        array("no_spt_d", ""),
+        array("tgl_spt", ""),
+        array("spt_tembusan", ""),
+        array("spt_dasar", ""),
+        array("spt_kepada", ""),
+        array("id_ref_ttd", ""),
     );
 
     public function __construct() {
@@ -29,13 +38,95 @@ class model_tr_diklat extends tr_diklat {
         $this->db->order_by("tgl_pelaksanaan", "desc");
     }
 
+    private function __convert_to_pg_array() {
+        $post_check = array(
+            "spt_dasar",
+            "spt_tembusan",
+        );
+
+        foreach ($post_check as $post_key) {
+            $posted_data = $this->input->post($post_key);
+            if (!$posted_data) {
+                $_POST[$post_key] = NULL;
+            } else {
+                $_POST[$post_key] = to_pg_array($_POST[$post_key]);
+            }
+        }
+    }
+
+    protected function before_get_data_post() {
+        $post_check = array(
+            "id_kabupaten_kota",
+            "id_ref_ttd",
+        );
+
+        foreach ($post_check as $post_key) {
+            $posted_data = $this->input->post($post_key);
+            if (!$posted_data) {
+                $_POST[$post_key] = NULL;
+            }
+        }
+        $this->__convert_to_pg_array();
+    }
+
+    private function __check_null_post() {
+        $post_null_check = array(
+            "tgl_pelaksanaan",
+            "tgl_selesai",
+            "tgl_spt",
+        );
+
+        foreach ($post_null_check as $null_post) {
+            if ($this->{$null_post} == NULL) {
+                $this->{$null_post} = NULL;
+            }
+        }
+    }
+
+    private function __check_array_post() {
+        $post_null_check = array(
+            "spt_tembusan",
+            "spt_dasar",
+        );
+
+        foreach ($post_null_check as $null_post) {
+            if ($this->{$null_post} == "") {
+                $this->{$null_post} = NULL;
+            }
+        }
+    }
+
+    private function __check_numeric_post() {
+        $post_numeric_check = array(
+            "id_kabupaten_kota",
+            "id_ref_ttd",
+        );
+
+        foreach ($post_numeric_check as $numeric_post) {
+            if ($this->{$numeric_post} == NULL) {
+                $this->{$numeric_post} = 0;
+            }
+        }
+    }
+
     protected function after_get_data_post() {
-        if ($this->tgl_pelaksanaan == '') {
-            $this->tgl_pelaksanaan = NULL;
+        $this->__check_numeric_post();
+        $this->__check_null_post();
+        $this->__check_array_post();
+    }
+
+    public function after_show_detail($record_found = FALSE) {
+        $array_check = array(
+            "spt_tembusan",
+            "spt_dasar",
+        );
+
+        foreach ($array_check as $array_data) {
+            if ($record_found && $record_found->{$array_data} != NULL) {
+                pg_array_parse($record_found->{$array_data}, $record_found->{$array_data});
+            }
         }
-        if ($this->tgl_selesai == '') {
-            $this->tgl_selesai = NULL;
-        }
+        return $record_found;
     }
 
     public function all($force_limit = FALSE, $force_offset = FALSE) {

@@ -28,6 +28,15 @@ class Tr_diklat extends LWS_model {
         "modified_date" => array("modified_date", "modified_date"),
         "modified_by" => array("modified_by", "modified_by"),
         "record_active" => array("record_active", "record_active"),
+        "no_spt_a" => array("no_spt_a", "no_spt_a"),
+        "no_spt_b" => array("no_spt_b", "no_spt_b"),
+        "no_spt_c" => array("no_spt_c", "no_spt_c"),
+        "no_spt_d" => array("no_spt_d", "no_spt_d"),
+        "tgl_spt" => array("tgl_spt", "Tanggal SPT"),
+        "spt_tembusan" => array("spt_tembusan", "Tembusan"),
+        "spt_dasar" => array("spt_dasar", "Dasar SPT"),
+        "spt_kepada" => array("spt_kepada", "SPT Kepada"),
+        "id_ref_ttd" => array("id_ref_ttd", "Penandatangan SPT"),
     );
     
     protected $rules = array(
@@ -47,6 +56,15 @@ class Tr_diklat extends LWS_model {
         array("modified_date", ""),
         array("modified_by", ""),
         array("record_active", ""),
+        array("no_spt_a", ""),
+        array("no_spt_b", ""),
+        array("no_spt_c", ""),
+        array("no_spt_d", ""),
+        array("tgl_spt", ""),
+        array("spt_tembusan", ""),
+        array("spt_dasar", ""),
+        array("spt_kepada", ""),
+        array("id_ref_ttd", ""),
     );
     
     protected $related_tables = array(
@@ -75,9 +93,76 @@ class Tr_diklat extends LWS_model {
             ),
             "referenced" => "LEFT"
         ),
+        "ref_ttd" => array(
+            "fkey" => "id_ref_ttd",
+            "columns" => array(
+                "jabatan_ttd",
+                "uraian_atas_ttd",
+                "uraian_bawah_ttd",
+            ),
+            "referenced" => "LEFT"
+        ),
+        "ref_pegawai" => array(
+            "fkey" => "id_pegawai",
+            "reference_to" => "ref_ttd",
+            "columns" => array(
+                "gelar_depan",
+                "gelar_belakang",
+                "nama_depan",
+                "nama_tengah",
+                "nama_belakang",
+                "nama_sambung",
+                "tgl_lahir",
+                "tempat_lahir",
+                "nip",
+                "no_kep",
+                "tmt_peg",
+                "foto_profil",
+            ),
+            "referenced" => "LEFT"
+        ),
+        "tr_pegawai_golongan" => array(
+            "fkey" => "id_pegawai",
+            "table_alias" => "tpg",
+            "reference_to" => "ref_pegawai",
+            "columns" => array(
+                "tgl_ditetapkan",
+                "tgl_berakhir",
+            ),
+            "conditions"=>array(
+                "is_active = '1'",
+                "record_active = '1'",
+            ),
+            "referenced" => "LEFT"
+        ),
+        "ref_golongan" => array(
+            "fkey" => "id_golongan",
+            "reference_to" => "tr_pegawai_golongan",
+            "columns" => array(
+                "kode_golongan",
+                "golongan",
+                "keterangan",
+            ),
+            "referenced" => "LEFT"
+        ),
+        "ref_skpd" => array(
+            "fkey" => "id_skpd",
+            "reference_to" => "ref_ttd",
+            "columns" => array(
+                "nama_skpd",
+                "abbr_skpd",
+                "alamat_skpd",
+                "kodepos",
+                "no_telp",
+                "email",
+                "website",
+            ),
+            "referenced" => "LEFT"
+        ),
     );
     
     protected $attribute_types = array(
+        "tgl_spt" => "DATE",
         "tgl_pelaksanaan" => "DATE",
         "tgl_selesai" => "DATE",
         "total_jam" => "NUMERIC",

@@ -39,6 +39,14 @@ class Cref_ttd extends Cpustaka_data {
         $this->add_cssfiles(array("plugins/select2/select2.min.css"));
         $this->add_jsfiles(array("plugins/select2/select2.full.min.js"));
     }
+    
+    public function get_like() {
+        $keyword = $this->input->post("keyword");
+
+        $kabupaten_found = $this->{$this->model}->get_like($keyword);
+        
+        $this->to_json($kabupaten_found);
+    }
 
 }
 

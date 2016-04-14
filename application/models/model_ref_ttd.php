@@ -43,16 +43,32 @@ class model_ref_ttd extends ref_ttd {
         $result = FALSE;
         if ($keyword) {
             $this->db->order_by("nip", "asc");
-            $where_keyword = " lower(" . $this->table_name . ".nama_depan) LIKE lower('%" . $keyword . "%') OR " .
-                    "lower(" . $this->table_name . ".nama_tengah) LIKE lower('%" . $keyword . "%') OR ".
-                    "lower(" . $this->table_name . ".nama_belakang) LIKE lower('%" . $keyword . "%') OR ".
-                    "lower(" . $this->table_name . ".nama_sambung) LIKE lower('%" . $keyword . "%') OR ".
-                    "lower(" . $this->table_name . ".nip) LIKE lower('%" . $keyword . "%') OR ".
-                    "lower(" . $this->table_name . ".nama_skpd) LIKE lower('%" . $keyword . "%') OR ".
-                    "lower(" . $this->table_name . ".abbr_skpd) LIKE lower('%" . $keyword . "%') OR ".
-                    "lower(" . $this->table_name . ".jabatan_ttd) LIKE lower('%" . $keyword . "%')";
-            $this->db->where($where_keyword, NULL, FALSE);
-            $result = $this->get_where();
+            
+//            $table_pegawai = $this->get_schema_name("tr_pegawai");
+//            $table_skpd = $this->get_schema_name("ref_skpd");
+//            
+//            $where_keyword = " lower(" . $table_pegawai . ".nama_depan) LIKE lower('%" . $keyword . "%') OR " .
+//                    "lower(" . $table_pegawai . ".nama_tengah) LIKE lower('%" . $keyword . "%') OR ".
+//                    "lower(" . $table_pegawai . ".nama_belakang) LIKE lower('%" . $keyword . "%') OR ".
+//                    "lower(" . $table_pegawai . ".nama_sambung) LIKE lower('%" . $keyword . "%') OR ".
+//                    "lower(" . $table_pegawai . ".nip) LIKE lower('%" . $keyword . "%') OR ".
+//                    "lower(" . $table_skpd . ".nama_skpd) LIKE lower('%" . $keyword . "%') OR ".
+//                    "lower(" . $table_skpd . ".abbr_skpd) LIKE lower('%" . $keyword . "%') OR ".
+//                    "lower(" . $table_skpd . ".jabatan_ttd) LIKE lower('%" . $keyword . "%')";
+//            $this->db->where($where_keyword, NULL, FALSE);
+            $result = parent::get_all(array(
+                    "nama_depan",
+                    "nama_tengah",
+                    "nama_belakang",
+                    "nama_sambung",
+                    "nip",
+                    "nama_skpd",
+                    "abbr_skpd",
+                    "alamat_skpd",
+                    "jabatan_ttd",
+                    "uraian_atas_ttd",
+                    "uraian_bawah_ttd",
+                        ));
         }
         return $result;
     }

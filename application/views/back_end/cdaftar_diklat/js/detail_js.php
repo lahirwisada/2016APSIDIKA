@@ -1,57 +1,10 @@
-<?php
-$detail = isset($detail) ? $detail : FALSE;
-?>
-
 <script type="text/javascript">
-
-    var slc_kab_kota_cfg = {
-        data: [],
-        ajax: {
-            url: "<?php echo base_url(); ?>back_end/cref_kabupaten_kota/get_like",
-            placeholder: 'Pilih Kota',
-            dataType: 'json',
-            delay: 250,
-            method: 'post',
-            width: '100%',
-            data: function (params) {
-                return {
-                    keyword: params.term, // search term
-                    page: params.page
-                };
-            },
-            processResults: function (data, params) {
-
-                var data = $.map(data, function (obj) {
-                    obj.id = obj.id || obj.id_kabupaten_kota;
-                    obj.text = obj.text || obj.kode_kabupaten + " " + obj.nama_kabupaten;
-                    return obj;
-                });
-                params.page = params.page || 1;
-                return {
-                    results: data
-                };
-            },
-            cache: true
-        },
-        escapeMarkup: function (markup) {
-            return markup;
-        }, // let our custom formatter work
-        minimumInputLength: 2
+    var eventRemoveListItem = function (e) {
+        e.preventDefault();
+        $(this).parents('a').remove();
     };
-
-<?php if ($detail && $detail->id_kabupaten_kota != ""): ?>
-        slc_kab_kota_cfg.data = [
-            {
-                id: '<?php echo $detail->id_kabupaten_kota ?>',
-                text: '<?php echo $detail->kode_kabupaten . " " . $detail->nama_kabupaten; ?>'
-            }
-        ];
-<?php endif; ?>
+    
     $(document).ready(function () {
-        $("#slc-kab-kota").select2(slc_kab_kota_cfg);
-<?php if ($detail && $detail->id_kabupaten_kota != ""): ?>
-            $("#slc-kab-kota").val(<?php echo $detail->id_kabupaten_kota ?>).trigger("change");
-            ;
-<?php endif; ?>
+        $(".btn-remove-list").click(eventRemoveListItem);
     });
 </script>

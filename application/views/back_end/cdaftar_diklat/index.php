@@ -103,7 +103,7 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                                                     </div>
                                                     <br />
 
-                                                    <a class="btn btn-default btn-sm btn-unduh-spt" href="javascript:void(0);" id="btn-unduh-spt-<?php echo $record->id_diklat ?>">Unduh SPT</a>
+                                                    <a class="btn btn-default btn-sm btn-unduh-spt" href="<?php echo base_url("back_end/" . $active_modul . "/cetak_spt") . "/" . $record->id_diklat; ?>" id="btn-unduh-spt-<?php echo $record->id_diklat ?>">Unduh SPT</a>
                                                 </td>
                                             </tr>
                                             <tr>
