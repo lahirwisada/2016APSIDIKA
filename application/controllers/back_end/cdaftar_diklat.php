@@ -100,9 +100,9 @@ class Cdaftar_diklat extends Cpustaka_data {
                 $this->lwphpword->set_value('nama_diklat', beautify_str($detail->nama_diklat, TRUE, " "));
                 $this->lwphpword->set_value('penyelenggara', beautify_str($detail->penyelenggara, TRUE, " "));
                 $this->lwphpword->set_value('alamat_lokasi', beautify_str($detail->alamat_lokasi, TRUE, " "));
-                $this->lwphpword->set_value('tgl_pelaksanaan', pg_date_to_text($detail->tgl_pelaksanaan));
-                $this->lwphpword->set_value('tgl_selesai', pg_date_to_text($detail->tgl_selesai));
-                $this->lwphpword->set_value('tgl_spt', $detail->tgl_spt == NULL ? " " : pg_date_to_text($detail->tgl_spt));
+                $this->lwphpword->set_value('tgl_pelaksanaan', $detail->tgl_pelaksanaan == NULL ? " " : pg_date_to_text($detail->tgl_pelaksanaan, "d-m-Y", " "));
+                $this->lwphpword->set_value('tgl_selesai', $detail->tgl_selesai == NULL ? " " : pg_date_to_text($detail->tgl_selesai, "d-m-Y", " "));
+                $this->lwphpword->set_value('tgl_spt', $detail->tgl_spt == NULL ? " " : pg_date_to_text($detail->tgl_spt, "d-m-Y", " "));
                 $this->lwphpword->set_value('uraian_atas_ttd', beautify_str($detail->uraian_atas_ttd, TRUE, " "));
                 $this->lwphpword->set_value('gelar_depan', beautify_str($detail->gelar_depan, TRUE, " "));
                 $this->lwphpword->set_value('nama_sambung', beautify_str($detail->nama_sambung, TRUE, " "));
