@@ -25,7 +25,7 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
     <div class="form-group">
         <label class="col-md-3 col-xs-12 control-label">Nama Diklat *</label>
         <div class="col-md-6 col-xs-12">
-            <input type="text" name="nama_diklat" class="form-control" value="<?php echo $detail ? $detail->nama_diklat : ""; ?>">                      
+            <input id="txt-nama_diklat" type="text" name="nama_diklat" class="form-control" value="<?php echo $detail ? $detail->nama_diklat : ""; ?>">                      
             <span class="help-block"></span>
         </div>
     </div>
@@ -33,7 +33,7 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
     <div class="form-group">
         <label class="col-md-3 col-xs-12 control-label">Angkatan *</label>
         <div class="col-md-6 col-xs-12">
-            <input type="text" name="angkatan" class="form-control" value="<?php echo $detail ? $detail->angkatan : ""; ?>">                      
+            <input id="txt-angkatan_diklat" type="text" name="angkatan" class="form-control" value="<?php echo $detail ? $detail->angkatan : ""; ?>">                      
             <span class="help-block"></span>
         </div>
     </div>
@@ -41,7 +41,7 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
     <div class="form-group">
         <label class="col-md-3 col-xs-12 control-label">Penyelenggara</label>
         <div class="col-md-6 col-xs-12">
-            <input type="text" name="penyelenggara" class="form-control" value="<?php echo $detail ? $detail->penyelenggara : ""; ?>">                      
+            <input id="txt-penyelenggara_diklat" type="text" name="penyelenggara" class="form-control" value="<?php echo $detail ? $detail->penyelenggara : ""; ?>">                      
             <span class="help-block"></span>
         </div>
     </div>
@@ -51,7 +51,7 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
         <div class="col-md-6 col-xs-12">                                            
             <div class="input-group">
                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-                <input type="text" name="tgl_pelaksanaan" class="form-control datepicker" value="<?php echo $detail ? $detail->tgl_pelaksanaan : ""; ?>">
+                <input id="txt-tgl_pelaksanaan" type="text" name="tgl_pelaksanaan" class="form-control datepicker" value="<?php echo $detail ? $detail->tgl_pelaksanaan : ""; ?>">
             </div>                                            
             <span class="help-block"></span>
         </div>
@@ -62,7 +62,7 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
         <div class="col-md-6 col-xs-12">                                            
             <div class="input-group">
                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-                <input type="text" name="tgl_selesai" class="form-control datepicker" value="<?php echo $detail ? $detail->tgl_selesai : ""; ?>">
+                <input id="txt-tgl_selesai" type="text" name="tgl_selesai" class="form-control datepicker" value="<?php echo $detail ? $detail->tgl_selesai : ""; ?>">
             </div>                                            
             <span class="help-block"></span>
         </div>
@@ -71,7 +71,7 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
     <div class="form-group">
         <label class="col-md-3 col-xs-12 control-label">Total Jam Diklat *</label>
         <div class="col-md-6 col-xs-12">
-            <input type="text" name="total_jam" class="form-control" value="<?php echo $detail ? $detail->total_jam : ""; ?>">                      
+            <input id="txt-total_jam" type="text" name="total_jam" class="form-control" value="<?php echo $detail ? $detail->total_jam : ""; ?>">                      
             <span class="help-block"></span>
         </div>
     </div>
@@ -79,7 +79,7 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
     <div class="form-group">
         <label class="col-md-3 col-xs-12 control-label">Nomor STTPP *</label>
         <div class="col-md-6 col-xs-12">
-            <input type="text" name="postfix_no_sttpp" class="form-control" value="<?php echo $detail ? $detail->postfix_no_sttpp : ""; ?>">                      
+            <input id="txt-postfix_no_sttpp" type="text" name="postfix_no_sttpp" class="form-control" value="<?php echo $detail ? $detail->postfix_no_sttpp : ""; ?>">                      
             <span class="help-block">Tuliskan nomor STTPP.<br />contoh : /DIKLAT PRAJABATAN III/118/3201/LAN/2015</span>
         </div>
     </div>
@@ -96,7 +96,7 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
     <div class="form-group">
         <label class="col-md-3 col-xs-12 control-label">Alamat Lokasi *</label>
         <div class="col-md-6 col-xs-12">
-            <input type="text" name="alamat_lokasi" class="form-control" value="<?php echo $detail ? $detail->alamat_lokasi : ""; ?>">                      
+            <input id="txt-alamat_lokasi" type="text" name="alamat_lokasi" class="form-control" value="<?php echo $detail ? $detail->alamat_lokasi : ""; ?>">                      
             <span class="help-block">Alamat Lokasi pelaksanaan Diklat.</span>
         </div>
     </div>

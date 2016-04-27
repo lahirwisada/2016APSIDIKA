@@ -60,12 +60,17 @@ class Cdaftar_diklat extends Cpustaka_data {
         $this->set("additional_js", array(
             "back_end/" . $this->_name . "/js/detail_js",
             "back_end/" . $this->_name . "/js/detail_tembusan_spt_js",
+            "back_end/" . $this->_name . "/js/detail_tahapan_js",
             "back_end/" . $this->_name . "/js/detail_dasar_spt_js",
-            "back_end/" . $this->_name . "/js/detail_isian_diklat_js"
+            "back_end/" . $this->_name . "/js/detail_isian_diklat_js",
+            "back_end/" . $this->_name . "/js/detail_hal_perhatian_spt_js"
         ));
 
         $this->add_cssfiles(array("plugins/select2/select2.min.css"));
-        $this->add_jsfiles(array("plugins/select2/select2.full.min.js"));
+        $this->add_jsfiles(array(
+            "plugins/select2/select2.full.min.js",
+            "atlant/plugins/summernote/summernote.js",
+        ));
     }
 
     public function cetak_spt($id_diklat = FALSE) {
@@ -108,16 +113,16 @@ class Cdaftar_diklat extends Cpustaka_data {
                 $this->lwphpword->set_value('nama_sambung', beautify_str($detail->nama_sambung, TRUE, " "));
                 $this->lwphpword->set_value('gelar_belakang', beautify_str($detail->gelar_belakang, TRUE, " "));
                 $this->lwphpword->set_value('nip', beautify_str($detail->nip, TRUE, " "));
-                $this->lwphpword->set_value('keterangan', beautify_str($detail->keterangan, TRUE, " "));                
+                $this->lwphpword->set_value('keterangan', beautify_str($detail->keterangan, TRUE, " "));
 
                 if ($detail->spt_tembusan != NULL && is_array($detail->spt_tembusan)) {
                     $this->lwphpword->clone_row('spt_tembusan_item', count($detail->spt_tembusan));
                     foreach ($detail->spt_tembusan as $key => $tembusan) {
                         $i = $key + 1;
-                        $template_string = 'spt_tembusan_item#'.$i;
-                        $this->lwphpword->set_value($template_string, $i.". ".beautify_str($tembusan));
+                        $template_string = 'spt_tembusan_item#' . $i;
+                        $this->lwphpword->set_value($template_string, $i . ". " . beautify_str($tembusan));
                     }
-                }else{
+                } else {
                     $this->lwphpword->set_value("spt_tembusan_item", " ");
                 }
 
@@ -125,39 +130,39 @@ class Cdaftar_diklat extends Cpustaka_data {
                     $this->lwphpword->clone_row('spt_dasar_item', count($detail->spt_dasar));
                     foreach ($detail->spt_dasar as $key => $dasar) {
                         $i = $key + 1;
-                        $template_string = 'spt_dasar_item#'.$i;
-                        $this->lwphpword->set_value($template_string, $i.". ".beautify_str($dasar));
+                        $template_string = 'spt_dasar_item#' . $i;
+                        $this->lwphpword->set_value($template_string, $i . ". " . beautify_str($dasar));
                     }
-                }else{
+                } else {
                     $this->lwphpword->set_value("spt_dasar_item", " ");
                 }
-                
+
                 $no_spt_lengkap = array();
-                
-                if($detail->no_spt_a != ""){
+
+                if ($detail->no_spt_a != "") {
                     $no_spt_lengkap[] = $detail->no_spt_a;
-                }else{
+                } else {
                     $no_spt_lengkap[] = "....";
                 }
-                
-                if($detail->no_spt_b != ""){
-                    $no_spt_lengkap[] = "/".$detail->no_spt_b;
-                }else{
+
+                if ($detail->no_spt_b != "") {
+                    $no_spt_lengkap[] = "/" . $detail->no_spt_b;
+                } else {
                     $no_spt_lengkap[] = "/....";
                 }
-                
-                if($detail->no_spt_c != ""){
-                    $no_spt_lengkap[] = " - ".$detail->no_spt_c;
-                }else{
+
+                if ($detail->no_spt_c != "") {
+                    $no_spt_lengkap[] = " - " . $detail->no_spt_c;
+                } else {
                     $no_spt_lengkap[] = " - ....";
                 }
-                
-                if($detail->no_spt_d != ""){
-                    $no_spt_lengkap[] = "/".$detail->no_spt_d;
-                }else{
-                    $no_spt_lengkap[] = "/....";
+
+                if ($detail->no_spt_d != "") {
+                    $no_spt_lengkap[] = "/" . $detail->no_spt_d;
+                } else {
+                    $no_spt_lengkap[] = "";
                 }
-                
+
                 $this->lwphpword->set_value("nomor_spt_lengkap", implode("", $no_spt_lengkap));
 
                 $save_document_success = $this->lwphpword->save_document();

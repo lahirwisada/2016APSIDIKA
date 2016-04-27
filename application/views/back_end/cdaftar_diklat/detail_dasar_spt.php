@@ -34,7 +34,7 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
                 <?php foreach ($detail->spt_dasar as $spt_dasar): ?>
                     <a href="javascript:void(0);" class="list-group-item">
                         <p><span class="list-title-dasar"><?php echo $spt_dasar; ?></span> <button class="btn-remove-list btn btn-sm btn-default pull-right"><span class="fa fa-trash-o"></span></button></p>
-                        <input type="hidden" name="spt_dasar[]" value="<?php echo $spt_dasar; ?>">
+                        <input type="hidden" class="inp-spt-dasar" name="spt_dasar[]" value="<?php echo $spt_dasar; ?>">
                     </a>
                 <?php endforeach; ?>
             <?php endif; ?>

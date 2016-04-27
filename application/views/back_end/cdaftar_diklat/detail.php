@@ -16,18 +16,23 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
                     <h3 class="panel-title">Formulir <strong><?php echo $header_title; ?></strong></h3>
                 </div>
 
-                <div class="tabs">
+                <div id="form-input-diklat-tab" class="tabs">
 
                     <ul class="nav nav-tabs nav-justified">
-                        <li class="active"><a href="#isian-diklat" data-toggle="tab">Isian Diklat</a></li>
+                        <li id="li-isian-diklat" class="active"><a id="a-isian-diklat" href="#isian-diklat" data-toggle="tab">Isian Diklat</a></li>
                         <li><a href="#konfigurasi-spt" data-toggle="tab">Konfigurasi SPT</a></li>
+                        <li id="li-tahapan-diklat"><a id="a-tahapan-diklat" href="#tahapan-diklat" data-toggle="tab">Tahapan</a></li>
                         <li><a href="#dasar-spt" data-toggle="tab">Dasar SPT</a></li>
                         <li><a href="#tembusan-spt" data-toggle="tab">Tembusan SPT</a></li>
+                        <li><a href="#hal-perhatian-spt" data-toggle="tab">Hal Perhatian</a></li>
                     </ul>
 
                     <div class="panel-body tab-content">
                         <div class="tab-pane" id="konfigurasi-spt">
                             <?php echo load_partial('back_end/cdaftar_diklat/detail_konfigurasi_spt'); ?>
+                        </div>
+                        <div class="tab-pane" id="tahapan-diklat">
+                            <?php echo load_partial('back_end/cdaftar_diklat/detail_tahapan_diklat'); ?>
                         </div>
                         <div class="tab-pane" id="dasar-spt">
                             <?php echo load_partial('back_end/cdaftar_diklat/detail_dasar_spt'); ?>
@@ -37,6 +42,9 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
                         </div>
                         <div class="tab-pane active" id="isian-diklat">
                             <?php echo load_partial('back_end/cdaftar_diklat/detail_isian_diklat'); ?>
+                        </div>
+                        <div class="tab-pane active" id="hal-perhatian-spt">
+                            <?php echo load_partial('back_end/cdaftar_diklat/detail_hal_perhatian_spt'); ?>
                         </div>
                     </div>
                 </div>

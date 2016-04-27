@@ -17,19 +17,19 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
         <label class="col-md-3 col-xs-12 control-label">Nomor SPT</label>
         <div class="col-md-6 col-xs-12">
             <div class="col-md-3">
-                <input type="text" name="no_spt_a" class="form-control" value="<?php echo $detail ? $detail->no_spt_a : ""; ?>">                      
+                <input id="txt-no_spt_a" type="text" name="no_spt_a" class="form-control" value="<?php echo $detail ? $detail->no_spt_a : ""; ?>">                      
                 <span class="help-block">contoh : 000</span>
             </div>
             <div class="col-md-3">
-                <input type="text" name="no_spt_b" class="form-control" value="<?php echo $detail ? $detail->no_spt_b : ""; ?>">                      
+                <input id="txt-no_spt_b" type="text" name="no_spt_b" class="form-control" value="<?php echo $detail ? $detail->no_spt_b : ""; ?>">                      
                 <span class="help-block">contoh : 000</span>
             </div>
             <div class="col-md-3">
-                <input type="text" name="no_spt_c" class="form-control" value="<?php echo $detail ? $detail->no_spt_c : ""; ?>">                      
+                <input id="txt-no_spt_c" type="text" name="no_spt_c" class="form-control" value="<?php echo $detail ? $detail->no_spt_c : ""; ?>">                      
                 <span class="help-block">contoh : SPT</span>
             </div>
             <div class="col-md-3">
-                <input type="text" name="no_spt_d" class="form-control" value="<?php echo $detail ? $detail->no_spt_d : ""; ?>">                      
+                <input id="txt-no_spt_d" type="text" name="no_spt_d" class="form-control" value="<?php echo $detail ? $detail->no_spt_d : ""; ?>">                      
                 <span class="help-block">contoh : DP</span>
             </div>
         </div>
@@ -40,9 +40,9 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
         <div class="col-md-6 col-xs-12">                                            
             <div class="input-group">
                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-                <input type="text" name="tgl_spt" class="form-control datepicker" value="<?php echo $detail ? $detail->tgl_spt : ""; ?>">
+                <input id="txt-tgl_spt" type="text" name="tgl_spt" class="form-control datepicker" value="<?php echo $detail ? $detail->tgl_spt : ""; ?>">
             </div>                                            
-            <span class="help-block"></span>
+            <span class="help-block">Tanggal SPT dibuat</span>
         </div>
     </div>
 
@@ -58,7 +58,7 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
     <div class="form-group">
         <label class="col-md-3 col-xs-12 control-label">Kepada</label>
         <div class="col-md-6 col-xs-12">
-            <input type="text" name="spt_kepada" class="form-control" value="<?php echo $detail ? $detail->spt_kepada : "Mereka yang nama- namanya tercantum pada lampiran Surat Perintah Tugas ini."; ?>">                      
+            <input id="txt-spt_kepada" type="text" name="spt_kepada" class="form-control" value="<?php echo $detail ? $detail->spt_kepada : "Mereka yang nama- namanya tercantum pada lampiran Surat Perintah Tugas ini."; ?>">                      
             <span class="help-block"></span>
         </div>
     </div>

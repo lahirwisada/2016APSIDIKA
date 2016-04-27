@@ -34,17 +34,17 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
                 <?php foreach ($detail->spt_tembusan as $spt_tembusan): ?>
                     <a href="javascript:void(0);" class="list-group-item">
                         <p><span class="list-title-tembusan"><?php echo $spt_tembusan; ?></span> <button class="btn-remove-list btn btn-sm btn-default pull-right"><span class="fa fa-trash-o"></span></button></p>
-                        <input type="hidden" name="spt_tembusan[]" value="<?php echo $spt_tembusan; ?>">
+                        <input type="hidden" class="inp-spt-tembusan" name="spt_tembusan[]" value="<?php echo $spt_tembusan; ?>">
                     </a>
                 <?php endforeach; ?>
             <?php elseif (!$detail): ?>
                 <a href="javascript:void(0);" class="list-group-item">
                     <p><span class="list-title-tembusan">Walikota Tangerang Selatan, sebagai laporan.</span> <button class="btn-remove-list btn btn-sm btn-default pull-right"><span class="fa fa-trash-o"></span></button></p>
-                    <input type="hidden" name="spt_tembusan[]" value="Walikota Tangerang Selatan, sebagai laporan.">
+                    <input type="hidden" class="inp-spt-tembusan" name="spt_tembusan[]" value="Walikota Tangerang Selatan, sebagai laporan.">
                 </a>
                 <a href="javascript:void(0);" class="list-group-item">
                     <p><span class="list-title-tembusan">Wakil Walikota Tangerang Selatan, sebagai laporan.</span> <button class="btn-remove-list btn btn-sm btn-default pull-right"><span class="fa fa-trash-o"></span></button></p>
-                    <input type="hidden" name="spt_tembusan[]" value="Wakil Walikota Tangerang Selatan, sebagai laporan.">
+                    <input type="hidden" class="inp-spt-tembusan" name="spt_tembusan[]" value="Wakil Walikota Tangerang Selatan, sebagai laporan.">
                 </a>
             <?php endif; ?>
         </div>

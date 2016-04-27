@@ -11,9 +11,7 @@
                         spanTitleTembusan = $("<span class=\"list-title-tembusan\"></span>"),
                         pTembusan = $("<p></p>"),
                         btnRemoveTembusan = $("<button type=\"button\" class=\"btn-remove-list btn btn-sm btn-default pull-right\"><span class=\"fa fa-trash-o\"></span></button>"),
-                        inpBoxTembusan = $("<input type=\"hidden\" name=\"spt_tembusan[]\" />");
-
-
+                        inpBoxTembusan = $("<input type=\"hidden\"  class=\"inp-spt-tembusan\" name=\"spt_tembusan[]\" />");
 
                 $(inpBoxTembusan).val(textTembusan);
                 $(spanTitleTembusan).text(textTembusan);

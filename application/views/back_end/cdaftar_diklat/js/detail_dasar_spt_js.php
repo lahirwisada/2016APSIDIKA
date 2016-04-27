@@ -11,9 +11,7 @@
                         spanTitleDasar = $("<span class=\"list-title-dasar\"></span>"),
                         pDasar = $("<p></p>"),
                         btnRemoveDasar = $("<button type=\"button\" class=\"btn-remove-list btn btn-sm btn-default pull-right\"><span class=\"fa fa-trash-o\"></span></button>"),
-                        inpBoxDasar = $("<input type=\"hidden\" name=\"spt_dasar[]\" />");
-
-
+                        inpBoxDasar = $("<input type=\"hidden\" class=\"inp-spt-dasar\" name=\"spt_dasar[]\" />");
 
                 $(inpBoxDasar).val(textDasar);
                 $(spanTitleDasar).text(textDasar);

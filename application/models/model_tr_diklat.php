@@ -10,18 +10,18 @@ class model_tr_diklat extends tr_diklat {
         array("id_diklat", ""),
         array("id_kabupaten_kota", "numeric"),
         array("id_jenis_diklat", "numeric|required"),
-        array("nama_diklat", "required"),
-        array("angkatan", "required"),
-        array("alamat_lokasi", ""),
-        array("penyelenggara", ""),
+        array("nama_diklat", "required|max_length[200]"),
+        array("angkatan", "required|max_length[20]"),
+        array("alamat_lokasi", "required|max_length[500]"),
+        array("penyelenggara", "required|max_length[500]"),
         array("tgl_pelaksanaan", ""),
         array("tgl_selesai", ""),
         array("total_jam", "required|numeric"),
-        array("postfix_no_sttpp", "required"),
-        array("no_spt_a", "numeric"),
-        array("no_spt_b", "numeric"),
-        array("no_spt_c", ""),
-        array("no_spt_d", ""),
+        array("postfix_no_sttpp", "required|max_length[60]"),
+        array("no_spt_a", "numeric|max_length[60]"),
+        array("no_spt_b", "numeric|max_length[60]"),
+        array("no_spt_c", "max_length[60]"),
+        array("no_spt_d", "max_length[60]"),
         array("tgl_spt", ""),
         array("spt_tembusan", ""),
         array("spt_dasar", ""),
@@ -69,7 +69,7 @@ class model_tr_diklat extends tr_diklat {
         $this->__convert_to_pg_array();
     }
 
-    private function __check_null_post() {
+    private function __check_blank_post() {
         $post_null_check = array(
             "tgl_pelaksanaan",
             "tgl_selesai",
@@ -77,8 +77,10 @@ class model_tr_diklat extends tr_diklat {
         );
 
         foreach ($post_null_check as $null_post) {
-            if ($this->{$null_post} == NULL) {
-                $this->{$null_post} = NULL;
+            if ($this->{$null_post} == "") {
+                $this->{$null_post} = "NULL";
+            } else {
+                $this->{$null_post} = "'" . $this->{$null_post} . "'";
             }
         }
     }
@@ -111,8 +113,15 @@ class model_tr_diklat extends tr_diklat {
 
     protected function after_get_data_post() {
         $this->__check_numeric_post();
-        $this->__check_null_post();
+        $this->__check_blank_post();
         $this->__check_array_post();
+    }
+
+    public function get_tahapan_diklat_by_id_diklat($id_diklat = FALSE) {
+        if ($id_diklat) {
+            
+        }
+        return FALSE;
     }
 
     public function after_show_detail($record_found = FALSE) {
@@ -126,6 +135,11 @@ class model_tr_diklat extends tr_diklat {
                 pg_array_parse($record_found->{$array_data}, $record_found->{$array_data});
             }
         }
+
+        if ($record_found) {
+            $record_found->tahapan_diklat = $this->get_tahapan_diklat_by_id_diklat($record_found->id_diklat);
+        }
+
         return $record_found;
     }
 
