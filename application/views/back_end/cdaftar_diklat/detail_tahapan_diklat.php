@@ -61,7 +61,6 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
             </div>
         </div>
         <div class="panel-body">
-            <input id="hidden-status-form-tahapan-diklat" type="hidden" value="new">
             <button id="add-tahapan-diklat" type="button" class="btn-default btn pull-right">Tambah</button>
         </div>
         <div class="panel-body">

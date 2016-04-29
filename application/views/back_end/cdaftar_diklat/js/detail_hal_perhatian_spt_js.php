@@ -16,6 +16,16 @@ $detail = isset($detail) ? $detail : FALSE;
                 helper: "clone"
             }).disableSelection();
 
+<?php if ($detail && $detail->hal_perhatian): ?>
+
+    <?php foreach ($detail->hal_perhatian as $key => $hal_perhatian): ?>
+                    self.__addRow({
+                        uraian: "<?php echo $hal_perhatian->uraian ?>",
+                        level: "<?php echo $hal_perhatian->level ?>"
+                    });
+    <?php endforeach; ?>
+<?php endif; ?>
+
         },
         __addRow: function (dataRow) {
             var tblTr = $("<tr class=\"tr-hal-perhatian\"></tr>"), tblTdUraian = $("<td></td>"), tblTdAksi = $("<td></td>");
@@ -67,13 +77,13 @@ $detail = isset($detail) ? $detail : FALSE;
 
 //            tblTdAksi.html(btnGroup);
             tblTdAksi.append(btnGroup);
-            
+
             var txtIndent = 0;
-            for(var i = 1;i<dataRow.level;i++){
+            for (var i = 1; i < dataRow.level; i++) {
                 txtIndent += 1;
             }
-            
-            var uraianText = "<div style=\"text-indent: "+txtIndent+"em;\">"+dataRow.uraian+"</div>";
+
+            var uraianText = "<div style=\"text-indent: " + txtIndent + "em;\">" + dataRow.uraian + "</div>";
 
             tblTdUraian.html(uraianText);
             tblTr.append(tblTdUraian);
@@ -92,7 +102,7 @@ $detail = isset($detail) ? $detail : FALSE;
             var dataHalPerhatian = [];
             $("tr.tr-hal-perhatian").each(function () {
                 var dataRow = $(this).data();
-                dataHalPerhatian.push(dataRow);
+                dataHalPerhatian.push({level: dataRow.level, uraian: dataRow.uraian});
                 dataRow = undefined;
             });
 

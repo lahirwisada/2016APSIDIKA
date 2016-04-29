@@ -89,6 +89,8 @@ class model_tr_diklat extends tr_diklat {
         $post_null_check = array(
             "spt_tembusan",
             "spt_dasar",
+            "spt_hal_perhatian",
+            "spt_tahapan",
         );
 
         foreach ($post_null_check as $null_post) {
@@ -116,10 +118,43 @@ class model_tr_diklat extends tr_diklat {
         $this->__check_blank_post();
         $this->__check_array_post();
     }
+    
+    protected function after_save($ret=FALSE){
+        if($ret){
+            $this->model_tr_diklat_tahapan->save_collection($this->spt_tahapan, $ret);
+            $this->model_tr_diklat_hal_perhatian->save_collection($this->spt_hal_perhatian, $ret);
+        }
+        return $ret;
+    }
+    
+    private function __remove_non_column_data($data = FALSE){
+        if($data){
+            unset($data["spt_tahapan"]);
+            unset($data["spt_hal_perhatian"]);
+        }
+        return $data;
+    }
+    
+    protected function before_data_update($update_data = FALSE){
+        return $this->__remove_non_column_data($update_data);
+    }
+    
+    protected function before_data_insert($insert_data = FALSE){
+        return $this->__remove_non_column_data($insert_data);
+    }
 
     public function get_tahapan_diklat_by_id_diklat($id_diklat = FALSE) {
-        if ($id_diklat) {
-            
+        if ($id_diklat) {    
+            $tr_diklat_tahapan_table_name = $this->model_tr_diklat_tahapan->get_table_name();
+            return $this->model_tr_diklat_tahapan->get_all(array(), $tr_diklat_tahapan_table_name.".id_diklat = '".$id_diklat."'",FALSE);
+        }
+        return FALSE;
+    }
+    
+    public function get_diklat_hal_perhatian_by_id_diklat($id_diklat = FALSE) {
+        if ($id_diklat) {    
+            $tr_diklat_hal_perhatian_table_name = $this->model_tr_diklat_hal_perhatian->get_table_name();
+            return $this->model_tr_diklat_hal_perhatian->get_all(array(), $tr_diklat_hal_perhatian_table_name.".id_diklat = '".$id_diklat."'",FALSE);
         }
         return FALSE;
     }
@@ -138,6 +173,7 @@ class model_tr_diklat extends tr_diklat {
 
         if ($record_found) {
             $record_found->tahapan_diklat = $this->get_tahapan_diklat_by_id_diklat($record_found->id_diklat);
+            $record_found->hal_perhatian = $this->get_diklat_hal_perhatian_by_id_diklat($record_found->id_diklat);
         }
 
         return $record_found;

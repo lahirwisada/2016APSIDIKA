@@ -14,6 +14,8 @@ class Cdaftar_diklat extends Cpustaka_data {
         $this->load->model(array(
             'model_ref_kabupaten_kota',
             'model_ref_jenis_diklat',
+            'model_tr_diklat_hal_perhatian',
+            'model_tr_diklat_tahapan',
         ));
     }
 
@@ -47,6 +49,8 @@ class Cdaftar_diklat extends Cpustaka_data {
             "spt_dasar",
             "spt_kepada",
             "id_ref_ttd",
+            "spt_hal_perhatian",
+            "spt_tahapan",
         ));
 
         $jenis_diklat = $this->model_ref_jenis_diklat->combobox(array("key" => "id_jenis_diklat", "value" => "jenis_diklat"));
@@ -81,7 +85,8 @@ class Cdaftar_diklat extends Cpustaka_data {
         }
 
         $detail = $this->{$this->model}->show_detail($id_diklat);
-
+//        var_dump($detail);
+//        exit;
         $save_document_success = FALSE;
         $output_filename = "spt-diklat-";
 
@@ -93,9 +98,14 @@ class Cdaftar_diklat extends Cpustaka_data {
                 "base_root" => base_url(),
             ));
 
-            $this->lwphpword->save_path = APPPATH . "../_assets/bukti_pembayaran/";
+            $template_file = "../_assets/template/TemplateSPT.docx";
+            if ($detail->id_jenis_diklat == "2") {
+                $template_file = "../_assets/template/TemplateSPT_Penjenjangan.docx";
+            }
 
-            $load_template_success = $this->lwphpword->load_template(APPPATH . "../_assets/template/TemplateSPT.docx");
+            $this->lwphpword->save_path = APPPATH . "../_assets/spt_save_path/";
+
+            $load_template_success = $this->lwphpword->load_template(APPPATH . $template_file);
             if ($load_template_success) {
                 $this->lwphpword->set_value('nama_skpd', strtoupper(beautify_str($detail->nama_skpd, TRUE, " ")));
                 $this->lwphpword->set_value('alamat_skpd', beautify_str($detail->alamat_skpd, TRUE, " "));
@@ -136,6 +146,75 @@ class Cdaftar_diklat extends Cpustaka_data {
                 } else {
                     $this->lwphpword->set_value("spt_dasar_item", " ");
                 }
+                
+                $i = 0;
+
+                if ($detail->id_jenis_diklat == "2") {
+                    $i = 1;
+                    if ($detail->tahapan_diklat) {
+                        $this->lwphpword->clone_row('ntd', count($detail->tahapan_diklat));
+
+                        foreach ($detail->tahapan_diklat as $key => $tahapan_diklat) {
+                            $template_string_number = 'ntd#' . ($key+1);
+                            $template_string_tahapan = 'tahapan#' . ($key+1);
+                            $template_string_tgl_tahapan = 'tgl_tahapan#' . ($key+1);
+                            $template_string_keterangan_tahapan = 'keterangan_tahapan#' . ($key+1);
+                            
+                            $tgl_mulai_tahapan = $tahapan_diklat->tgl_mulai_tahapan == NULL ? "-" : pg_date_to_text($tahapan_diklat->tgl_mulai_tahapan, "d-m-Y", " ");
+                            $tgl_selesai_tahapan = $tahapan_diklat->tgl_selesai_tahapan == NULL ? "-" : pg_date_to_text($tahapan_diklat->tgl_selesai_tahapan, "d-m-Y", " ");
+                            $tgl_tahapan = $tgl_mulai_tahapan." s.d.\n ".$tgl_selesai_tahapan;
+                            
+                            $this->lwphpword->set_value($template_string_number, ($key+1).".");
+                            $this->lwphpword->set_value($template_string_tahapan, $tahapan_diklat->tahapan);
+                            $this->lwphpword->set_value($template_string_tgl_tahapan, $tgl_tahapan);
+                            $this->lwphpword->set_value($template_string_keterangan_tahapan, $tahapan_diklat->keterangan_tahapan);
+                        }
+                    } else {
+                        $this->lwphpword->set_value("ntd", " ");
+                        $this->lwphpword->set_value("tahapan", " ");
+                        $this->lwphpword->set_value("tgl_tahapan", " ");
+                        $this->lwphpword->set_value("keterangan_tahapan", " ");
+                    }
+                }
+                
+                if ($detail->hal_perhatian) {
+                    $this->lwphpword->clone_row('hal_perhatian', count($detail->hal_perhatian));
+//                    $this->lwphpword->clone_row('uraian_hal_perhatian', count($detail->hal_perhatian));
+
+                    
+                    $isub = 0;
+                    $isubsub = 0;
+                    $template_row_count = 0;
+                    foreach ($detail->hal_perhatian as $key => $hal_perhatian) {
+                        $template_row_count ++;
+
+                        $template_string = 'hal_perhatian#' . $template_row_count;
+                        $text_hal_perhatian = "";
+                        if ($hal_perhatian->level == 1) {
+                            $isub = 0;
+                            $isubsub = 0;
+                            $i++;
+                            $text_hal_perhatian = $i . ". " . $hal_perhatian->uraian;
+                        }
+
+                        if ($hal_perhatian->level == 2) {
+                            $isubsub = 0;
+                            $isub++;
+
+                            $text_hal_perhatian = "\t" . $i . "." . $isub . ". " . $hal_perhatian->uraian;
+                        }
+
+                        if ($hal_perhatian->level == 3) {
+                            $isubsub++;
+
+                            $text_hal_perhatian = "\t\t" . $i . "." . $isub . "." . $isubsub . ". " . $hal_perhatian->uraian;
+                        }
+
+                        $this->lwphpword->set_value($template_string, $text_hal_perhatian);
+                    }
+                } else {
+                    $this->lwphpword->set_value("hal_perhatian", " ");
+                }
 
                 $no_spt_lengkap = array();
 
@@ -168,6 +247,8 @@ class Cdaftar_diklat extends Cpustaka_data {
                 $save_document_success = $this->lwphpword->save_document();
                 //$save_document_success = $this->lwphpword->save_to_pdf();
             }
+
+//            exit;
 
             $attention_message = "Cetak SPT tidak dapat dilakukan.";
             if ($save_document_success) {

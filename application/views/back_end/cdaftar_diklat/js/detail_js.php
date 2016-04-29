@@ -9,6 +9,7 @@
             spt_dasar: [],
             spt_tembusan: [],
             spt_tahapan: [],
+            spt_hal_perhatian: [],
             id_jenis_diklat: null,
             nama_diklat: null,
             angkatan: null,
@@ -30,6 +31,8 @@
         collectData: function(){
             var self = this;
             
+            
+            self.data.spt_dasar = [];
             /**
              * collect spt_dasar
              */
@@ -37,6 +40,8 @@
                 self.data.spt_dasar.push($(this).val());
             });
             
+            
+            self.data.spt_tembusan = [];
             /**
              * collect spt_tembusan
              */
@@ -48,6 +53,7 @@
              * collect spt_tahapan
              */
             self.data.spt_tahapan = tabTahapanDiklat.collectData();
+            self.data.spt_hal_perhatian = tabHalPerhatianSpt.collectData();
             self.data.id_jenis_diklat = $("#cb_jenis_diklat").val();
             self.data.nama_diklat = $("#txt-nama_diklat").val();
             self.data.angkatan = $("#txt-angkatan_diklat").val();
@@ -77,7 +83,14 @@
             e.preventDefault();
             
             var data = formDetailDiklat.collectData();
-            console.log(data);
+            $.ajax({
+                url: "<?php echo base_url('back_end/cdaftar_diklat/detail'); ?>",
+                data: data,
+                method: 'POST',
+                success: function(response, textStatus){
+                    window.location.href = "<?php echo base_url("back_end/cdaftar_diklat"); ?>";
+                }
+            });
             
             return false;
         });

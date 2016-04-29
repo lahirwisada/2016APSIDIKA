@@ -9,19 +9,7 @@ $detail = isset($detail) ? $detail : FALSE;
 <div class="block">
     <div class="panel panel-default">
         <div class="panel-body">
-
-            <?php
-            /*
-              <div class="form-group">
-              <label class="col-md-3 col-xs-12 control-label">Nomor Urut</label>
-              <div class="col-md-6 col-xs-12">
-              <input id="txt_no_urut_hal_perhatian_spt" type="text" class="form-control" name="txt_no_urut_hal_perhatian_spt" value="1" />
-              <span class="help-block">Untuk membantu aplikasi melakukan pengurutan secara otomatis.</span>
-              </div>
-              </div>
-             * 
-             */
-            ?>
+            
             <div class="form-group">
                 <label class="col-md-3 col-xs-12 control-label">Level</label>
                 <div class="col-md-6 col-xs-12">

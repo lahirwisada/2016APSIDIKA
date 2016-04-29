@@ -2,15 +2,13 @@
 
 if (!defined("BASEPATH")) {
     exit("No direct script access allowed");
-} include_once "entity/tr_diklat_tahapan.php";
+} include_once "entity/tr_diklat_hal_perhatian.php";
 
-class model_tr_diklat_tahapan extends tr_diklat_tahapan {
+class model_tr_diklat_hal_perhatian extends tr_diklat_hal_perhatian {
 
     protected $rules = array(
-        array("tahapan", "min_length[2]|max_length[300]"),
-        array("tgl_mulai_tahapan", ""),
-        array("tgl_selesai_tahapan", ""),
-        array("keterangan_tahapan", ""),
+        array("level", "numeric"),
+        array("uraian", ""),
         array("id_diklat", "numeric"),
     );
 
@@ -38,16 +36,14 @@ class model_tr_diklat_tahapan extends tr_diklat_tahapan {
     }
 
     public function set_attribute_data($row_data = FALSE, $id_diklat = FALSE) {
-        if ($row_data) {
+        if ($row_data && $id_diklat) {
 
             if (is_object($row_data)) {
                 $row_data = (array) $row_data;
             }
 
-            $this->tahapan = $row_data["tahapan"];
-            $this->tgl_mulai_tahapan = $row_data["tgl_mulai_tahapan"];
-            $this->tgl_selesai_tahapan = $row_data["tgl_selesai_tahapan"];
-            $this->keterangan_tahapan = $row_data["keterangan"];
+            $this->level = $row_data["level"];
+            $this->uraian = $row_data["uraian"];
             $this->id_diklat = $id_diklat;
             return TRUE;
         }
@@ -57,10 +53,8 @@ class model_tr_diklat_tahapan extends tr_diklat_tahapan {
     public function all($force_limit = FALSE, $force_offset = FALSE) {
         $this->db->order_by("col_order", "asc");
         return parent::get_all(array(
-                    "tahapan",
-                    "tgl_mulai_tahapan",
-                    "tgl_selesai_tahapan",
-                    "keterangan_tahapan",
+                    "level",
+                    "uraian",
                         ), FALSE, TRUE, FALSE, 1, TRUE, $force_limit, $force_offset);
     }
 

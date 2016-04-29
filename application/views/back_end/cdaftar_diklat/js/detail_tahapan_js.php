@@ -7,7 +7,9 @@ $detail = isset($detail) ? $detail : FALSE;
         idTable: '',
         init: function () {
             var self = this;
-            self.hide();
+<?php if (!($detail) || ($detail && $detail->id_jenis_diklat != "2")): ?>
+                self.hide();
+<?php endif; ?>
 
             $("#cb_jenis_diklat").change(function () {
                 if ($(this).val() == 2) {
@@ -24,6 +26,20 @@ $detail = isset($detail) ? $detail : FALSE;
             });
 
             $("#add-tahapan-diklat").click(self.tambahData);
+
+<?php if ($detail && $detail->tahapan_diklat): ?>
+
+    <?php foreach ($detail->tahapan_diklat as $key => $tahapan_diklat): ?>
+
+                    self.__addRow({
+                        tahapan: "<?php echo $tahapan_diklat->tahapan ?>",
+                        tgl_mulai_tahapan: "<?php echo $tahapan_diklat->tgl_mulai_tahapan ?>",
+                        tgl_selesai_tahapan: "<?php echo $tahapan_diklat->tgl_selesai_tahapan ?>",
+                        keterangan: "<?php echo $tahapan_diklat->keterangan_tahapan ?>"
+                    });
+
+    <?php endforeach; ?>
+<?php endif; ?>
 
         },
         __addRow: function (dataRow) {
@@ -78,7 +94,7 @@ $detail = isset($detail) ? $detail : FALSE;
             tblTdAksi.append(btnGroup);
 
             tblTdTahapan.text(dataRow.tahapan);
-            tblTdTanggal.text(dataRow.tgl_mulai_tahapan + " s.d. " + dataRow.tgl_selesai_tahapan);
+            tblTdTanggal.html(dataRow.tgl_mulai_tahapan + "<br />s.d.<br />" + dataRow.tgl_selesai_tahapan);
             tblTdTanggal.attr("tgl_mulai_tahapan", dataRow.tgl_mulai_tahapan);
             tblTdTanggal.attr("tgl_selesai_tahapan", dataRow.tgl_selesai_tahapan);
             tblTdKeterangan.text(dataRow.keterangan);
@@ -89,34 +105,35 @@ $detail = isset($detail) ? $detail : FALSE;
 
             tblTr.data(dataRow);
 
-            $("#DataTables_Table_tahapan_diklat tbody:last").append(tblTr);
+            $("#DataTables_Table_tahapan_diklat > tbody:last").append(tblTr);
 
             self.__sortByDate();
         },
         __removeRow: function (remBtnInstance) {
             var self = remBtnInstance;
             $(self).parent().parent().parent().remove();
+            self.__sortByDate();
         },
         __sortByDate: function () {
 
             $("tr.tr-tahapan-diklat").each(function () {
-                var dataRow = $(this).data(), tgl_mulai = dataRow.tgl_mulai_tahapan, arrTglMulai = tgl_mulai.split('-'), tglMT = new Date(arrTglMulai[2], arrTglMulai[1] - 1, arrTglMulai[0]);
-                dataRow._tgl_mulai_tahapan = tglMT.getTime();
+                var dataRow = $(this).data(), tgl_mulai = dataRow.tgl_mulai_tahapan, arrTglMulai = tgl_mulai.split('-');
+                dataRow.str_sort = parseInt(arrTglMulai[0] + "" + arrTglMulai[1] + "" + arrTglMulai[2]);
                 $(this).data(dataRow);
             }).sort(function (a, b) {
-                return $(a).data('_tgl_mulai_tahapan') > $(b).data('_tgl_mulai_tahapan');
-            }).appendTo('tbody');
+                return $(a).data('str_sort') > $(b).data('str_sort');
+            }).appendTo('#DataTables_Table_tahapan_diklat > tbody');
 
         },
         collectData: function () {
-            
+
             var dataTahapan = [];
-            $("tr.tr-tahapan-diklat").each(function(){
+            $("tr.tr-tahapan-diklat").each(function () {
                 var dataRow = $(this).data();
                 dataTahapan.push(dataRow);
                 dataRow = undefined;
             });
-            
+
             return dataTahapan;
         },
         editData: function (dataRow) {
@@ -154,7 +171,6 @@ $detail = isset($detail) ? $detail : FALSE;
             tabTahapanDiklat.__addRow(formTahapanData);
 
             tabTahapanDiklat.reset(formTahapanData);
-            $("#hidden-status-form-tahapan-diklat").val("new");
         },
         show: function () {
             $("a#a-tahapan-diklat").attr("href", "#tahapan-diklat");

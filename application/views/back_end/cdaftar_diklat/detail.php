@@ -43,7 +43,7 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
                         <div class="tab-pane active" id="isian-diklat">
                             <?php echo load_partial('back_end/cdaftar_diklat/detail_isian_diklat'); ?>
                         </div>
-                        <div class="tab-pane active" id="hal-perhatian-spt">
+                        <div class="tab-pane" id="hal-perhatian-spt">
                             <?php echo load_partial('back_end/cdaftar_diklat/detail_hal_perhatian_spt'); ?>
                         </div>
                     </div>
