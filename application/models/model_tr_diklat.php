@@ -178,6 +178,22 @@ class model_tr_diklat extends tr_diklat {
 
         return $record_found;
     }
+    
+    public function get_id_by_crypted($crypted_id_diklat = FALSE){
+        $id_found = FALSE;
+        if($crypted_id_diklat){
+            $detail_found = $this->get_detail_by_crypted($crypted_id_diklat);
+            if($detail_found){
+                $id_found = $detail_found->id_diklat;
+            }
+            unset($detail_found);
+        }
+        return $id_found;
+    }
+    
+    public function get_detail_by_crypted($crypted_id_diklat){
+        return $this->get_detail($this->table_name.".id_diklat_crypted = '".$crypted_id_diklat."'");
+    }
 
     public function all($force_limit = FALSE, $force_offset = FALSE) {
         return parent::get_all(array(

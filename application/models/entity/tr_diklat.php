@@ -37,6 +37,7 @@ class Tr_diklat extends LWS_model {
         "spt_dasar" => array("spt_dasar", "Dasar SPT"),
         "spt_kepada" => array("spt_kepada", "SPT Kepada"),
         "id_ref_ttd" => array("id_ref_ttd", "Penandatangan SPT"),
+        "id_diklat_crypted" => array("id_diklat_crypted", "Id Diklat Crypted"),
     );
     
     protected $rules = array(
@@ -65,6 +66,7 @@ class Tr_diklat extends LWS_model {
         array("spt_dasar", ""),
         array("spt_kepada", ""),
         array("id_ref_ttd", ""),
+        array("id_diklat_crypted", ""),
     );
     
     protected $related_tables = array(

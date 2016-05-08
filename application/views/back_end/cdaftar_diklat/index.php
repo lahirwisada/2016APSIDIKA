@@ -94,10 +94,10 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                                                         <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">Peserta Diklat <span class="caret"></span></a>
                                                         <ul class="dropdown-menu" role="menu">
                                                             <li>
-                                                                <a class="btn-lihat-peserta" href="javascript:void(0);" id="btn-lihat-peserta-<?php echo $record->id_diklat ?>"><small>Lihat Daftar</small></a>
+                                                                <a class="btn-lihat-peserta" href="<?php echo base_url('back_end/cpeserta_diklat/index')."/".$record->id_diklat_crypted; ?>" id="btn-lihat-peserta-<?php echo $record->id_diklat_crypted; ?>"><small>Lihat Daftar</small></a>
                                                             </li>
                                                             <li>
-                                                                <a class="btn-upload-peserta" href="javascript:void(0);" id="btn-upload-peserta-<?php echo $record->id_diklat ?>"><small>Upload</small></a>
+                                                                <a class="btn-upload-peserta" href="javascript:void(0);" id="btn-upload-peserta-<?php echo $record->id_diklat_crypted; ?>"><small>Upload</small></a>
                                                             </li>
                                                         </ul>
                                                     </div>
