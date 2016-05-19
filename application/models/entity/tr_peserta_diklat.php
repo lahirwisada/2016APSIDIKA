@@ -15,6 +15,9 @@ class Tr_peserta_diklat extends LWS_model {
         "id_peserta_diklat" => array("id_peserta_diklat", "Id Diklat"),
         "id_diklat" => array("id_diklat", "Id Diklat"),
         "id_pegawai" => array("id_pegawai", "Id Pegawai"),
+        "id_jabatan" => array("id_jabatan", "Id Jabatan"), // Mencatat Jabatan ketika mengikuti diklat ini
+        "id_skpd" => array("id_skpd", "Id SKPD"), // Mencatat SKPD ketika mengikuti diklat ini
+        "id_golongan" => array("id_golongan", "Id Golongan"), // Mencatat SKPD ketika mengikuti diklat ini
         "nomor_peserta" => array("nomor_peserta", "Nomor Peserta"),
         "surat_konfirmasi_ok" => array("surat_konfirmasi_ok", "Surat Konfirmasi Ok"),
         "path_scan_surat_konfirmasi" => array("path_scan_surat_konfirmasi", "File Surat Konfirmasi Ok"),
@@ -23,6 +26,9 @@ class Tr_peserta_diklat extends LWS_model {
         array("id_peserta_diklat", ""),
         array("id_diklat", ""),
         array("id_pegawai", ""),
+        array("id_jabatan", ""),
+        array("id_skpd", ""),
+        array("id_golongan", ""),
         array("nomor_peserta", ""),
         array("surat_konfirmasi_ok", ""),
         array("path_scan_surat_konfirmasi", ""),
@@ -68,44 +74,36 @@ class Tr_peserta_diklat extends LWS_model {
             ),
             "referenced" => "LEFT"
         ),
-        "tr_pegawai_golongan" => array(
-            "fkey" => "id_pegawai",
-            "table_alias" => "tpg",
-            "reference_to" => "ref_pegawai",
+        "ref_jabatan" => array(
+            "fkey" => "id_jabatan",
+            "table_alias" => "trjab",
             "columns" => array(
-                "tgl_ditetapkan",
-                "tgl_berakhir",
+                "jabatan",
             ),
-            "conditions" => array(
-                "is_active = '1'",
-                "record_active = '1'",
+            "referenced" => "LEFT"
+        ),
+        "ref_skpd" => array(
+            "fkey" => "id_skpd",
+            "columns" => array(
+                "nama_skpd",
+                "abbr_skpd",
+                "alamat_skpd",
+                "kodepos",
+                "no_telp",
+                "email",
+                "website",
             ),
             "referenced" => "LEFT"
         ),
         "ref_golongan" => array(
             "fkey" => "id_golongan",
-            "reference_to" => "tr_pegawai_golongan",
+            "table_alias" => "trgol",
             "columns" => array(
                 "kode_golongan",
                 "golongan",
-                "keterangan",
             ),
             "referenced" => "LEFT"
         ),
-//        "ref_skpd" => array(
-//            "fkey" => "id_skpd",
-//            "reference_to" => "ref_ttd",
-//            "columns" => array(
-//                "nama_skpd",
-//                "abbr_skpd",
-//                "alamat_skpd",
-//                "kodepos",
-//                "no_telp",
-//                "email",
-//                "website",
-//            ),
-//            "referenced" => "LEFT"
-//        ),
     );
     
     protected $attribute_types = array(

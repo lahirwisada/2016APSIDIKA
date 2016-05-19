@@ -121,9 +121,10 @@ class model_tr_diklat extends tr_diklat {
     
     protected function after_save($ret=FALSE){
         if($ret){
-            $this->model_tr_diklat_tahapan->save_collection($this->spt_tahapan, $ret);
-            $this->model_tr_diklat_hal_perhatian->save_collection($this->spt_hal_perhatian, $ret);
+            $this->model_tr_diklat_tahapan->save_collection($this->spt_tahapan, $this->inserted_id);
+            $this->model_tr_diklat_hal_perhatian->save_collection($this->spt_hal_perhatian, $this->inserted_id);
         }
+        
         return $ret;
     }
     
@@ -152,7 +153,7 @@ class model_tr_diklat extends tr_diklat {
     }
     
     public function get_diklat_hal_perhatian_by_id_diklat($id_diklat = FALSE) {
-        if ($id_diklat) {    
+        if ($id_diklat) {
             $tr_diklat_hal_perhatian_table_name = $this->model_tr_diklat_hal_perhatian->get_table_name();
             return $this->model_tr_diklat_hal_perhatian->get_all(array(), $tr_diklat_hal_perhatian_table_name.".id_diklat = '".$id_diklat."'",FALSE);
         }

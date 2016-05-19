@@ -72,6 +72,39 @@ class model_ref_pegawai extends ref_pegawai {
         $this->__join_tr_pegawai_skpd_ref_skpd($table_pegawai_skpd);
     }
 
+    public function check_and_insert_pegawai_when_not_found($data_pegawai = FALSE) {
+        $id_pegawai = FALSE;
+        if ($data_pegawai && is_array($data_pegawai) && array_key_exists('nip', $data_pegawai)) {
+
+            $pegawai_found = $this->get_detail($this->table_name . ".nip = '" . $data_pegawai["nip"] . "'");
+            if ($pegawai_found) {
+                $id_pegawai = $pegawai_found->id_pegawai;
+                unset($pegawai_found);
+            } else {
+                foreach (array_keys($this->attribute_labels) as $attribute_name) {
+                    if (array_key_exists($attribute_name, $data_pegawai)) {
+                        $this->{$attribute_name} = $data_pegawai[$attribute_name];
+                    }
+                }
+
+                $id_pegawai = $this->save();
+
+                if ($id_pegawai) {
+
+                    $this->load->model(array('model_tr_pegawai_golongan', 'model_tr_pegawai_skpd', 'model_tr_pegawai_skpd_jabatan'));
+                    $id_pegawai_golongan = $this->model_tr_pegawai_golongan->insert_pegawai_golongan($id_pegawai, $data_pegawai);
+
+                    $id_pegawai_skpd = $this->model_tr_pegawai_skpd->insert_pegawai_skpd($id_pegawai, $data_pegawai);
+                    $id_pegawai_skpd_jabatan = FALSE;
+                    if ($id_pegawai_skpd) {
+                        $id_pegawai_skpd_jabatan = $this->model_tr_pegawai_skpd_jabatan->insert_pegawai_skpd_jabatan($id_pegawai_skpd, $data_pegawai);
+                    }
+                }
+            }
+        }
+        return $id_pegawai;
+    }
+
     public function get_like($keyword = FALSE, $id_skpd = FALSE) {
         $result = FALSE;
         if ($keyword) {

@@ -60,6 +60,7 @@ class Cdaftar_diklat extends Cpustaka_data {
         ));
 
         $this->set("cb_jenis_diklat", $jenis_diklat);
+        $this->set("id_diklat", $id);
 
         $this->set("additional_js", array(
             "back_end/" . $this->_name . "/js/detail_js",

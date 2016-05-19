@@ -24,6 +24,18 @@ class model_ref_golongan extends ref_golongan {
                     "keterangan",
                         ), FALSE, TRUE, FALSE, 1, TRUE, $force_limit, $force_offset);
     }
+    
+    public function get_like($keyword=FALSE){
+        
+        $result = FALSE;
+        if($keyword){
+            $this->db->order_by("kode_golongan", "asc");
+            $this->db->where(" lower(".$this->table_name.".kode_golongan) LIKE lower('%".$keyword."%') OR lower(".$this->table_name.".golongan) LIKE lower('%".$keyword."%') OR lower(".$this->table_name.".keterangan) LIKE lower('%".$keyword."%')", NULL, FALSE);
+            $result = $this->get_where();
+        }
+        return $result;
+        
+    }
 }
 
 ?>

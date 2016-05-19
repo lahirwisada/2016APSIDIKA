@@ -11,6 +11,7 @@ class Cpeserta_diklat extends Cpustaka_data {
 
     public function __construct() {
         parent::__construct('kelola_peserta_diklat', 'Peserta Diklat');
+        $this->load->model('model_tr_diklat');
     }
 
     public function index($crypted_id_diklat = FALSE) {
@@ -18,14 +19,12 @@ class Cpeserta_diklat extends Cpustaka_data {
         if (!$crypted_id_diklat) {
             redirect('back_end/cdaftar_diklat');
         }
-        
-        $this->load->model('model_tr_diklat');
-        
+
         $detail_diklat = $this->model_tr_diklat->get_detail_by_crypted($crypted_id_diklat);
-        
+
         $id_diklat = $detail_diklat ? $detail_diklat->id_diklat : FALSE;
-        
-        if(!$id_diklat || !$detail_diklat){
+
+        if (!$id_diklat || !$detail_diklat) {
             redirect('back_end/cdaftar_diklat');
         }
 
@@ -38,6 +37,7 @@ class Cpeserta_diklat extends Cpustaka_data {
         $this->set("keyword", $records->keyword);
         $this->set('field_id', $this->{$this->model}->primary_key);
         $this->set("paging_set", $paging_set);
+        $this->set("detail_diklat", $detail_diklat);
 
         $this->set("additional_js", "back_end/" . $this->_name . "/js/index_js");
 
@@ -49,16 +49,41 @@ class Cpeserta_diklat extends Cpustaka_data {
         ));
     }
 
-    public function detail($id = FALSE) {
+    public function detail($crypted_id_diklat = FALSE, $id = FALSE) {
         parent::detail($id, array(
-            "kode_provinsi",
-            "nama_provinsi",
+            "nip",
+            "no_kep",
+            "gelar_depan",
+            "gelar_belakang",
+            "nama_depan",
+            "nama_tengah",
+            "nama_belakang",
+            "tempat_lahir",
+            "tgl_lahir",
+            "id_diklat",
+            "id_skpd",
+            "id_jabatan",
+            "id_golongan",
         ));
 
         $this->set("bread_crumb", array(
             "back_end/" . $this->_name => $this->_header_title,
             "#" => 'Pendaftaran ' . $this->_header_title
         ));
+
+        $detail_diklat = $this->model_tr_diklat->get_detail_by_crypted($crypted_id_diklat);
+
+        $this->set("additional_js", array(
+            "back_end/" . $this->_name . "/js/detail_js",
+            "back_end/" . $this->_name . "/js/detail_isian_js",
+        ));
+
+        $this->add_cssfiles(array("plugins/select2/select2.min.css"));
+        $this->add_jsfiles(array("plugins/select2/select2.full.min.js"));
+
+        $this->set('id_diklat', $crypted_id_diklat);
+        $this->set("detail_diklat", $detail_diklat);
+
 //        $this->add_jsfiles(array("avant/plugins/form-jasnyupload/fileinput.min.js"));
     }
 

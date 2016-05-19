@@ -29,6 +29,14 @@ class Cref_golongan extends Cpustaka_data {
         ));
 //        $this->add_jsfiles(array("avant/plugins/form-jasnyupload/fileinput.min.js"));
     }
+    
+    public function get_like() {
+        $keyword = $this->input->post("keyword");
+
+        $data_found = $this->model_ref_golongan->get_like($keyword);
+        
+        $this->to_json($data_found);
+    }
 
 }
 

@@ -1,9 +1,12 @@
+<?php
+$id_diklat = isset($id_diklat) && $id_diklat ? $id_diklat : "";
+?>
 <script type="text/javascript">
     var eventRemoveListItem = function (e) {
         e.preventDefault();
         $(this).parents('a').remove();
     };
-    
+
     var formDetailDiklat = {
         data: {
             spt_dasar: [],
@@ -28,27 +31,27 @@
             id_ref_ttd: null,
             spt_kepada: null,
         },
-        collectData: function(){
+        collectData: function () {
             var self = this;
-            
-            
+
+
             self.data.spt_dasar = [];
             /**
              * collect spt_dasar
              */
-            $(".inp-spt-dasar").each(function(){
+            $(".inp-spt-dasar").each(function () {
                 self.data.spt_dasar.push($(this).val());
             });
-            
-            
+
+
             self.data.spt_tembusan = [];
             /**
              * collect spt_tembusan
              */
-            $(".inp-spt-tembusan").each(function(){
+            $(".inp-spt-tembusan").each(function () {
                 self.data.spt_tembusan.push($(this).val());
             });
-            
+
             /**
              * collect spt_tahapan
              */
@@ -71,27 +74,27 @@
             self.data.tgl_spt = $("#txt-tgl_spt").val();
             self.data.id_ref_ttd = $("#slc-ttd").val();
             self.data.spt_kepada = $("#txt-spt_kepada").val();
-            
+
             return self.data;
         }
     };
-    
+
     $(document).ready(function () {
         $(".btn-remove-list").click(eventRemoveListItem);
-        
-        $("#frm-daftar-diklat").submit(function(e){
+
+        $("#frm-daftar-diklat").submit(function (e) {
             e.preventDefault();
-            
+
             var data = formDetailDiklat.collectData();
             $.ajax({
-                url: "<?php echo base_url('back_end/cdaftar_diklat/detail'); ?>",
+                url: "<?php echo base_url('back_end/cdaftar_diklat/detail') . "/" . $id_diklat; ?>",
                 data: data,
                 method: 'POST',
-                success: function(response, textStatus){
+                success: function (response, textStatus) {
                     window.location.href = "<?php echo base_url("back_end/cdaftar_diklat"); ?>";
                 }
             });
-            
+
             return false;
         });
     });
