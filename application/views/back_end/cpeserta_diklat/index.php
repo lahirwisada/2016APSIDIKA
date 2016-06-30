@@ -43,9 +43,14 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <a id="btn-tambah-pegawai" href="<?php echo base_url('back_end/' . $active_modul . '/detail')."/".($detail_diklat ? $detail_diklat->id_diklat_crypted : 0); ?>" class="btn btn-success btn-block">
                                     <span class="fa fa-plus"></span> Tambah baru
+                                </a>
+                            </div>
+                            <div class="col-md-2">
+                                <a id="btn-tambah-pegawai" href="<?php echo base_url('back_end/' . $active_modul . '/upload')."/".($detail_diklat ? $detail_diklat->id_diklat_crypted : 0); ?>"" class="btn btn-success btn-block">
+                                    <span class="fa fa-upload"></span> Upload Excel
                                 </a>
                             </div>
                         </div>
@@ -63,7 +68,7 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                                                 <img src="<?php echo upload_location("images/users/user_default_avatar.jpg"); ?>" alt="User"/>
                                             </div>
                                             <div class="profile-data">
-                                                <div class="profile-data-name"><?php echo $record->gelar_depan." ".beautify_str($record->nama_sambung)." ".$record->gelar_belakang; ?></div>
+                                                <div class="profile-data-name"><?php echo $record->gelar_depan." ".htmlspecialchars(beautify_str($record->nama_sambung), ENT_QUOTES)." ".$record->gelar_belakang; ?></div>
                                                 <div class="profile-data-title">NIP. <?php echo beautify_str($record->nip) ?></div>
                                             </div>
                                         </div>                                
@@ -83,7 +88,14 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                                             <div class="row">
                                                 <div class="text-center">
                                                     <div class="btn-group btn-group-sm">
+                                                        <?php
+                                                        /** 
+                                                         * akan ditambahkan berikutnya
+                                                         * @todo Tambahkan fungsi ini
                                                         <a class="btn btn-default"  href="<?php echo base_url("back_end/" . $active_modul . "/detail") . "/" . ($detail_diklat ? $detail_diklat->id_diklat_crypted : 0)."/".$record->id_pegawai; ?>">Ubah</a>
+                                                         * 
+                                                         */
+                                                        ?>
                                                         <a class="btn btn-default  btn-hapus-row"  href="javascript:void(0);" rel="<?php echo base_url("back_end/" . $active_modul . "/delete") . "/" . $record->id_pegawai; ?>">Hapus</a>                                    
                                                     </div>
                                                 </div>

@@ -29,6 +29,8 @@ $id_diklat = isset($id_diklat) && $id_diklat ? $id_diklat : "";
             no_spt_d: null,
             tgl_spt: null,
             id_ref_ttd: null,
+            id_ref_ttd_sttpp: null,
+            tgl_sttpp: null,
             spt_kepada: null,
         },
         collectData: function () {
@@ -72,7 +74,9 @@ $id_diklat = isset($id_diklat) && $id_diklat ? $id_diklat : "";
             self.data.no_spt_c = $("#txt-no_spt_c").val();
             self.data.no_spt_d = $("#txt-no_spt_d").val();
             self.data.tgl_spt = $("#txt-tgl_spt").val();
+            self.data.tgl_sttpp = $("#txt-tgl_sttpp").val();
             self.data.id_ref_ttd = $("#slc-ttd").val();
+            self.data.id_ref_ttd_sttpp = $("#slc-ttd_sttpp").val();
             self.data.spt_kepada = $("#txt-spt_kepada").val();
 
             return self.data;

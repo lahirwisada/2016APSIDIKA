@@ -27,6 +27,8 @@ class model_tr_diklat extends tr_diklat {
         array("spt_dasar", ""),
         array("spt_kepada", ""),
         array("id_ref_ttd", ""),
+        array("tgl_sttpp", ""),
+        array("id_ref_ttd_sttpp", ""),
     );
 
     public function __construct() {
@@ -42,6 +44,7 @@ class model_tr_diklat extends tr_diklat {
         $post_check = array(
             "spt_dasar",
             "spt_tembusan",
+            "spt_hal_perhatian",
         );
 
         foreach ($post_check as $post_key) {
@@ -49,7 +52,7 @@ class model_tr_diklat extends tr_diklat {
             if (!$posted_data) {
                 $_POST[$post_key] = NULL;
             } else {
-                $_POST[$post_key] = to_pg_array($_POST[$post_key]);
+                $_POST[$post_key] = to_pg_array($this->input->post($post_key));
             }
         }
     }
@@ -58,6 +61,7 @@ class model_tr_diklat extends tr_diklat {
         $post_check = array(
             "id_kabupaten_kota",
             "id_ref_ttd",
+            "id_ref_ttd_sttpp",
         );
 
         foreach ($post_check as $post_key) {
@@ -74,6 +78,7 @@ class model_tr_diklat extends tr_diklat {
             "tgl_pelaksanaan",
             "tgl_selesai",
             "tgl_spt",
+            "tgl_sttpp",
         );
 
         foreach ($post_null_check as $null_post) {
@@ -104,6 +109,7 @@ class model_tr_diklat extends tr_diklat {
         $post_numeric_check = array(
             "id_kabupaten_kota",
             "id_ref_ttd",
+            "id_ref_ttd_sttpp",
         );
 
         foreach ($post_numeric_check as $numeric_post) {
@@ -136,12 +142,26 @@ class model_tr_diklat extends tr_diklat {
         return $data;
     }
     
+    private function __remove_null_data($data = FALSE){
+        
+        if($data){
+            foreach($data as $key => $val){
+                if($val == NULL || $val == 'NULL'){
+                    unset($data[$key]);
+                }
+            }
+        }
+        return $data;
+    }
+    
     protected function before_data_update($update_data = FALSE){
-        return $this->__remove_non_column_data($update_data);
+        $update_data = $this->__remove_non_column_data($update_data);
+        return $this->__remove_null_data($update_data);
     }
     
     protected function before_data_insert($insert_data = FALSE){
-        return $this->__remove_non_column_data($insert_data);
+        $insert_data = $this->__remove_non_column_data($insert_data);
+        return $this->__remove_null_data($insert_data);
     }
 
     public function get_tahapan_diklat_by_id_diklat($id_diklat = FALSE) {

@@ -38,6 +38,8 @@ class Tr_diklat extends LWS_model {
         "spt_kepada" => array("spt_kepada", "SPT Kepada"),
         "id_ref_ttd" => array("id_ref_ttd", "Penandatangan SPT"),
         "id_diklat_crypted" => array("id_diklat_crypted", "Id Diklat Crypted"),
+        "tgl_sttpp" => array("tgl_sttpp", "tgl sttpp"),
+        "id_ref_ttd_sttpp" => array("id_ref_ttd_sttpp", "Penandatangan STTPP"),
     );
     
     protected $rules = array(
@@ -67,6 +69,8 @@ class Tr_diklat extends LWS_model {
         array("spt_kepada", ""),
         array("id_ref_ttd", ""),
         array("id_diklat_crypted", ""),
+        array("tgl_sttpp", ""),
+        array("id_ref_ttd_sttpp", ""),
     );
     
     protected $related_tables = array(
@@ -104,6 +108,30 @@ class Tr_diklat extends LWS_model {
             ),
             "referenced" => "LEFT"
         ),
+        "rts" => array(
+            "table_name"=>"ref_ttd",
+            "fkey" => array("id_ref_ttd_sttpp", "id_ref_ttd"),
+            "table_alias" => "rts",
+            "columns" => array(
+                array("jabatan_ttd", "jabatan_ttd_sttpp"),
+                array("uraian_atas_ttd", "uraian_atas_ttd_sttpp"),
+                array("uraian_bawah_ttd", "uraian_bawah_ttd_sttpp"),
+            ),
+            "referenced" => "LEFT"
+        ),
+        "rps" => array(
+            "table_name"=>"ref_pegawai",
+            "fkey" => "id_pegawai",
+            "reference_to" => "rts",
+            "table_alias" => "rps",
+            "columns" => array(
+                array("gelar_depan","gelar_depan_ttd_sttpp"),
+                array("gelar_belakang", "gelar_belakang_sttpp"),
+                array("nama_sambung", "nama_sambung_sttpp"),
+                array("nip", "nip_sttpp"),
+            ),
+            "referenced" => "LEFT"
+        ),
         "ref_pegawai" => array(
             "fkey" => "id_pegawai",
             "reference_to" => "ref_ttd",
@@ -114,12 +142,7 @@ class Tr_diklat extends LWS_model {
                 "nama_tengah",
                 "nama_belakang",
                 "nama_sambung",
-                "tgl_lahir",
-                "tempat_lahir",
                 "nip",
-                "no_kep",
-                "tmt_peg",
-                "foto_profil",
             ),
             "referenced" => "LEFT"
         ),
@@ -167,6 +190,7 @@ class Tr_diklat extends LWS_model {
         "tgl_spt" => "DATE",
         "tgl_pelaksanaan" => "DATE",
         "tgl_selesai" => "DATE",
+        "tgl_sttpp" => "DATE",
         "total_jam" => "NUMERIC",
     );
 

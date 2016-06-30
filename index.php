@@ -7,7 +7,8 @@ define('ASSET_UPLOAD', dirname(__FILE__));
  */
 define('ONCPANEL', FALSE);
 
-define('APPPATH', dirname(__FILE__) . DIRECTORY_SEPARATOR . "application" . DIRECTORY_SEPARATOR);
+define('APPROOT', dirname(__FILE__) . DIRECTORY_SEPARATOR);
+define('APPPATH', APPROOT . "application" . DIRECTORY_SEPARATOR);
 require_once 'E:/www/lwscodeigniterwrapper/autoload.php';
 
 /* End of file index.php */

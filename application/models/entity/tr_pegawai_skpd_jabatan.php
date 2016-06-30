@@ -17,6 +17,8 @@ class Tr_pegawai_skpd_jabatan extends LWS_model {
         "id_jabatan" => array("id_jabatan", "Id Jabatan"),
         "id_eselon" => array("id_eselon", "Id Eselon"),
         "tmt_eselon" => array("tmt_eselon", "TMT Eselon"),
+        "masa_kerja_jabatan_bulan" => array("masa_kerja_jabatan_bulan", "Masa Kerja Jabatan Bulan"),
+        "masa_kerja_jabatan_tahun" => array("masa_kerja_jabatan_tahun", "Masa Kerja Jabatan Tahun"),
         "is_active" => array("is_active", "SKPD Saat ini"), // Menandakan bahwa SKPD ini adalah golongan saat ini
         "created_date" => array("created_date", ""),
         "created_by" => array("created_by", ""),

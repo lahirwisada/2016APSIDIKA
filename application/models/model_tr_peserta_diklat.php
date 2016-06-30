@@ -17,6 +17,27 @@ class model_tr_peserta_diklat extends Tr_peserta_diklat {
         array("surat_konfirmasi_ok", "numeric"),
         array("path_scan_surat_konfirmasi", ""),
     );
+    public $upload_rule = array(
+        "upload_path" => "",
+        "allowed_types" => "xlsx|xls"
+    );
+    public $col_map = array(
+        "B" => "gelar_depan",
+        "C" => "nama_depan",
+        "D" => "nama_tengah",
+        "E" => "nama_belakang",
+        "F" => "gelar_belakang",
+        "G" => "nip",
+        "H" => "tgl_lahir",
+        "I" => "jabatan",
+        "J" => "tmt_eselon",
+        "K" => "nama_skpd",
+        "L" => "golongan",
+        "M" => "masa_kerja_jabatan_tahun",
+        "N" => "masa_kerja_jabatan_bulan",
+        "O" => "kode_eselon",
+        "P" => "kode_tingkat_pendidikan",
+    );
 
     public function __construct() {
         parent::__construct();
@@ -86,7 +107,7 @@ class model_tr_peserta_diklat extends Tr_peserta_diklat {
         $this->load->model('model_ref_pegawai');
 //        var_dump($insert_data);exit;
         $insert_data['nama_sambung'] = $this->__produce_nama_sambung($insert_data["nama_depan"], $insert_data["nama_tengah"], $insert_data["nama_belakang"]);
-        
+        $insert_data['nip'] = $this->clean_nip($insert_data['nip']);
         $id_pegawai = $this->model_ref_pegawai->check_and_insert_pegawai_when_not_found($insert_data);
         $insert_data['id_pegawai'] = $id_pegawai;
 
@@ -95,6 +116,11 @@ class model_tr_peserta_diklat extends Tr_peserta_diklat {
 
     protected function before_get_data_post() {
         
+    }
+    
+    public function all_without_paging($id_diklat = FALSE){
+        $this->db->where($this->table_name . ".id_diklat = '" . $id_diklat . "'");
+        return parent::get_all(array(), FALSE, FALSE, TRUE, 1, TRUE);
     }
 
     public function all($id_diklat = FALSE, $force_limit = FALSE, $force_offset = FALSE) {
@@ -128,6 +154,107 @@ class model_tr_peserta_diklat extends Tr_peserta_diklat {
                     "golongan",
                     "keterangan",
                         ), FALSE, TRUE, FALSE, 1, TRUE, $force_limit, $force_offset);
+    }
+
+    /**
+     * lihat upload_data untuk mengetahui nilai balik fungsi upload_data
+     * @param type $username
+     * @param type $upload_type
+     * @param type $detail_application
+     * @param type $input_name
+     * @return boolean
+     */
+    private function _upload_file($id_diklat = FALSE, $upload_type = FALSE, $detail_application = FALSE, $input_name = FALSE) {
+        $file_posted_ok = FALSE;
+        $response = array(
+            "success_upload" => FALSE,
+            "upload_data_response" => FALSE,
+            "message" => "Upload gagal dilakukan.",
+            "file_uploaded" => "",
+        );
+        if ($id_diklat && $input_name &&
+                $detail_application && $upload_type !== FALSE &&
+                is_array($this->upload_rule) && !empty($this->upload_rule)) {
+            $upload_location = get_upload_location("diklat/" . $id_diklat);
+//            var_dump($upload_location);exit;
+            if ($upload_location) {
+                $cfg = $this->upload_rule;
+                $cfg["upload_path"] = $upload_location;
+                $cfg["ignore_mime_check"] = TRUE;
+                $response["upload_data_response"] = upload_data($input_name, $cfg, $id_diklat, TRUE);
+                $response["message"] = $response["upload_data_response"]["message"];
+                $response["success_upload"] = !$response["upload_data_response"]["uploadfailed"];
+                if (!$response["upload_data_response"]["uploadfailed"]) {
+                    $response["file_uploaded"] = $upload_location . "/" . $response["upload_data_response"]["file_name_uploaded"];
+                }
+            } else {
+                $response["message"].="<br />Lokasi tidak dikenali.";
+            }
+        }
+        return $response;
+    }
+
+    public function upload_file($id_diklat = FALSE, $upload_type = FALSE, $detail_application = FALSE, $input_name = FALSE) {
+        $response = FALSE;
+        if ($id_diklat && $input_name && $detail_application && $upload_type !== FALSE) {
+            $response = array();
+            if (is_array($input_name)) {
+                foreach ($input_name as $_input_name) {
+                    $response[] = $this->_upload_file($id_diklat, $upload_type, $detail_application, $_input_name);
+                }
+            } else {
+                $response[] = $this->_upload_file($id_diklat, $upload_type, $detail_application, $input_name);
+            }
+        }
+        return $response;
+    }
+    
+    public function clean_nip($nip){
+        return str_replace(".", "", str_replace(" ", "", $nip));
+    }
+
+    public function save_from_excel($id_diklat, $record_found, $timpa = FALSE) {
+        $this->load->model(array('model_ref_golongan', 'model_ref_jabatan', 'model_ref_skpd'));
+        
+        if($timpa){
+            $this->remove_by_foreign_key($id_diklat, "id_diklat");
+        }
+
+        foreach ($record_found as $key => $record) {
+            $this->nip = $record["nip"];
+            $this->gelar_depan = $record["gelar_depan"];
+            $this->gelar_belakang = $record["gelar_belakang"];
+            $this->nama_depan = $record["nama_depan"];
+            $this->nama_tengah = $record["nama_tengah"];
+            $this->nama_belakang = $record["nama_belakang"];
+            
+            $detail_golongan = $this->model_ref_golongan->get_detail("lower(golongan) = lower('".trim($this->clean_golongan($record["golongan"]))."')");
+            $this->id_golongan = NULL;
+            if($detail_golongan){
+                $this->id_golongan = $detail_golongan->id_golongan;
+            }
+            
+            $detail_jabatan = $this->model_ref_jabatan->get_detail("lower(jabatan) = lower('".trim($record["jabatan"])."')");
+            $this->id_jabatan = NULL;
+            if($detail_jabatan){
+                $this->id_jabatan = $detail_jabatan->id_jabatan;
+            }
+            
+            $detail_skpd = $this->model_ref_skpd->get_detail("lower(nama_skpd) = lower('".trim($record["nama_skpd"])."')");
+            $this->id_skpd = NULL;
+            if($detail_skpd){
+                $this->id_skpd = $detail_skpd->id_skpd;
+            }
+            $this->id_diklat = $id_diklat;
+            unset($detail_golongan, $detail_jabatan, $detail_skpd);
+            
+            $this->save();
+        }
+        return 1;
+    }
+    
+    public function clean_golongan($gol){
+        return str_replace(")","",str_replace("(", "", $gol));
     }
 
 }

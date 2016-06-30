@@ -48,6 +48,7 @@ class Cpustaka_data extends Back_end {
     }
 
     protected function detail($id = FALSE, $posted_data = array()) {
+//        var_dump(array_diff(array_keys($_POST), $posted_data), $this->{$this->model}->get_data_post(FALSE, $posted_data), $this->{$this->model}->is_valid(), $this->{$this->model});exit;
         if ($this->{$this->model}->get_data_post(FALSE, $posted_data)) {
             if ($this->{$this->model}->is_valid()) {
 

@@ -100,6 +100,7 @@ class Tr_peserta_diklat extends LWS_model {
             "table_alias" => "trgol",
             "columns" => array(
                 "kode_golongan",
+                array("keterangan", "keterangan_golongan"),
                 "golongan",
             ),
             "referenced" => "LEFT"

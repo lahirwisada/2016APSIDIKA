@@ -1,5 +1,6 @@
 <?php
 $id_diklat = isset($id_diklat) && $id_diklat ? $id_diklat : ""; 
+$detail_diklat = isset($detail_diklat) ? $detail_diklat : FALSE;
 ?>
 
 <script type="text/javascript">
@@ -53,7 +54,7 @@ $id_diklat = isset($id_diklat) && $id_diklat ? $id_diklat : "";
                 data: data,
                 method: 'POST',
                 success: function(response, textStatus){
-//                    window.location.href = "<?php echo base_url("back_end/cpeserta_diklat/index")."/".$id_diklat; ?>";
+                    window.location.href = "<?php echo base_url("back_end/cpeserta_diklat/index")."/".($detail_diklat ? $detail_diklat->id_diklat_crypted : 0); ?>";
                 }
             });
             

@@ -25,6 +25,7 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
                         <li><a href="#dasar-spt" data-toggle="tab">Dasar SPT</a></li>
                         <li><a href="#tembusan-spt" data-toggle="tab">Tembusan SPT</a></li>
                         <li><a href="#hal-perhatian-spt" data-toggle="tab">Hal Perhatian</a></li>
+                        <li><a href="#sttpp" data-toggle="tab">Konfigurasi STTPP</a></li>
                     </ul>
 
                     <div class="panel-body tab-content">
@@ -45,6 +46,9 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
                         </div>
                         <div class="tab-pane" id="hal-perhatian-spt">
                             <?php echo load_partial('back_end/cdaftar_diklat/detail_hal_perhatian_spt'); ?>
+                        </div>
+                        <div class="tab-pane" id="sttpp">
+                            <?php echo load_partial('back_end/cdaftar_diklat/detail_konfigurasi_sttpp'); ?>
                         </div>
                     </div>
                 </div>

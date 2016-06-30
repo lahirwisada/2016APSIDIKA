@@ -523,6 +523,94 @@ function isFunction(functionToCheck) {
     return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
 }
 
+function isDefined(obj) {
+    return typeof obj !== 'undefined';
+}
+
+function isArray(obj) {
+    return (Object.prototype.toString.call(obj) === '[object Array]');
+}
+
+function isString(Obj) {
+    return typeof Obj == 'string';
+}
+
+String.prototype.lwEscape = function () {
+    return this.replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+}
+
+var cleanValue = function (v) {
+    if (typeof v !== 'undefined') {
+        try {
+            if (isString(v)) {
+                return v.lwEscape();
+            }
+            return v;
+        } catch (err) {
+//            console.log(err);
+//            console.log('the value is');
+//            console.log(v);
+            return v;
+        }
+    }
+    return v;
+}
+
+var listHasValue = function (listClassName) {
+
+    if (typeof listClassName !== 'undefined') {
+
+        var count = 0;
+        $("." + listClassName).each(function (index) {
+            count++;
+        });
+
+        if (count > 0) {
+            return true;
+        }
+    }
+    return false;
+
+};
+
+var isObject = function (obj) {
+    return (typeof obj === "object") && (obj !== null);
+};
+
+var isValidLahirWisadaSantoso = function (rowcellValid, rowcellErrorClass) {
+
+    if (typeof rowcellValid == 'undefined' || typeof rowcellErrorClass == 'undefined') {
+        return false;
+    }
+
+    if ($.isArray(rowcellValid)) {
+        var valid = true;
+        $.each(rowcellValid, function (indexRowcellValid, classRowCellValid) {
+            valid = isValidLahirWisadaSantoso(classRowCellValid, rowcellErrorClass[indexRowcellValid]);
+        });
+        return valid;
+    }
+
+    var valid = true;
+    if (!listHasValue(rowcellValid)) {
+        $("." + rowcellErrorClass).show();
+        valid = false;
+    } else {
+        $("." + rowcellErrorClass).hide();
+    }
+    return valid;
+}
+
+function objectToArray(Obj) {
+    if (typeof Obj === '[object Object]') {
+        return $.map(Obj, function (value, index) {
+            return [value];
+        });
+    }
+
+    return Obj;
+}
+
 function permute(input, permArr, usedChars) {
     var i, ch;
     for (i = 0; i < input.length; i++) {
@@ -562,6 +650,13 @@ function setCheck(id) {
 
 function remCheck(id) {
     $("#" + id).removeAttr("checked");
+}
+
+function isObjectAttributeExists(Obj, attributeName) {
+    if (isDefined(Obj) && isDefined(attributeName) && isString(attributeName)) {
+        return Obj.hasOwnProperty(attributeName);
+    }
+    return false;
 }
 
 $(document).ready(function () {

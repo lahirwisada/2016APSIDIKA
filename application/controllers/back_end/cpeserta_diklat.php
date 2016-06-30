@@ -87,6 +87,115 @@ class Cpeserta_diklat extends Cpustaka_data {
 //        $this->add_jsfiles(array("avant/plugins/form-jasnyupload/fileinput.min.js"));
     }
 
+    /**
+     * return CODE
+     * 1: success
+     * 2: wrong template
+     * 3: excel file empty
+     */
+    private function read_and_save_excel_content($id_diklat, $file_info, $timpa) {
+        $this->load->library('Excel');
+
+        $this->excel->load($file_info, TRUE);
+
+        $active_sheet = $this->excel->get_active_sheet();
+//        var_dump($active_sheet->getHighestRow(), $active_sheet->calculateWorksheetDimension(), $active_sheet->getCell('D7')->getValue());
+
+        $last_row = $active_sheet->getHighestRow();
+        $start_row = 6;
+        $known_no_column = $active_sheet->getCell('A4')->getValue();
+        $known_nip_column = $active_sheet->getCell('G4')->getValue();
+        $known_null_column = $active_sheet->getCell('G5')->getValue();
+
+        if (!(strtolower($known_no_column) == 'no' && strtolower($known_nip_column) == 'nip' && $known_null_column === NULL)) {
+            /**
+             * WRONG TEMPLATE
+             */
+            return 2;
+        }
+
+        /**
+         * baca kolom A-P menggunakan ascii
+         */
+        $record_found = array();
+        $col_map = $this->model_tr_peserta_diklat->col_map;
+        
+        $slash_index = array(66,67,68,69,72,73);
+        for ($y = $start_row; $y <= $last_row; $y++) {
+            $row = array();
+            for ($x = 66; $x <= 80; $x++) {
+                $col_alphabet = chr($x);
+                $cell_index = $col_alphabet . $y;
+                $row[$col_map[$col_alphabet]] = $active_sheet->getCell($cell_index)->getValue();
+                if(in_array($x, $slash_index)){
+                    $row[$col_map[$col_alphabet]] = pg_escape_string($row[$col_map[$col_alphabet]]);
+                }
+            }
+            if (!empty($row)) {
+                $record_found[] = $row;
+            }
+        }
+        unset($col_map);
+        
+        if(!empty($record_found)){
+            $this->model_tr_peserta_diklat->save_from_excel($id_diklat, $record_found, $timpa);
+            return 1;
+        }
+        return 3;
+        
+    }
+
+    public function upload($crypted_id_diklat = FALSE) {
+
+        $detail_diklat = $this->model_tr_diklat->get_detail_by_crypted($crypted_id_diklat);
+
+//        var_dump($_FILES);exit;
+
+        if ($detail_diklat) {
+            /**
+             * Upload Aplikasi
+             */
+            if (array_key_exists("berkas_peserta_diklat", $_FILES)) {
+//                $this->model_tr_peserta_diklat->upload_rule = $this->model_tr_aplikasi->application_upload_rule;
+                $application_uploaded = $this->model_tr_peserta_diklat->upload_file($detail_diklat->id_diklat, "berkas_peserta_diklat", $detail_diklat, "berkas_peserta_diklat");
+
+                if ($application_uploaded && is_array($application_uploaded) && !empty($application_uploaded)) {
+                    $application_uploaded = current($application_uploaded);
+//                var_dump($this->model_tr_aplikasi->attributes);exit;
+                    if ($application_uploaded["success_upload"]) {
+
+                        $timpa_daftar_peserta_lama = $this->input->post('timpa_daftar_peserta_lama');
+
+                        $response = $this->read_and_save_excel_content($detail_diklat->id_diklat, $application_uploaded['upload_data_response']['file_info'], $timpa_daftar_peserta_lama);
+                    }
+                    $this->attention_messages .= $application_uploaded["message"];
+                }
+                unset($application_uploaded);
+            }
+        }
+
+        $this->set("additional_js", array(
+            "back_end/" . $this->_name . "/js/upload_js",
+        ));
+
+        $this->add_jsfiles(array(
+            "plugins/lws_excelreader/workbook/jszip.js",
+            "plugins/lws_excelreader/workbook/cpexcel.js",
+            "plugins/lws_excelreader/workbook/xlsx.core.min.js",
+            "plugins/lws_excelreader/workbook/ods.js",
+            "plugins/lws_excelreader/lws_excelreader.js",
+        ));
+
+
+        $this->set('id_diklat', $crypted_id_diklat);
+        $this->set("detail_diklat", $detail_diklat);
+
+        $this->set("bread_crumb", array(
+            "back_end/" . $this->_name => $this->_header_title,
+            "#" => 'Pendaftaran ' . $this->_header_title . ' (Upload Excel)'
+        ));
+    }
+
     public function get_like() {
         $keyword = $this->input->post("keyword");
 

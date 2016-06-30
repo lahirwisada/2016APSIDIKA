@@ -94,16 +94,26 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                                                         <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">Peserta Diklat <span class="caret"></span></a>
                                                         <ul class="dropdown-menu" role="menu">
                                                             <li>
-                                                                <a class="btn-lihat-peserta" href="<?php echo base_url('back_end/cpeserta_diklat/index')."/".$record->id_diklat_crypted; ?>" id="btn-lihat-peserta-<?php echo $record->id_diklat_crypted; ?>"><small>Lihat Daftar</small></a>
+                                                                <a class="btn-lihat-peserta" href="<?php echo base_url('back_end/cpeserta_diklat/index') . "/" . $record->id_diklat_crypted; ?>" id="btn-lihat-peserta-<?php echo $record->id_diklat_crypted; ?>"><small>Lihat Daftar</small></a>
                                                             </li>
                                                             <li>
-                                                                <a class="btn-upload-peserta" href="javascript:void(0);" id="btn-upload-peserta-<?php echo $record->id_diklat_crypted; ?>"><small>Upload</small></a>
+                                                                <a class="btn-upload-peserta" href="<?php echo base_url('back_end/cpeserta_diklat/upload') . "/" . $record->id_diklat_crypted; ?>" id="btn-upload-peserta-<?php echo $record->id_diklat_crypted; ?>"><small>Upload</small></a>
                                                             </li>
                                                         </ul>
                                                     </div>
                                                     <br />
-
-                                                    <a class="btn btn-default btn-sm btn-unduh-spt" href="<?php echo base_url("back_end/" . $active_modul . "/cetak_spt") . "/" . $record->id_diklat; ?>" id="btn-unduh-spt-<?php echo $record->id_diklat ?>">Unduh SPT</a>
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">Administrasi <span class="caret"></span></a>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li>
+                                                                <a class="btn btn-default btn-sm btn-unduh-spt" href="<?php echo base_url("back_end/" . $active_modul . "/cetak_sttpp") . "/" . $record->id_diklat; ?>" id="btn-unduh-sttpp-<?php echo $record->id_diklat ?>">Unduh STTPP</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="btn btn-default btn-sm btn-unduh-spt" href="<?php echo base_url("back_end/" . $active_modul . "/cetak_spt") . "/" . $record->id_diklat; ?>" id="btn-unduh-spt-<?php echo $record->id_diklat ?>">Unduh SPT</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    
                                                 </td>
                                             </tr>
                                             <tr>

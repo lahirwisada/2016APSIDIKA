@@ -126,7 +126,7 @@ $id_diklat = isset($id_diklat) ? $id_diklat : 0;
                 </div>
                 <div class="panel-footer">
                     <button type="submit" class="btn-primary btn pull-right">Submit</button>
-                    <a href="<?php echo base_url("back_end/" . $active_modul . "/index"); ?>" class="btn-default btn">Batal / Kembali</a>
+                    <a href="<?php echo base_url("back_end/" . $active_modul . "/index")."/".($detail_diklat ? $detail_diklat->id_diklat_crypted : 0); ?>" class="btn-default btn">Batal / Kembali</a>
                 </div>
             </div>
         </form>
