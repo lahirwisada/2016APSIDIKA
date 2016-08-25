@@ -45,7 +45,7 @@ class model_ref_pegawai extends ref_pegawai {
     }
 
     /**
-     * don't use this, you should use __join_tr_pegawai_active_skpd
+     * don't use this function, you should use __join_tr_pegawai_active_skpd
      * 
      * @author Lahir Wisada <lahirwisada@gmail.com>
      * @see __join_tr_pegawai_active_skpd()
