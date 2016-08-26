@@ -8,7 +8,7 @@ class Main extends LWS_Controller {
     public function __construct() {
         parent::__construct();
     }
-    
+
 //    public function access_rules() {
 //        return parent::access_rules(array(
 //            array(
@@ -23,24 +23,22 @@ class Main extends LWS_Controller {
 //            )
 //        ));
 //    }
-    
-    public function index(){
+
+    public function index() {
         show_404();
     }
 
     protected function get_user_detail_from_session() {
         return $this->lmanuser->get("user_detail", $this->my_side);
     }
-    
+
 //    public function back_end(){
 //        redirect("back_end/msaplikasi");
 //    }
-    
 //    public function very_public(){
 //        echo "hi there!";
 //        exit;
 //    }
-
 }
 
 ?>

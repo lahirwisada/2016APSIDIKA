@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         
-        $("#btn-tambah-pegawai").click(function () {
+        $(".clsHapusPegawai").click(function () {
             var url = $(this).attr('rel');
 
             modalConfirm({

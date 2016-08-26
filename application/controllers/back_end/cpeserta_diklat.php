@@ -15,7 +15,7 @@ class Cpeserta_diklat extends Cpustaka_data {
     }
 
     public function index($crypted_id_diklat = FALSE) {
-
+        
         if (!$crypted_id_diklat) {
             redirect('back_end/cdaftar_diklat');
         }

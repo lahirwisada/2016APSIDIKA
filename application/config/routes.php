@@ -44,6 +44,7 @@ $route['back_end'] = "back_end/home";
 
 $route['back_bone/user'] = "back_bone/member";
 $route['back_bone/login'] = "back_bone/member/login";
+$route['back_bone/logout'] = "back_bone/member/logout";
 $route['back_bone/user/(.*)'] = "back_bone/member/$1";
 
 $route['(\w{2})/(.*)'] = '$2';

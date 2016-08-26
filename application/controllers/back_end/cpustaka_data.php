@@ -69,7 +69,7 @@ class Cpustaka_data extends Back_end {
         }
 
         $detail = $this->{$this->model}->show_detail($id);
-
+//        var_dump($this->db->last_query(), $detail);exit;
         $this->set("detail", $detail);
         
 //        $this->set("bread_crumb", array(

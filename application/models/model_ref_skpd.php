@@ -20,12 +20,18 @@ class model_ref_skpd extends ref_skpd {
     public function __construct() {
         parent::__construct();
     }
+    
+    protected function after_get_data_post() {
+        if(!is_numeric($this->col_order) || $this->col_order = ""){
+            $this->col_order = 0;
+        }
+    }
 
     public function all($force_limit = FALSE, $force_offset = FALSE) {
         $this->db->order_by("col_order", "asc");
         return parent::get_all(array(
                     "nama_skpd",
-                    "col_order",
+//                    "col_order",
                     "abbr_skpd",
                     "alamat_skpd",
                     "kodepos",

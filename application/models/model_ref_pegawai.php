@@ -7,14 +7,14 @@ if (!defined("BASEPATH")) {
 class model_ref_pegawai extends ref_pegawai {
 
     protected $rules = array(
-        array("id_pegawai_skpd", ""),
+        array("id_pegawai", ""),
         array("id_status_perkawinan", ""),
         array("gelar_depan", "max_length[20]|alpha_dash"),
         array("gelar_belakang", "max_length[100]|alpha_dash"),
         array("nama_depan", "required|max_length[60]|alpha_dash"),
         array("nama_tengah", "max_length[60]|alpha_dash"),
         array("nama_belakang", "max_length[60]|alpha_dash"),
-        array("nama_sambung", "required|min_length[2]|max_length[200]|alpha_dash"),
+        array("nama_sambung", "min_length[2]|max_length[200]|alpha_dash"),
         array("tgl_lahir", ""),
         array("tempat_lahir", "max_length[200]"),
         array("nip", "max_length[60]"),
@@ -72,6 +72,19 @@ class model_ref_pegawai extends ref_pegawai {
         $this->__join_tr_pegawai_skpd_ref_skpd($table_pegawai_skpd);
     }
 
+    private function __remove_non_column_data($data = FALSE) {
+        return remove_non_column_data($data, array(
+            "id_skpd",
+            "id_jabatan",
+            "id_golongan",
+        ));
+    }
+
+    protected function before_data_insert($insert_data = FALSE) {
+        $insert_data['nama_sambung'] = produce_nama_sambung($insert_data["nama_depan"], $insert_data["nama_tengah"], $insert_data["nama_belakang"]);
+        return $this->__remove_non_column_data($insert_data);
+    }
+
     public function check_and_insert_pegawai_when_not_found($data_pegawai = FALSE) {
         $id_pegawai = FALSE;
         if ($data_pegawai && is_array($data_pegawai) && array_key_exists('nip', $data_pegawai)) {
@@ -91,18 +104,21 @@ class model_ref_pegawai extends ref_pegawai {
 
                 if ($id_pegawai) {
 
-                    $this->load->model(array('model_tr_pegawai_golongan', 'model_tr_pegawai_skpd', 'model_tr_pegawai_skpd_jabatan'));
-                    $id_pegawai_golongan = $this->model_tr_pegawai_golongan->insert_pegawai_golongan($id_pegawai, $data_pegawai);
-
-                    $id_pegawai_skpd = $this->model_tr_pegawai_skpd->insert_pegawai_skpd($id_pegawai, $data_pegawai);
-                    $id_pegawai_skpd_jabatan = FALSE;
-                    if ($id_pegawai_skpd) {
-                        $id_pegawai_skpd_jabatan = $this->model_tr_pegawai_skpd_jabatan->insert_pegawai_skpd_jabatan($id_pegawai_skpd, $data_pegawai);
-                    }
+                    $this->__insert_to_related_table($id_pegawai, $data_pegawai);
                 }
             }
         }
         return $id_pegawai;
+    }
+
+    private function __insert_to_related_table($id_pegawai, $data_pegawai) {
+        $this->load->model(array('model_tr_pegawai_golongan', 'model_tr_pegawai_skpd', 'model_tr_pegawai_skpd_jabatan'));
+        $id_pegawai_golongan = $this->model_tr_pegawai_golongan->insert_pegawai_golongan($id_pegawai, $data_pegawai);
+        $id_pegawai_skpd = $this->model_tr_pegawai_skpd->insert_pegawai_skpd($id_pegawai, $data_pegawai);
+        $id_pegawai_skpd_jabatan = FALSE;
+        if ($id_pegawai_skpd) {
+            $id_pegawai_skpd_jabatan = $this->model_tr_pegawai_skpd_jabatan->insert_pegawai_skpd_jabatan($id_pegawai_skpd, $data_pegawai);
+        }
     }
 
     public function get_like($keyword = FALSE, $id_skpd = FALSE) {
@@ -124,6 +140,15 @@ class model_ref_pegawai extends ref_pegawai {
             $result = $this->get_where();
         }
         return $result;
+    }
+
+    protected function after_save($inserted_id_pegawai) {
+        $this->__insert_to_related_table($inserted_id_pegawai, $this->attributes);
+        return;
+    }
+
+    protected function after_get_data_post() {
+        $this->id_status_perkawinan = !$this->id_status_perkawinan || is_null($this->id_status_perkawinan) ? 1 : $this->id_status_perkawinan;
     }
 
 }

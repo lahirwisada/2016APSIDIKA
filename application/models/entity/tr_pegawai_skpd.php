@@ -11,9 +11,13 @@ class Tr_pegawai_skpd extends LWS_model {
         $this->primary_key = "id_pegawai_skpd";
     }
 
+    /**
+     * id_jabatan sudah tidak dipakai lagi
+     * @var type 
+     */
     protected $attribute_labels = array(
         "id_pegawai_skpd" => array("id_pegawai_skpd", "Id Pegawai SKPD"),
-        "id_skpd " => array("id_skpd", "Id SKPD"),
+        "id_skpd" => array("id_skpd", "Id SKPD"),
 //        "id_jabatan" => array("id_jabatan", "Id Jabatan"),
         "id_pegawai" => array("id_pegawai", "Id Pegawai"), 
         "tgl_mulai" => array("tgl_mulai", "Tgl Mulai"), // Mencatat Tanggal mulai pegawai pada skpd ini

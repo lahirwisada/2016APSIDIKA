@@ -103,9 +103,7 @@ class model_tr_peserta_diklat extends Tr_peserta_diklat {
     }
 
     protected function before_data_insert($insert_data = FALSE) {
-//        echo "masuk sini";exit;
         $this->load->model('model_ref_pegawai');
-//        var_dump($insert_data);exit;
         $insert_data['nama_sambung'] = $this->__produce_nama_sambung($insert_data["nama_depan"], $insert_data["nama_tengah"], $insert_data["nama_belakang"]);
         $insert_data['nip'] = $this->clean_nip($insert_data['nip']);
         $id_pegawai = $this->model_ref_pegawai->check_and_insert_pegawai_when_not_found($insert_data);

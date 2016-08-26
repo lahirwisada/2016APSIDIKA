@@ -1,5 +1,10 @@
 <?php
+
+/**
+ * used by this module and cref_pegawai
+ */
 $detail = isset($detail) ? $detail : FALSE;
+
 ?>
 <script>
 
@@ -160,7 +165,7 @@ $detail = isset($detail) ? $detail : FALSE;
         ];
 <?php endif; ?>
 <?php */ ?>
-<?php if ($detail && $detail->id_skpd != ""): ?>
+<?php if ($detail && !is_null($detail->id_skpd) && $detail->id_skpd != ""): ?>
         slc_skpd_cfg.data = [
             {
                 id: '<?php echo $detail->id_skpd ?>',
@@ -169,7 +174,7 @@ $detail = isset($detail) ? $detail : FALSE;
         ];
 <?php endif; ?>
 
-<?php if ($detail && $detail->id_jabatan != ""): ?>
+<?php if ($detail && !is_null($detail->id_jabatan) && $detail->id_jabatan != ""): ?>
         slc_jabatan_cfg.data = [
             {
                 id: '<?php echo $detail->id_jabatan ?>',
@@ -178,7 +183,7 @@ $detail = isset($detail) ? $detail : FALSE;
         ];
 <?php endif; ?>
 
-<?php if ($detail && $detail->id_golongan != ""): ?>
+<?php if ($detail && !is_null($detail->id_golongan) && $detail->id_golongan != ""): ?>
         slc_golongan_cfg.data = [
             {
                 id: '<?php echo $detail->id_golongan ?>',
@@ -200,17 +205,17 @@ $detail = isset($detail) ? $detail : FALSE;
         
         
         $("#slc-skpd").select2(slc_skpd_cfg);
-<?php if ($detail && $detail->id_skpd != ""): ?>
+<?php if ($detail && !is_null($detail->id_skpd) && $detail->id_skpd != ""): ?>
             $("#slc-skpd").val(<?php echo $detail->id_skpd; ?>).trigger("change");
 <?php endif; ?>
     
         $("#slc-jabatan").select2(slc_jabatan_cfg);
-<?php if ($detail && $detail->id_jabatan != ""): ?>
+<?php if ($detail && !is_null($detail->id_jabatan) && $detail->id_jabatan != ""): ?>
             $("#slc-jabatan").val(<?php echo $detail->id_jabatan; ?>).trigger("change");
 <?php endif; ?>
     
         $("#slc-golongan").select2(slc_golongan_cfg);
-<?php if ($detail && $detail->id_golongan != ""): ?>
+<?php if ($detail && !is_null($detail->id_golongan) && $detail->id_golongan != ""): ?>
             $("#slc-golongan").val(<?php echo $detail->id_golongan; ?>).trigger("change");
 <?php endif; ?>
 

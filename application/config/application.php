@@ -13,10 +13,10 @@ $config['hashed'] = 'VFUUl2rWS6I5EdSFU2JJyQ==';
 
 $config['appkey'] = '1029384756';
 
-$config['lmanuser.usingbackendfrontend'] = FALSE;
+$config['lmanuser.usingbackendfrontend'] = TRUE;
 $config['user_id_column_name'] = "id_user";
 $config['profil_id_column_name'] = "id_profil";
-$config['backend_login_uri'] = 'back_end/member/login';
+$config['backend_login_uri'] = 'back_bone/login';
 
 $config['application_upload_location'] = '_assets/uploads/';
 
@@ -56,3 +56,22 @@ $config['default_limit_row'] = 20;
 $config['limit_key_param'] = 'limit';
 $config['offset_key_param'] = 'offset';
 $config['keyword_key_param'] = 'keyword';
+
+/**
+ * modul configuration
+ * array("nama_modul"=>array("nama_aksi"=>array("nama_aksi_dikontroller")))
+ */
+$config['modul_action_configuration'] = array(
+    "cdaftar_diklat"=>array(
+        "insert"=>array("cetak_sttpp", "cetak_spt", "detail"),
+        "update"=>array("detail"),
+        "delete"=>array("delete"),
+        "read"=>array("index"),
+    ),
+    "cpeserta_diklat"=>array(
+        "insert"=>array("upload", "read_and_save_excel_content", "detail"),
+        "update"=>array("detail", "read_and_save_excel_content", "upload"),
+        "delete"=>array("delete"),
+        "read"=>array("index", "get_like"),
+    ),
+);

@@ -5,12 +5,18 @@ if (!defined('BASEPATH'))
 
 class Home extends Back_end {
 
+    public function can_access() {
+        return TRUE;
+    }
+    
     public function __construct() {
         parent::__construct();
     }
 
     public function index() {
-        echo "eko dipanggil";exit;
+
+        $this->set("header_title", 'Home');
+//        echo "eko dipanggil";exit;
 //        $this->load->model(array("model_tr_pembayaran", "model_ref_penghuni"));
 //        $terbayar_perbulan = toJsonString($this->model_tr_pembayaran->get_record_terbayar_perbulan(), FALSE);
 //        $pendaftar_perbulan = toJsonString($this->model_ref_penghuni->get_record_pendaftar_perbulan(), FALSE);
@@ -23,11 +29,11 @@ class Home extends Back_end {
 //            "avant/plugins/charts-flot/jquery.flot.resize.min.js",
 //        ));
     }
-    
-    private function month(){
+
+    private function month() {
         $month = array_month(FALSE, TRUE);
-        
-        foreach($month as $key => $val){
+
+        foreach ($month as $key => $val) {
             $month[$key] = array($key, $val);
         }
         return toJsonString($month, FALSE);
