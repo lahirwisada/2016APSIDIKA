@@ -38,6 +38,33 @@ class model_tr_peserta_diklat extends Tr_peserta_diklat {
         "O" => "kode_eselon",
         "P" => "kode_tingkat_pendidikan",
     );
+    public $searchable_fields = array(
+        "nama_diklat",
+        "angkatan",
+        "alamat_lokasi",
+        "penyelenggara",
+        "tgl_pelaksanaan",
+        "tgl_selesai",
+        "total_jam",
+        "gelar_depan",
+        "gelar_belakang",
+        "nama_depan",
+        "nama_tengah",
+        "nama_belakang",
+        "nama_sambung",
+        "tgl_lahir",
+        "tempat_lahir",
+        "nip",
+        "no_kep",
+        "tmt_peg",
+        "status_perkawinan",
+        "kode_status_perkawinan",
+        "tgl_ditetapkan",
+        "tgl_berakhir",
+        "kode_golongan",
+        "golongan",
+        "keterangan",
+    );
 
     public function __construct() {
         parent::__construct();
@@ -115,9 +142,14 @@ class model_tr_peserta_diklat extends Tr_peserta_diklat {
     protected function before_get_data_post() {
         
     }
-    
-    public function all_without_paging($id_diklat = FALSE){
+
+    public function all_without_paging($id_diklat = FALSE, $id_pegawai = FALSE) {
         $this->db->where($this->table_name . ".id_diklat = '" . $id_diklat . "'");
+        
+        if($id_pegawai){
+            $this->db->where($this->table_name . ".id_pegawai = '" . $id_pegawai . "'");
+        }
+        
         return parent::get_all(array(), FALSE, FALSE, TRUE, 1, TRUE);
     }
 
@@ -125,33 +157,7 @@ class model_tr_peserta_diklat extends Tr_peserta_diklat {
 
         $this->db->where($this->table_name . ".id_diklat = '" . $id_diklat . "'");
 
-        return parent::get_all(array(
-                    "nama_diklat",
-                    "angkatan",
-                    "alamat_lokasi",
-                    "penyelenggara",
-                    "tgl_pelaksanaan",
-                    "tgl_selesai",
-                    "total_jam",
-                    "gelar_depan",
-                    "gelar_belakang",
-                    "nama_depan",
-                    "nama_tengah",
-                    "nama_belakang",
-                    "nama_sambung",
-                    "tgl_lahir",
-                    "tempat_lahir",
-                    "nip",
-                    "no_kep",
-                    "tmt_peg",
-                    "status_perkawinan",
-                    "kode_status_perkawinan",
-                    "tgl_ditetapkan",
-                    "tgl_berakhir",
-                    "kode_golongan",
-                    "golongan",
-                    "keterangan",
-                        ), FALSE, TRUE, FALSE, 1, TRUE, $force_limit, $force_offset);
+        return parent::get_all($this->searchable_fields, FALSE, TRUE, FALSE, 1, TRUE, $force_limit, $force_offset);
     }
 
     /**
@@ -206,15 +212,15 @@ class model_tr_peserta_diklat extends Tr_peserta_diklat {
         }
         return $response;
     }
-    
-    public function clean_nip($nip){
+
+    public function clean_nip($nip) {
         return str_replace(".", "", str_replace(" ", "", $nip));
     }
 
     public function save_from_excel($id_diklat, $record_found, $timpa = FALSE) {
         $this->load->model(array('model_ref_golongan', 'model_ref_jabatan', 'model_ref_skpd'));
-        
-        if($timpa){
+
+        if ($timpa) {
             $this->remove_by_foreign_key($id_diklat, "id_diklat");
         }
 
@@ -225,34 +231,40 @@ class model_tr_peserta_diklat extends Tr_peserta_diklat {
             $this->nama_depan = $record["nama_depan"];
             $this->nama_tengah = $record["nama_tengah"];
             $this->nama_belakang = $record["nama_belakang"];
-            
-            $detail_golongan = $this->model_ref_golongan->get_detail("lower(golongan) = lower('".trim($this->clean_golongan($record["golongan"]))."')");
+
+            $detail_golongan = $this->model_ref_golongan->get_detail("lower(golongan) = lower('" . trim($this->clean_golongan($record["golongan"])) . "')");
             $this->id_golongan = NULL;
-            if($detail_golongan){
+            if ($detail_golongan) {
                 $this->id_golongan = $detail_golongan->id_golongan;
             }
-            
-            $detail_jabatan = $this->model_ref_jabatan->get_detail("lower(jabatan) = lower('".trim($record["jabatan"])."')");
+
+            $detail_jabatan = $this->model_ref_jabatan->get_detail("lower(jabatan) = lower('" . trim($record["jabatan"]) . "')");
             $this->id_jabatan = NULL;
-            if($detail_jabatan){
+            if ($detail_jabatan) {
                 $this->id_jabatan = $detail_jabatan->id_jabatan;
             }
-            
-            $detail_skpd = $this->model_ref_skpd->get_detail("lower(nama_skpd) = lower('".trim($record["nama_skpd"])."')");
+
+            $detail_skpd = $this->model_ref_skpd->get_detail("lower(nama_skpd) = lower('" . trim($record["nama_skpd"]) . "')");
             $this->id_skpd = NULL;
-            if($detail_skpd){
+            if ($detail_skpd) {
                 $this->id_skpd = $detail_skpd->id_skpd;
             }
             $this->id_diklat = $id_diklat;
             unset($detail_golongan, $detail_jabatan, $detail_skpd);
-            
+
             $this->save();
         }
         return 1;
     }
-    
-    public function clean_golongan($gol){
-        return str_replace(")","",str_replace("(", "", $gol));
+
+    public function clean_golongan($gol) {
+        return str_replace(")", "", str_replace("(", "", $gol));
+    }
+
+    public function riwayat_by_id_pegawai($id_pegawai = FALSE, $force_limit = FALSE, $force_offset = FALSE) {
+        $this->db->where($this->table_name . ".id_pegawai = '" . $id_pegawai . "'");
+
+        return parent::get_all($this->searchable_fields, FALSE, TRUE, FALSE, 1, TRUE, $force_limit, $force_offset);
     }
 
 }

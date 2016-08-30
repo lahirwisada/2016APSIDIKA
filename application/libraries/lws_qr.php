@@ -36,7 +36,7 @@ class lws_qr {
      * @param type $jpeg_quality
      * @return type string FILE NAME
      */
-    public function create($code_content = "", $filename = "", $outer_frame = 4, $pixel_per_point = 5, $jpeg_quality = 95) {
+    public function create($code_content = "", $filename = "", $outer_frame = 4, $pixel_per_point = 5, $jpeg_quality = 95, $return_full_path = TRUE) {
         //generate frame
 
         $frame = QRcode::text($code_content, FALSE, QR_ECLEVEL_M);
@@ -82,6 +82,9 @@ class lws_qr {
 
         imagedestroy($target_image);
 
+        if($return_full_path){
+            return $this->temp_dir . $filename;
+        }
         return $filename;
     }
 

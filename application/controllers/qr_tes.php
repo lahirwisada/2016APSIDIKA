@@ -30,7 +30,7 @@ class qr_tes extends LWS_Controller {
 
         $this->load->library('lws_qr');
 
-        $code_content = "http://sidika.tangerangselatankota.go.id/spt/rahmat";
+        $code_content = "http://sidika.tangerangselatankota.go.id/spt/aris";
         $this->lws_qr->create($code_content, "", 4, 5, 95);
     }
 

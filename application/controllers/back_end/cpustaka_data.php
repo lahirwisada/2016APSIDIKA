@@ -6,45 +6,65 @@ if (!defined('BASEPATH'))
 class Cpustaka_data extends Back_end {
 
     protected $_header_title = '';
-    
     protected $cmodul_name = '';
     public $model = '';
-    
-    public function __construct($cmodul_name=FALSE, $header_title=FALSE) {
-        
-        if($this->model == '' || !$cmodul_name || !$header_title){
+    private $loaded_model = array();
+
+    public function __construct($cmodul_name = FALSE, $header_title = FALSE) {
+
+        if ($this->model == '' || !$cmodul_name || !$header_title) {
             show_404();
         }
-        
+
         $this->cmodul_name = $cmodul_name;
         $this->_header_title = $header_title;
-        
+
         $this->set("header_title", $this->_header_title);
-        
+
         parent::__construct();
-        
-        $this->load->model($this->model);
+        $this->load_model($this->model);
+    }
+
+    protected function load_model($model_name) {
+        if (!in_array($model_name, $this->loaded_model)) {
+            $this->load->model($model_name);
+            $this->loaded_model[] = $model_name;
+        }
+    }
+
+    protected function load_paging($model_name, $modul_name, $array_record_attribute = array("records" => "records", "keyword" => "keyword", "field_id" => "field_id", "paging_set" => "paging_set", "next_list_number" => "next_list_number"), $get_all_function_name = "all", $get_all_param = NULL) {
+        $this->load_model($model_name);
+        $this->{$model_name}->change_offset_param($modul_name);
+        $records = $this->{$model_name}->{$get_all_function_name}($get_all_param);
+        $paging_set = $this->get_paging($this->get_current_location(), $records->record_found, $this->default_limit_paging, $this->cmodul_name);
+        $this->set($array_record_attribute['records'], $records->record_set);
+        $this->set($array_record_attribute["keyword"], $records->keyword);
+        $this->set($array_record_attribute["field_id"], $this->{$model_name}->primary_key);
+        $this->set($array_record_attribute["paging_set"], $paging_set);
+
+        $this->set($array_record_attribute["next_list_number"], $this->{$model_name}->get_next_record_number_list());
     }
 
     public function index() {
         $this->get_attention_message_from_session();
-        $this->{$this->model}->change_offset_param("currpage_".$this->cmodul_name);
-        $records = $this->{$this->model}->all();
-        
-        $paging_set = $this->get_paging($this->get_current_location(), $records->record_found, $this->default_limit_paging, $this->cmodul_name);
-        $this->set('records', $records->record_set);
-        $this->set("keyword", $records->keyword);
-        $this->set('field_id', $this->{$this->model}->primary_key);
-        $this->set("paging_set", $paging_set);
-        
-        
-        $this->set("additional_js", "back_end/".$this->_name."/js/index_js");
-        
+
+        $this->load_paging($this->model, "currpage_" . $this->cmodul_name);
+
+//        $this->{$this->model}->change_offset_param("currpage_".$this->cmodul_name);
+//        $records = $this->{$this->model}->all();
+//        $paging_set = $this->get_paging($this->get_current_location(), $records->record_found, $this->default_limit_paging, $this->cmodul_name);
+//        $this->set('records', $records->record_set);
+//        $this->set("keyword", $records->keyword);
+//        $this->set('field_id', $this->{$this->model}->primary_key);
+//        $this->set("paging_set", $paging_set);
+//        
+
+        $this->set("additional_js", "back_end/" . $this->_name . "/js/index_js");
+
 //        $this->set("bread_crumb", array(
 //            "#" => 'Jenis Diklat'
 //        ));
-        
-        $this->set("next_list_number", $this->{$this->model}->get_next_record_number_list());
+//        $this->set("next_list_number", $this->{$this->model}->get_next_record_number_list());
     }
 
     protected function detail($id = FALSE, $posted_data = array()) {
@@ -62,7 +82,7 @@ class Cpustaka_data extends Back_end {
                 if ($id) {
                     $this->attention_messages = "Perubahan telah disimpan.";
                 }
-                redirect('back_end/'.$this->_name);
+                redirect('back_end/' . $this->_name);
             } else {
                 $this->attention_messages = $this->{$this->model}->errors->get_html_errors("<br />", "line-wrap");
             }
@@ -71,13 +91,11 @@ class Cpustaka_data extends Back_end {
         $detail = $this->{$this->model}->show_detail($id);
 //        var_dump($this->db->last_query(), $detail);exit;
         $this->set("detail", $detail);
-        
+
 //        $this->set("bread_crumb", array(
 //            "back_end/cjenis_diklat" => 'Jenis Diklat',
 //            "#" => 'Pendaftaran Jenis Diklat'
 //        ));
-        
-        
 //        $this->add_jsfiles(array("avant/plugins/form-jasnyupload/fileinput.min.js"));
     }
 
@@ -88,7 +106,7 @@ class Cpustaka_data extends Back_end {
         } else {
             $this->store_attention_message_to_session("Data tidak ditemukan.");
         }
-        redirect($this->my_location . $this->_name."/index/");
+        redirect($this->my_location . $this->_name . "/index/");
     }
 
 }

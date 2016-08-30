@@ -50,7 +50,8 @@ class model_tr_pegawai_skpd_jabatan extends Tr_pegawai_skpd_jabatan {
 
     public function all($id_pegawai = FALSE, $force_limit = FALSE, $force_offset = FALSE) {
 
-        $this->db->where($this->table_name . ".id_pegawai = '" . $id_pegawai . "'");
+//        $this->db->where($this->table_name . ".id_pegawai = '" . $id_pegawai . "'");
+        $this->db->where("refpegskpd.id_pegawai = '" . $id_pegawai . "'");
 
         return parent::get_all(array(
                     "nama_skpd",

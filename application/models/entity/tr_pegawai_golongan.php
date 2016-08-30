@@ -62,6 +62,7 @@ class Tr_pegawai_golongan extends LWS_model {
             "columns" => array(
                 "kode_golongan",
                 "golongan",
+                array("keterangan", "keterangan_golongan"),
             ),
             "referenced" => "LEFT"
         ),

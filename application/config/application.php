@@ -62,16 +62,22 @@ $config['keyword_key_param'] = 'keyword';
  * array("nama_modul"=>array("nama_aksi"=>array("nama_aksi_dikontroller")))
  */
 $config['modul_action_configuration'] = array(
-    "cdaftar_diklat"=>array(
-        "insert"=>array("cetak_sttpp", "cetak_spt", "detail"),
-        "update"=>array("detail"),
-        "delete"=>array("delete"),
-        "read"=>array("index"),
+    "cdaftar_diklat" => array(
+        "insert" => array("cetak_sttpp", "cetak_sttpp_peserta", "cetak_spt", "detail"),
+        "update" => array("detail"),
+        "delete" => array("delete"),
+        "read" => array("index"),
     ),
-    "cpeserta_diklat"=>array(
-        "insert"=>array("upload", "read_and_save_excel_content", "detail"),
-        "update"=>array("detail", "read_and_save_excel_content", "upload"),
-        "delete"=>array("delete"),
-        "read"=>array("index", "get_like"),
+    "cpeserta_diklat" => array(
+        "insert" => array("upload", "read_and_save_excel_content", "detail"),
+        "update" => array("detail", "read_and_save_excel_content", "upload"),
+        "delete" => array("delete"),
+        "read" => array("index", "get_like"),
+    ),
+    "cref_pegawai" => array(
+        "insert" => array("detail", "history_detail"),
+        "update" => array("detail", "history_detail"),
+        "delete" => array("delete"),
+        "read" => array("index", "get_like", "history"),
     ),
 );
