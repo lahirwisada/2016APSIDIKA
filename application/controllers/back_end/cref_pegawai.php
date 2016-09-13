@@ -3,9 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-include_once "cpustaka_data.php";
-
-class Cref_pegawai extends Cpustaka_data {
+class Cref_pegawai extends Back_end {
 
     public $model = 'model_ref_pegawai';
 

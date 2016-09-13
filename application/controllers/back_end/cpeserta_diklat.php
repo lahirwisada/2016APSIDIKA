@@ -3,9 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-include_once "cpustaka_data.php";
-
-class Cpeserta_diklat extends Cpustaka_data {
+class Cpeserta_diklat extends Back_end {
 
     public $model = 'model_tr_peserta_diklat';
 

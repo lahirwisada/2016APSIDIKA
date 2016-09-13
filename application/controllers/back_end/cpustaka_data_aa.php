@@ -47,24 +47,8 @@ class Cpustaka_data extends Back_end {
 
     public function index() {
         $this->get_attention_message_from_session();
-
         $this->load_paging($this->model, "currpage_" . $this->cmodul_name);
-
-//        $this->{$this->model}->change_offset_param("currpage_".$this->cmodul_name);
-//        $records = $this->{$this->model}->all();
-//        $paging_set = $this->get_paging($this->get_current_location(), $records->record_found, $this->default_limit_paging, $this->cmodul_name);
-//        $this->set('records', $records->record_set);
-//        $this->set("keyword", $records->keyword);
-//        $this->set('field_id', $this->{$this->model}->primary_key);
-//        $this->set("paging_set", $paging_set);
-//        
-
         $this->set("additional_js", "back_end/" . $this->_name . "/js/index_js");
-
-//        $this->set("bread_crumb", array(
-//            "#" => 'Jenis Diklat'
-//        ));
-//        $this->set("next_list_number", $this->{$this->model}->get_next_record_number_list());
     }
 
     protected function detail($id = FALSE, $posted_data = array()) {

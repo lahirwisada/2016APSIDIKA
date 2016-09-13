@@ -3,13 +3,13 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Back_end extends Main {
+class Back_end extends Cpustaka_data {
     
     protected $backend_controller_location = "back_end/";
 
-    public function __construct() {
+    public function __construct($cmodul_name = FALSE, $header_title = FALSE) {
         $this->is_front_end = FALSE;
-        parent::__construct();
+        parent::__construct($cmodul_name, $header_title);
          $this->_layout = "atlant";
          $this->my_location = "back_end/";
         $this->init_back_end();

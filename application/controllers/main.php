@@ -31,14 +31,8 @@ class Main extends LWS_Controller {
     protected function get_user_detail_from_session() {
         return $this->lmanuser->get("user_detail", $this->my_side);
     }
-
-//    public function back_end(){
-//        redirect("back_end/msaplikasi");
-//    }
-//    public function very_public(){
-//        echo "hi there!";
-//        exit;
-//    }
+    
+    
 }
 
 ?>

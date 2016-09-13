@@ -145,11 +145,11 @@ class model_tr_peserta_diklat extends Tr_peserta_diklat {
 
     public function all_without_paging($id_diklat = FALSE, $id_pegawai = FALSE) {
         $this->db->where($this->table_name . ".id_diklat = '" . $id_diklat . "'");
-        
-        if($id_pegawai){
+
+        if ($id_pegawai) {
             $this->db->where($this->table_name . ".id_pegawai = '" . $id_pegawai . "'");
         }
-        
+
         return parent::get_all(array(), FALSE, FALSE, TRUE, 1, TRUE);
     }
 
@@ -265,6 +265,15 @@ class model_tr_peserta_diklat extends Tr_peserta_diklat {
         $this->db->where($this->table_name . ".id_pegawai = '" . $id_pegawai . "'");
 
         return parent::get_all($this->searchable_fields, FALSE, TRUE, FALSE, 1, TRUE, $force_limit, $force_offset);
+    }
+
+    public function get_peserta_diklat_by_id_pegawai_id_diklat($id_peserta_diklat = FALSE, $id_diklat = FALSE) {
+        if ($id_diklat && $id_peserta_diklat && is_numeric($id_diklat) && is_numeric($id_peserta_diklat)) {
+            $this->db->where($this->table_name . ".id_peserta_diklat = '" . $id_peserta_diklat . "' and ".$this->table_name . ".id_diklat = '" . $id_diklat . "' ");
+
+            return parent::get_detail();
+        }
+        return FALSE;
     }
 
 }

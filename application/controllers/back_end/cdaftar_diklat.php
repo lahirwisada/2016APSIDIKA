@@ -3,9 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-include_once "cpustaka_data.php";
-
-class Cdaftar_diklat extends Cpustaka_data {
+class Cdaftar_diklat extends Back_end {
 
     public $model = 'model_tr_diklat';
 
@@ -80,6 +78,16 @@ class Cdaftar_diklat extends Cpustaka_data {
         ));
     }
 
+    public function cek_spt($md5_text = FALSE) {
+        var_dump(strlen($md5_text), substr($md5_text, 32));
+        exit;
+    }
+    
+    public function cek_peserta($md5_text = FALSE) {
+        var_dump(strlen($md5_text), substr($md5_text, 32));
+        exit;
+    }
+
     /**
      * using clone block bro PHPWord
      * @param type $id_diklat
@@ -125,7 +133,7 @@ class Cdaftar_diklat extends Cpustaka_data {
             /**
              * QR embed
              */
-            $qr_content = "http://sidika.tangerangselatankota.go.id/cdaftar_diklat/cek_peserta/" . md5(rand(2, 3)) . $detail->id_diklat . "dk" . $r_peserta->id_peserta_diklat;
+            $qr_content = base_url('front_end') . "/fdaftar_diklat/cek_peserta/" . md5(rand(2, 15)) . $detail->id_diklat . "dk" . $r_peserta->id_peserta_diklat;
             $this->load->library('lws_qr');
             $qr_png = $this->lws_qr->create($qr_content, "imgspt" . $detail->id_diklat . ".png", 2, 2, 95);
 //            $this->lwphpword->set_image_value('image2.png', $qr_png);
@@ -431,7 +439,7 @@ class Cdaftar_diklat extends Cpustaka_data {
             /**
              * QR embed
              */
-            $qr_content = "http://sidika.tangerangselatankota.go.id/cdaftar_diklat/cek_spt/" . md5(rand(2, 3)) . $detail->id_diklat;
+            $qr_content = base_url('front_end') . "/fdaftar_diklat/cek_spt/" . md5(rand(2, 15)) . $detail->id_diklat;
             $this->load->library('lws_qr');
             $qr_png = $this->lws_qr->create($qr_content, "imgspt" . $detail->id_diklat . ".png", 2, 2, 95);
 //            $this->lwphpword->set_image_value('image2.png', $qr_png);

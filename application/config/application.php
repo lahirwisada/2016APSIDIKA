@@ -66,7 +66,7 @@ $config['modul_action_configuration'] = array(
         "insert" => array("cetak_sttpp", "cetak_sttpp_peserta", "cetak_spt", "detail"),
         "update" => array("detail"),
         "delete" => array("delete"),
-        "read" => array("index"),
+        "read" => array("index", "cek_spt"),
     ),
     "cpeserta_diklat" => array(
         "insert" => array("upload", "read_and_save_excel_content", "detail"),

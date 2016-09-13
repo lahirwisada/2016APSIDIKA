@@ -5,10 +5,12 @@ if (!defined('BASEPATH'))
 
 class Home extends Back_end {
 
+    protected $auto_load_model = FALSE;
+    
     public function can_access() {
         return TRUE;
     }
-    
+
     public function __construct() {
         parent::__construct();
     }

@@ -3,9 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-include_once "cpustaka_data.php";
-
-class Cref_provinsi extends Cpustaka_data {
+class Cref_provinsi extends Back_end {
 
     public $model = 'model_ref_provinsi';
 

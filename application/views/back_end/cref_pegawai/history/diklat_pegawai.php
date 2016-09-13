@@ -39,21 +39,29 @@ $next_list_number_riwayat_diklat = isset($next_list_number_riwayat_diklat) ? $ne
                     <table class="table no-footer" id="DataTables_Table_0">
                         <thead>
                             <tr role="row">
-                                <th>
+                                <th colspan="1" rowspan="2">
                                     No
                                 </th>
-                                <th>
+                                <th colspan="1" rowspan="2">
                                     Nama Diklat
                                 </th>
-                                <th>
+                                <th colspan="1" rowspan="2">
                                     Penyelenggara Diklat
                                 </th>
-                                <th>
+                                <th colspan="1" rowspan="2">
                                     Tahun
                                 </th>
-                                <th>
+                                <th colspan="1" rowspan="2">
                                     Total Jam
                                 </th>
+                                <th  colspan="3">
+                                    Pada Saat
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Gol.</th>
+                                <th>Jab.</th>
+                                <th>SKPD.</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,6 +82,15 @@ $next_list_number_riwayat_diklat = isset($next_list_number_riwayat_diklat) ? $ne
                                         </td>
                                         <td>
                                             <?php echo beautify_str($record->total_jam); ?>
+                                        </td>
+                                        <td>
+                                            <?php echo beautify_str($record->golongan); ?>
+                                        </td>
+                                        <td>
+                                            <?php echo beautify_str($record->jabatan); ?>
+                                        </td>
+                                        <td>
+                                            <?php echo beautify_str($record->nama_skpd); ?>
                                         </td>
                                     </tr>
                                     <?php $next_list_number_riwayat_diklat++; ?>
