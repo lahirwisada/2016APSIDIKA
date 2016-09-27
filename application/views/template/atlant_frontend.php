@@ -174,15 +174,13 @@ $current_user_roles = isset($current_user_roles) ? $current_user_roles : "Tamu";
         <!-- ./page container -->
 
         <!-- page scripts -->
-        <?php echo load_partial('template/atlant/default_scripts'); ?>
-        
+        <?php echo load_partial('template/atlant_frontend/default_scripts'); ?>
+
         <?php echo isset($js) ? $js : ''; ?>
+        <script type="text/javascript" src="<?php echo assets(); ?>js/helper/general_helper.js"></script>
+        <?php echo load_partial('template/additional_js'); ?>
+
+        <?php echo $view_js_default; ?>
         <!-- ./page scripts -->
     </body>
 </html>
-
-
-
-
-
-

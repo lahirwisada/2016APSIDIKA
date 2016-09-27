@@ -948,6 +948,7 @@ a:hover {
   padding: 0px;
   margin: 0px;
   border-top: 5px solid #F5F5F5;
+  bottom: 0;
 }
 .page-container .page-footer .page-footer-wrap {
   float: left;

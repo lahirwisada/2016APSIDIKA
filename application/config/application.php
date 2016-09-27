@@ -16,6 +16,125 @@ $config['appkey'] = '1029384756';
 $config['lmanuser.usingbackendfrontend'] = TRUE;
 $config['user_id_column_name'] = "id_user";
 $config['profil_id_column_name'] = "id_profil";
+
+$config['another_profil_tablename'] = "sc_sidika.tr_pegawai_profil";
+$config['another_profil_properties']['foreign_key'] = "id_profil";
+$config['another_profil_properties']['columns'] = array();
+$config['another_profil_properties']['related_tables'] = array(
+    "sc_sidika.ref_pegawai" => array(
+        "fkey" => "id_pegawai",
+        "reference_to" => "sc_sidika.tr_pegawai_profil",
+        "columns" => array(
+            "gelar_depan",
+            "gelar_belakang",
+            "nama_depan",
+            "nama_tengah",
+            "nama_belakang",
+            "nama_sambung",
+            "tgl_lahir",
+            "tempat_lahir",
+            "nip",
+            "no_kep",
+            "tmt_peg",
+        ),
+        "referenced" => "LEFT"
+    ),
+    "sc_sidika.ref_status_perkawinan" => array(
+        "fkey" => "id_status_perkawinan",
+        "reference_to" => "sc_sidika.ref_pegawai",
+        "columns" => array(
+            "id_status_perkawinan",
+            "status_perkawinan",
+            "kode_status_perkawinan",
+        ),
+        "referenced" => "LEFT"
+    ),
+    "sc_sidika.tr_pegawai_skpd" => array(
+        "fkey" => "id_pegawai",
+        "table_alias" => "trpegskpd",
+        "reference_to" => "sc_sidika.ref_pegawai",
+        "columns" => array(
+            "id_pegawai_skpd",
+            array("tgl_mulai", "tgl_mulai_peg_skpd"),
+            array("tgl_berakhir", "tgl_berakhir_peg_skpd"),
+            array("keterangan", "keterangan_peg_skpd"),
+        ),
+        "conditions" => array(
+            "is_active = '1'",
+            "record_active = '1'",
+        ),
+        "referenced" => "LEFT"
+    ),
+    "sc_sidika.ref_skpd" => array(
+        "fkey" => "id_skpd",
+        "reference_to" => "trpegskpd",
+        "columns" => array(
+            "id_skpd",
+            "nama_skpd",
+            "abbr_skpd",
+            "alamat_skpd",
+            "kodepos",
+            "no_telp",
+            "email",
+            "website",
+        ),
+        "referenced" => "LEFT"
+    ),
+    "sc_sidika.tr_pegawai_skpd_jabatan" => array(
+        "fkey" => "id_pegawai_skpd",
+        "table_alias" => "trpegskpdjab",
+        "reference_to" => "trpegskpd",
+        "columns" => array(
+            "id_pegawai_skpd_jabatan",
+            "masa_kerja_jabatan_bulan",
+            "masa_kerja_jabatan_tahun",
+            "tmt_eselon",
+        ),
+        "conditions" => array(
+            "is_active = '1'",
+            "record_active = '1'",
+        ),
+        "referenced" => "LEFT"
+    ),
+    "sc_sidika.ref_jabatan" => array(
+        "fkey" => "id_jabatan",
+        "table_alias" => "trjab",
+        "reference_to" => "trpegskpdjab",
+        "columns" => array(
+            "id_jabatan",
+            "jabatan",
+        ),
+        "referenced" => "LEFT"
+    ),
+    "sc_sidika.tr_pegawai_golongan" => array(
+        "fkey" => "id_pegawai",
+        "table_alias" => "trpeggol",
+        "reference_to" => "sc_sidika.ref_pegawai",
+        "columns" => array(
+            "id_pegawai_golongan",
+            "tgl_ditetapkan",
+            "tgl_berakhir",
+        ),
+        "conditions" => array(
+            "is_active = '1'",
+            "record_active = '1'",
+        ),
+        "referenced" => "LEFT"
+    ),
+    "sc_sidika.ref_golongan" => array(
+        "fkey" => "id_golongan",
+        "table_alias" => "trgol",
+        "reference_to" => "trpeggol",
+        "columns" => array(
+            "id_golongan",
+            "kode_golongan",
+            array("keterangan", "keterangan_golongan"),
+            "golongan",
+        ),
+        "referenced" => "LEFT"
+    ),
+);
+
 $config['backend_login_uri'] = 'back_bone/login';
 
 $config['application_upload_location'] = '_assets/uploads/';

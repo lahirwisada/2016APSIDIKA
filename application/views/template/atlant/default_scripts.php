@@ -1,3 +1,23 @@
+<script type="text/javascript">
+    var js_base_url = '<?php echo base_url(); ?>';
+    var base_url = function (uri) {
+        if (typeof uri !== 'undefined') {
+            return js_base_url + "/" + uri;
+        }
+        return js_base_url;
+    };
+
+    var GetImagePath = function ()
+    {
+        return js_base_url + "_assets/img/";
+    }
+
+    var GetCSSPath = function ()
+    {
+        return js_base_url + "_assets/css/";
+    }
+
+</script>
 <!-- START PLUGINS -->
 <script type="text/javascript" src="<?php echo js(); ?>atlant/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo js(); ?>atlant/plugins/jquery/jquery-ui.min.js"></script>

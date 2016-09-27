@@ -21,6 +21,7 @@ class Ref_provinsi extends LWS_model {
         "modified_by" => array("modified_by", "modified_by"),
         "record_active" => array("record_active", "record_active"),
     );
+    
     protected $rules = array(
         array("id_provinsi", ""),
         array("kode_provinsi", ""),

@@ -73,6 +73,8 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                                                     <?php echo beautify_str($record->nama_diklat) ?>
                                                     <br />
                                                     Angkatan <?php echo $record->angkatan ?>
+                                                    <br />
+                                                    Status Pendaftaran <?php echo $record->is_registration_closed == '0' ? "<span class=\"label label-success\">Buka</span>" : "<span class=\"label label-danger\">Tutup</span>"; ?>
                                                 </td>
                                                 <td>
                                                     <?php echo beautify_str(show_date_with_format($record->tgl_pelaksanaan), FALSE, "-") ?>

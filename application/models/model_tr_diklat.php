@@ -29,6 +29,11 @@ class model_tr_diklat extends tr_diklat {
         array("id_ref_ttd", ""),
         array("tgl_sttpp", ""),
         array("id_ref_ttd_sttpp", ""),
+        array("kuota_diklat", "required|numeric"),
+        array("kuota_tersedia", "numeric"),
+        array("peserta_terdaftar", "numeric"),
+        array("jumlah_waiting_list", "required|numeric"),
+        array("is_registration_closed", "required|numeric"),
     );
 
     public function __construct() {
@@ -124,58 +129,68 @@ class model_tr_diklat extends tr_diklat {
         $this->__check_blank_post();
         $this->__check_array_post();
     }
-    
-    protected function after_save($ret=FALSE){
-        if($ret){
+
+    protected function after_save($ret = FALSE) {
+        if ($ret) {
             $this->model_tr_diklat_tahapan->save_collection($this->spt_tahapan, $this->inserted_id);
             $this->model_tr_diklat_hal_perhatian->save_collection($this->spt_hal_perhatian, $this->inserted_id);
+            $this->model_tr_diklat_persyaratan->save_collection($this->persyaratan_diklat, $this->inserted_id);
         }
-        
+
         return $ret;
     }
-    
-    private function __remove_non_column_data($data = FALSE){
-        if($data){
+
+    private function __remove_non_column_data($data = FALSE) {
+        if ($data) {
             unset($data["spt_tahapan"]);
             unset($data["spt_hal_perhatian"]);
+            unset($data["persyaratan_diklat"]);
         }
         return $data;
     }
-    
-    private function __remove_null_data($data = FALSE){
-        
-        if($data){
-            foreach($data as $key => $val){
-                if($val == NULL || $val == 'NULL'){
+
+    private function __remove_null_data($data = FALSE) {
+
+        if ($data) {
+            foreach ($data as $key => $val) {
+                if ($val == NULL || $val == 'NULL') {
                     unset($data[$key]);
                 }
             }
         }
         return $data;
     }
-    
-    protected function before_data_update($update_data = FALSE){
+
+    protected function before_data_update($update_data = FALSE) {
         $update_data = $this->__remove_non_column_data($update_data);
         return $this->__remove_null_data($update_data);
     }
-    
-    protected function before_data_insert($insert_data = FALSE){
+
+    protected function before_data_insert($insert_data = FALSE) {
         $insert_data = $this->__remove_non_column_data($insert_data);
         return $this->__remove_null_data($insert_data);
     }
 
     public function get_tahapan_diklat_by_id_diklat($id_diklat = FALSE) {
-        if ($id_diklat) {    
+        if ($id_diklat) {
             $tr_diklat_tahapan_table_name = $this->model_tr_diklat_tahapan->get_table_name();
-            return $this->model_tr_diklat_tahapan->get_all(array(), $tr_diklat_tahapan_table_name.".id_diklat = '".$id_diklat."'",FALSE);
+            return $this->model_tr_diklat_tahapan->get_all(array(), $tr_diklat_tahapan_table_name . ".id_diklat = '" . $id_diklat . "'", FALSE);
         }
         return FALSE;
     }
-    
+
     public function get_diklat_hal_perhatian_by_id_diklat($id_diklat = FALSE) {
         if ($id_diklat) {
             $tr_diklat_hal_perhatian_table_name = $this->model_tr_diklat_hal_perhatian->get_table_name();
-            return $this->model_tr_diklat_hal_perhatian->get_all(array(), $tr_diklat_hal_perhatian_table_name.".id_diklat = '".$id_diklat."'",FALSE);
+            return $this->model_tr_diklat_hal_perhatian->get_all(array(), $tr_diklat_hal_perhatian_table_name . ".id_diklat = '" . $id_diklat . "'", FALSE);
+        }
+        return FALSE;
+    }
+
+    public function get_diklat_persyaratan_by_id_diklat($id_diklat = FALSE) {
+        if ($id_diklat) {
+            $tr_diklat_persyaratan_table_name = $this->model_tr_diklat_persyaratan->get_table_name();
+            return $this->model_tr_diklat_persyaratan->get_all(array(), $tr_diklat_persyaratan_table_name . ".id_diklat = '" . $id_diklat . "'", FALSE);
         }
         return FALSE;
     }
@@ -195,25 +210,29 @@ class model_tr_diklat extends tr_diklat {
         if ($record_found) {
             $record_found->tahapan_diklat = $this->get_tahapan_diklat_by_id_diklat($record_found->id_diklat);
             $record_found->hal_perhatian = $this->get_diklat_hal_perhatian_by_id_diklat($record_found->id_diklat);
+            $record_found->persyaratan_diklat = $this->get_diklat_persyaratan_by_id_diklat($record_found->id_diklat);
         }
 
         return $record_found;
     }
-    
-    public function get_id_by_crypted($crypted_id_diklat = FALSE){
+
+    public function get_id_by_crypted($crypted_id_diklat = FALSE) {
         $id_found = FALSE;
-        if($crypted_id_diklat){
+        if ($crypted_id_diklat) {
             $detail_found = $this->get_detail_by_crypted($crypted_id_diklat);
-            if($detail_found){
+            if ($detail_found) {
                 $id_found = $detail_found->id_diklat;
             }
             unset($detail_found);
         }
         return $id_found;
     }
-    
-    public function get_detail_by_crypted($crypted_id_diklat){
-        return $this->get_detail($this->table_name.".id_diklat_crypted = '".$crypted_id_diklat."'");
+
+    public function get_detail_by_crypted($crypted_id_diklat = FALSE) {
+        if ($crypted_id_diklat) {
+            return $this->get_detail($this->table_name . ".id_diklat_crypted = '" . $crypted_id_diklat . "'");
+        }
+        return FALSE;
     }
 
     public function all($force_limit = FALSE, $force_offset = FALSE) {
@@ -230,5 +249,3 @@ class model_tr_diklat extends tr_diklat {
     }
 
 }
-
-?>

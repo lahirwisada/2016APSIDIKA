@@ -47,6 +47,8 @@ $route['back_bone/login'] = "back_bone/member/login";
 $route['back_bone/logout'] = "back_bone/member/logout";
 $route['back_bone/user/(.*)'] = "back_bone/member/$1";
 
+$route['front_end/login'] = "front_end/cfpns/login";
+
 $route['(\w{2})/(.*)'] = '$2';
 $route['(\w{2})'] = $route['default_controller'];
 $route['404_override'] = '';

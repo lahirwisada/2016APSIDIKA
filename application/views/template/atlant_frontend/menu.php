@@ -1,4 +1,5 @@
 <?php
+$is_authenticated = isset($is_authenticated) ? $is_authenticated : FALSE;
 /**
   <ul class="navigation">
   <li>
@@ -39,10 +40,18 @@
 <ul class="navigation">
     <li>
         <a href="<?php echo base_url(); ?>">Home</a>
-
         <ul>
             <li><a href="<?php echo base_url('back_end/home'); ?>">Kelola Diklat</a></li>
         </ul>
-
+    </li>
+    <li>
+        <?php if ($is_authenticated): ?>
+            <a href="<?php echo base_url('front_end/cfpns/logout'); ?>">Keluar (Sign Out)</a>
+            <ul>
+                <li><a href="<?php echo base_url('front_end/cfpns/index'); ?>">Profil</a></li>
+            </ul>
+        <?php else: ?>
+            <a href="<?php echo base_url('front_end/cfpns/login'); ?>">Masuk (Sign In)</a>
+        <?php endif; ?>
     </li>
 </ul>

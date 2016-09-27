@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
-        
+
         $(".btn-detil-row").click(function () {
             var url = $(this).attr('rel');
 
@@ -12,10 +12,10 @@
                     window.location = url;
                 }
             });
-            
+
             return false;
         });
-        
+
         $(".btn-sttpp-row").click(function () {
             window.location = $(this).attr('rel');
             return false;

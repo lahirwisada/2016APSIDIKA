@@ -40,6 +40,11 @@ class Tr_diklat extends LWS_model {
         "id_diklat_crypted" => array("id_diklat_crypted", "Id Diklat Crypted"),
         "tgl_sttpp" => array("tgl_sttpp", "tgl sttpp"),
         "id_ref_ttd_sttpp" => array("id_ref_ttd_sttpp", "Penandatangan STTPP"),
+        "kuota_diklat" => array("kuota_diklat", "Kuota Diklat"),
+        "kuota_tersedia" => array("kuota_tersedia", "Kuota Tersedia"),
+        "peserta_terdaftar" => array("peserta_terdaftar", "Peserta Terdaftar"),
+        "jumlah_waiting_list" => array("jumlah_waiting_list", "Jumlah Waiting List"),
+        "is_registration_closed" => array("is_registration_closed", "Pendaftaran ditutup"),
     );
     
     protected $rules = array(
@@ -71,6 +76,11 @@ class Tr_diklat extends LWS_model {
         array("id_diklat_crypted", ""),
         array("tgl_sttpp", ""),
         array("id_ref_ttd_sttpp", ""),
+        array("kuota_diklat", ""),
+        array("kuota_tersedia", ""),
+        array("peserta_terdaftar", ""),
+        array("jumlah_waiting_list", ""),
+        array("is_registration_closed", ""),
     );
     
     protected $related_tables = array(
@@ -192,6 +202,11 @@ class Tr_diklat extends LWS_model {
         "tgl_selesai" => "DATE",
         "tgl_sttpp" => "DATE",
         "total_jam" => "NUMERIC",
+        "kuota_diklat" => "NUMERIC",
+        "kuota_tersedia" => "NUMERIC",
+        "peserta_terdaftar" => "NUMERIC",
+        "jumlah_waiting_list" => "NUMERIC",
+        "is_registration_closed" => "NUMERIC",
     );
 
 }

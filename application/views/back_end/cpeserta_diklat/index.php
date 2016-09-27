@@ -98,7 +98,7 @@ $next_list_number = isset($next_list_number) ? $next_list_number : 1;
                                                         ?>
                                                         <a class="btn btn-default  btn-detil-row"  href="javascript:void(0);" rel="<?php echo base_url("back_end/cref_pegawai/history") . "/" . $record->id_pegawai; ?>">Detil</a>                                    
                                                         <a class="btn btn-default  btn-sttpp-row"  href="javascript:void(0);" rel="<?php echo base_url("back_end/cdaftar_diklat/cetak_sttpp_peserta") . "/". $detail_diklat->id_diklat ."/?pid=" . $record->id_pegawai; ?>">cetak STTPP</a>
-                                                        <a class="btn btn-default  btn-hapus-row"  href="javascript:void(0);" rel="<?php echo base_url("back_end/" . $active_modul . "/delete") . "/" . $record->id_pegawai; ?>">Hapus</a>                                    
+                                                        <a class="btn btn-default  btn-hapus-row"  href="javascript:void(0);" rel="<?php echo base_url("back_end/" . $active_modul . "/delete") . "/" . $record->id_peserta_diklat_crypted; ?>">Hapus</a>                                    
                                                     </div>
                                                 </div>
                                             </div>

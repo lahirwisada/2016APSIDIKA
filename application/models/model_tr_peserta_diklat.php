@@ -275,6 +275,32 @@ class model_tr_peserta_diklat extends Tr_peserta_diklat {
         }
         return FALSE;
     }
+    
+    public function set_non_active($id_peserta_diklat_crypted_value = FALSE, $flag_del_name = 'record_active', $using_where = FALSE) {
+
+        if ($flag_del_name == 'record_active') {
+            $flag_del_name = $this->record_active_column_name;
+        }
+
+        $active_value = $this->get_active_value(FALSE);
+//        $data[$flag_del_name] = "'" . $this->get_active_value(FALSE) . "'";
+        $data[$flag_del_name] = $this->get_active_value(FALSE);
+        if (array_key_exists($flag_del_name, $this->attribute_types)) {
+            if (strtolower($this->attribute_types[$flag_del_name]) == 'bit') {
+                $data[$flag_del_name] = ($active_value) ? TRUE : FALSE;
+            }
+        }
+
+        if ($id_peserta_diklat_crypted_value) {
+            $this->db->where("id_peserta_diklat_crypted", $id_peserta_diklat_crypted_value);
+            $this->db->update($this->table_name, $data);
+        } elseif ($using_where) {
+            $this->db->update($this->table_name, $data);
+        }
+        
+        unset($data);
+        return;
+    }
 
 }
 

@@ -14,12 +14,37 @@ class Fdaftar_diklat extends Front_end {
             'model_ref_jenis_diklat',
             'model_tr_diklat_hal_perhatian',
             'model_tr_diklat_tahapan',
+            'model_tr_diklat',
         ));
 //        $this->_layout = "backend";
     }
 
     public function index() {
         
+    }
+
+    public function detail($crypted_id_diklat = FALSE) {
+        $detail = FALSE;
+        if ($crypted_id_diklat) {
+            $detail = $this->model_tr_diklat->get_detail_by_crypted($crypted_id_diklat);
+            if ($detail) {
+                
+            }
+        }
+        $this->set("detail", $detail);
+    }
+
+    public function daftar($crypted_id_diklat = FALSE) {
+        $detail = FALSE;
+        if ($crypted_id_diklat) {
+            $detail = $this->model_tr_diklat->get_detail_by_crypted($crypted_id_diklat);
+            if ($detail) {
+                /**
+                 * @todo get detail pns
+                 */
+            }
+        }
+        $this->set("detail", $detail);
     }
 
     public function cek_spt($md5_text = FALSE) {
@@ -30,9 +55,6 @@ class Fdaftar_diklat extends Front_end {
             $id = substr($md5_text, 32);
 
             if (is_numeric($id)) {
-
-                $this->load->model('model_tr_diklat');
-
                 $detail = $this->model_tr_diklat->show_detail($id);
             }
         }

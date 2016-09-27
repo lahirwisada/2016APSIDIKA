@@ -388,7 +388,11 @@ function panel_collapse(panel, action, callback) {
 }
 function panel_refresh(panel, action, callback) {
     if (!panel.hasClass("panel-refreshing")) {
-        panel.append('<div class="panel-refresh-layer"><img src="img/loaders/default.gif"/></div>');
+        var loader_url = 'img/atlant/loaders/default.gif';
+        if (typeof js_base_url !== 'undefined') {
+            loader_url = js_base_url + '_assets/' + loader_url;
+        }
+        panel.append('<div class="panel-refresh-layer"><img src="' + loader_url + '"/></div>');
         panel.find(".panel-refresh-layer").width(panel.width()).height(panel.height());
         panel.addClass("panel-refreshing");
 

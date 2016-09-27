@@ -12,7 +12,18 @@ class Home extends Front_end {
     }
 
     public function index() {
-        $this->add_jsfiles(array("atlant/plugins/datatables/jquery.dataTables.min.js"));
+
+        $this->set("additional_js", array(
+            "front_end/" . $this->_name . "/js/calender_diklat_js",
+            "front_end/" . $this->_name . "/js/index_js",
+        ));
+
+        $this->add_cssfiles(array("atlant_front_end/traditional_table.css"));
+        $this->add_jsfiles(array(
+            "plugins/lws/template/atlant/lws.grid.template.js",
+            "plugins/lws/lws.pager.js",
+            "plugins/lws/lws.master.form.js",
+        ));
     }
 
 }

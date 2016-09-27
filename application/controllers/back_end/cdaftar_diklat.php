@@ -13,6 +13,7 @@ class Cdaftar_diklat extends Back_end {
             'model_ref_kabupaten_kota',
             'model_ref_jenis_diklat',
             'model_tr_diklat_hal_perhatian',
+            'model_tr_diklat_persyaratan',
             'model_tr_diklat_tahapan',
         ));
     }
@@ -51,6 +52,9 @@ class Cdaftar_diklat extends Back_end {
             "tgl_sttpp",
             "spt_hal_perhatian",
             "spt_tahapan",
+            "persyaratan_diklat",
+            "kuota_diklat",
+            "jumlah_waiting_list",
         ));
 
         $jenis_diklat = $this->model_ref_jenis_diklat->combobox(array("key" => "id_jenis_diklat", "value" => "jenis_diklat"));
@@ -68,7 +72,8 @@ class Cdaftar_diklat extends Back_end {
             "back_end/" . $this->_name . "/js/detail_tahapan_js",
             "back_end/" . $this->_name . "/js/detail_dasar_spt_js",
             "back_end/" . $this->_name . "/js/detail_isian_diklat_js",
-            "back_end/" . $this->_name . "/js/detail_hal_perhatian_spt_js"
+            "back_end/" . $this->_name . "/js/detail_hal_perhatian_spt_js",
+            "back_end/" . $this->_name . "/js/detail_persyaratan_diklat_js",
         ));
 
         $this->add_cssfiles(array("plugins/select2/select2.min.css"));

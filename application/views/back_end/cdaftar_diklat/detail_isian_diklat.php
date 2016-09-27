@@ -101,4 +101,28 @@ $cb_jenis_diklat = isset($cb_jenis_diklat) ? $cb_jenis_diklat : FALSE;
         </div>
     </div>
 
+    <div class="form-group">
+        <label class="col-md-3 col-xs-12 control-label">Kuota Diklat *</label>
+        <div class="col-md-6 col-xs-12">
+            <input id="txt-kuota_diklat" type="text" name="kuota_diklat" class="form-control" value="<?php echo $detail ? $detail->kuota_diklat : "30"; ?>">
+            <span class="help-block">Kuota Diklat, isikan hanya dengan angka, tanpa spasi.</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 col-xs-12 control-label">Jumlah <i>Waiting List</i> *</label>
+        <div class="col-md-6 col-xs-12">
+            <input id="txt-jumlah_waiting_list" type="text" name="jumlah_waiting_list" class="form-control" value="<?php echo $detail ? $detail->jumlah_waiting_list : "5"; ?>">
+            <span class="help-block">Jumlah <i>Waiting List</i>, isikan hanya dengan angka, tanpa spasi.<br />Untuk menentukan waiting list yang dihendaki.</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 col-xs-12 control-label">Pendafaran Ditutup</label>
+        <div class="col-md-6 col-xs-12">                                                                                                                                        
+            <label class="check"><input  id="chk-is_registration_closed" name="is_registration_closed" type="checkbox" class="icheckbox" <?php echo $detail && $detail->is_registration_closed ? "checked=\"checked\"" : ""; ?>/> Pendaftaran telah ditutup ?</label>
+            <span class="help-block">centang jika pendaftaran telah ditutup, biarkan kosong jika pendaftaran masih dibuka</span>
+        </div>
+    </div>
+
 </div>

@@ -13,6 +13,7 @@ class Tr_peserta_diklat extends LWS_model {
 
     protected $attribute_labels = array(
         "id_peserta_diklat" => array("id_peserta_diklat", "Id Diklat"),
+        "id_peserta_diklat_crypted" => array("id_peserta_diklat_crypted", "Id Diklat"),
         "id_diklat" => array("id_diklat", "Id Diklat"),
         "id_pegawai" => array("id_pegawai", "Id Pegawai"),
         "id_jabatan" => array("id_jabatan", "Id Jabatan"), // Mencatat Jabatan ketika mengikuti diklat ini
@@ -24,6 +25,7 @@ class Tr_peserta_diklat extends LWS_model {
     );
     protected $rules = array(
         array("id_peserta_diklat", ""),
+        array("id_peserta_diklat_crypted", ""),
         array("id_diklat", ""),
         array("id_pegawai", ""),
         array("id_jabatan", ""),
