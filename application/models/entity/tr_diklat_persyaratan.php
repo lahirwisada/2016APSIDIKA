@@ -37,5 +37,3 @@ class Tr_diklat_persyaratan extends LWS_model {
     protected $attribute_types = array();
 
 }
-
-?>

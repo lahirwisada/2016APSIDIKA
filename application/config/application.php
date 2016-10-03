@@ -17,8 +17,26 @@ $config['lmanuser.usingbackendfrontend'] = TRUE;
 $config['user_id_column_name'] = "id_user";
 $config['profil_id_column_name'] = "id_profil";
 
+/**
+ * tabel profil lain yang digunakan selain backbone_profil
+ */
 $config['another_profil_tablename'] = "sc_sidika.tr_pegawai_profil";
+$config['another_profil_properties']['partial_form_view'] = "back_bone/member/atlant/tr_pegawai_profil";
+$config['another_profil_properties']['form_config'] = array(
+    "using_select2" => TRUE,
+    "input_name" => "id_pegawai",
+    "input_type" => "select",
+    "additional_js" => array(
+        "back_bone/member/atlant/js/tr_pegawai_profil_js",
+    ),
+    "add_cssfiles" => array("plugins/select2/select2.min.css"),
+    "add_jsfiles" => array(
+        "plugins/select2/select2.full.min.js",
+        "atlant/plugins/summernote/summernote.js",
+    ),
+);
 $config['another_profil_properties']['foreign_key'] = "id_profil";
+$config['another_profil_properties']['foreign_key_to_another_profile'] = "id_pegawai";
 $config['another_profil_properties']['columns'] = array();
 $config['another_profil_properties']['related_tables'] = array(
     "sc_sidika.ref_pegawai" => array(

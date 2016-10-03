@@ -13,7 +13,7 @@ $detail = isset($detail) ? $detail : FALSE;
             <div class="form-group">
                 <label class="col-md-3 col-xs-12 control-label">Level</label>
                 <div class="col-md-6 col-xs-12">
-                    <select id="slc-level_hal_perhatian_spt" class="form-control select">
+                    <select id="slc-level_persyaratan_diklat" class="form-control select">
                         <option value="1">level 1</option>
                         <option value="2">level 2</option>
                         <option value="3">level 3</option>

@@ -18,10 +18,10 @@ $detail = isset($detail) ? $detail : FALSE;
 
 <?php if ($detail && $detail->persyaratan_diklat): ?>
 
-    <?php foreach ($detail->persyaratan_diklat as $key => $hal_perhatian): ?>
+    <?php foreach ($detail->persyaratan_diklat as $key => $persyaratan_diklat): ?>
                     self.__addRow({
-                        uraian: "<?php echo $hal_perhatian->uraian ?>",
-                        level: "<?php echo $hal_perhatian->level ?>"
+                        uraian: "<?php echo $persyaratan_diklat->uraian ?>",
+                        level: "<?php echo $persyaratan_diklat->level ?>"
                     });
     <?php endforeach; ?>
 <?php endif; ?>
@@ -90,7 +90,7 @@ $detail = isset($detail) ? $detail : FALSE;
             tblTr.append(tblTdAksi);
 
             tblTr.data(dataRow);
-
+            
             $("#DataTables_Table_persyaratan_diklat tbody:last").append(tblTr);
         },
         __removeRow: function (remBtnInstance) {

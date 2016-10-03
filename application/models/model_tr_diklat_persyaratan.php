@@ -37,7 +37,7 @@ class model_tr_diklat_persyaratan extends tr_diklat_persyaratan {
 
     public function set_attribute_data($row_data = FALSE, $id_diklat = FALSE) {
         if ($row_data && $id_diklat) {
-
+            
             if (is_object($row_data)) {
                 $row_data = (array) $row_data;
             }
@@ -50,12 +50,18 @@ class model_tr_diklat_persyaratan extends tr_diklat_persyaratan {
         return FALSE;
     }
 
-    public function all($force_limit = FALSE, $force_offset = FALSE) {
-        $this->db->order_by("col_order", "asc");
+    public function all_by_id_diklat($id_diklat = FALSE) {
+        if ($id_diklat && is_numeric($id_diklat)) {
+            return $this->all(FALSE, FALSE, $this->table_name . ".id_diklat = '" . $id_diklat . "'", FALSE, TRUE);
+        }
+        return FALSE;
+    }
+
+    public function all($force_limit = FALSE, $force_offset = FALSE, $condition = FALSE, $show_detailed = TRUE, $show_all = FALSE) {
         return parent::get_all(array(
                     "level",
                     "uraian",
-                        ), FALSE, TRUE, FALSE, 1, TRUE, $force_limit, $force_offset);
+                        ), $condition, $show_detailed, $show_all, 1, TRUE, $force_limit, $force_offset);
     }
 
 }

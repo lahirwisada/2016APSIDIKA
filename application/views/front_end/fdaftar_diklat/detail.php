@@ -1,5 +1,6 @@
 <?php
 $detail = isset($detail) ? $detail : FALSE;
+$persyaratan_diklat = isset($persyaratan_diklat) ? $persyaratan_diklat : FALSE;
 /**
  * this is front_end authentication not back_end
  */
@@ -22,7 +23,7 @@ $is_authenticated = isset($is_authenticated) ? $is_authenticated : FALSE;
 
                 <div class="row">
                     <?php if ($detail): ?>
-                        <div class="col-md-8">
+                        <div class="col-md-4">
                             <div class="fc-row">
                                 <label>Nama Diklat</label> <?php echo $detail->nama_diklat; ?>
                             </div>
@@ -41,7 +42,39 @@ $is_authenticated = isset($is_authenticated) ? $is_authenticated : FALSE;
                         </div>
                         <div class="col-md-4">
                             <div class="row">
-                                Untuk melakukan pendaftaran diklat ini anda harus memenuhi syarat sbb:
+                                <table id="tbl_persyaratan_diklat">
+                                    <thead>
+                                        <tr>
+                                            <th>Syarat - syarat</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        if ($persyaratan_diklat):
+                                            foreach ($persyaratan_diklat as $key => $syarat_diklat):
+                                                ?>
+                                                <tr>
+                                                    <td>
+                                                        <div style="text-indent: <?php echo ($syarat_diklat->level - 1); ?>em;">
+                                                            <?php echo "- ".$syarat_diklat->uraian; ?>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                            endforeach;
+                                        else:
+                                            ?>
+                                            <tr><td>Belum ada syarat yang tercatat</td></tr>
+                                        <?php
+                                        endif;
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                Untuk melakukan pendaftaran diklat ini anda harus :
                                 <ul>
                                     <li>Terdaftar dalam sistem.</li>
                                     <li>Memenuhi persyaratan yang dipersyaratkan oleh penyelenggara diklat.</li>
@@ -50,7 +83,7 @@ $is_authenticated = isset($is_authenticated) ? $is_authenticated : FALSE;
                             </div>
                             <div class="row">
                                 <?php if ($is_authenticated): ?>
-                                    <a href="<?php echo base_url('front_end/fdaftar_diklat/daftar')."/".$detail->id_diklat_crypted; ?>" class="btn btn-primary">Daftar</a>
+                                    <a href="<?php echo base_url('front_end/fdaftar_diklat/daftar') . "/" . $detail->id_diklat_crypted; ?>" class="btn btn-primary">Daftar</a>
                                 <?php endif; ?>
                             </div>
                         </div>

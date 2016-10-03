@@ -14,6 +14,7 @@ class Fdaftar_diklat extends Front_end {
             'model_ref_jenis_diklat',
             'model_tr_diklat_hal_perhatian',
             'model_tr_diklat_tahapan',
+            'model_tr_diklat_persyaratan',
             'model_tr_diklat',
         ));
 //        $this->_layout = "backend";
@@ -25,13 +26,15 @@ class Fdaftar_diklat extends Front_end {
 
     public function detail($crypted_id_diklat = FALSE) {
         $detail = FALSE;
+        $persyaratan_diklat = FALSE;
         if ($crypted_id_diklat) {
             $detail = $this->model_tr_diklat->get_detail_by_crypted($crypted_id_diklat);
             if ($detail) {
-                
+                $persyaratan_diklat = $this->model_tr_diklat_persyaratan->all_by_id_diklat($detail->id_diklat);
             }
         }
         $this->set("detail", $detail);
+        $this->set("persyaratan_diklat", $persyaratan_diklat);
     }
 
     public function daftar($crypted_id_diklat = FALSE) {

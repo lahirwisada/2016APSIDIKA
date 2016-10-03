@@ -98,13 +98,25 @@ $id_diklat = isset($id_diklat) && $id_diklat ? $id_diklat : "";
         $("#frm-daftar-diklat").submit(function (e) {
             e.preventDefault();
 
+            modalConfirm({
+                id: 'message-box-confirm',
+                title: 'Mohon Tunggu',
+                msg: 'Sedang menyimpan data ...',
+                showButton: false,
+                onCancel: function () {
+                    return false;
+                },
+                onOk: function () {
+                    return false;
+                }
+            });
             var data = formDetailDiklat.collectData();
             $.ajax({
                 url: "<?php echo base_url('back_end/cdaftar_diklat/detail') . "/" . $id_diklat; ?>",
                 data: data,
                 method: 'POST',
                 success: function (response, textStatus) {
-//                    window.location.href = "<?php echo base_url("back_end/cdaftar_diklat"); ?>";
+                    window.location.href = "<?php echo base_url("back_end/cdaftar_diklat"); ?>";
                 }
             });
 
