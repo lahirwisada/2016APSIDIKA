@@ -218,3 +218,11 @@ $config['modul_action_configuration'] = array(
         "read" => array("index", "get_like", "history"),
     ),
 );
+
+
+/**
+ * konstanta id role dengan nama role pegawai negeri sipil
+ * digunakan untuk memberikan role secara otomatis pada PNS ketika menambahkan PNS pada referensi data PNS
+ * karena ketika menambahkan PNS aplikasi membuatkan username dan password secara otomatis
+ */
+$config['id_role_pegawai_negeri_sipil'] = 13;

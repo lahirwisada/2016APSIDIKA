@@ -144,7 +144,52 @@ class model_ref_pegawai extends ref_pegawai {
 
     protected function after_save($inserted_id_pegawai) {
         $this->__insert_to_related_table($inserted_id_pegawai, $this->attributes);
+        $this->__create_username_for_this_pegawai($inserted_id_pegawai, $this->attributes);
         return;
+    }
+
+    private function __create_username_for_this_pegawai($inserted_id_pegawai, $data_pegawai) {
+        $this->load->library(array('diklat/lib_peserta_diklat', 'lmanuser'));
+        $this->load->model(array(
+            "model_backbone_user",
+            "model_backbone_profil",
+            "model_backbone_user_role",
+        ));
+
+        list($username, $password) = $this->lib_peserta_diklat->generate_username_password_by_nip($data_pegawai["nip"], $data_pegawai["nama_depan"]);
+
+        if ($username && $password) {
+            $_password = $this->lmanuser->generate_password($username, $password);
+            $model_user_attributes = array(
+                "username" => $username,
+                "password" => $_password,
+                "nama_profil" => $data_pegawai["nama_depan"],
+                "email_profil" => ""
+            );
+
+            /**
+             * create user beradasarkan NIP dan nama
+             */
+            $this->model_backbone_user->set_userdata_from_model_user($model_user_attributes);
+            $id_user = $this->model_backbone_user->save();
+
+            $_POST['id_pegawai'] = $inserted_id_pegawai;
+
+            /**
+             * create profil pada back bone
+             */
+            $this->model_backbone_profil->set_userdata_from_model_user($model_user_attributes, $id_user);
+            $this->model_backbone_profil->save();
+
+            /**
+             * berikan role untuk user PNS
+             */
+            $id_role_pegawai_negeri_sipil = $this->config->item("id_role_pegawai_negeri_sipil");
+
+            if ($id_role_pegawai_negeri_sipil) {
+                $this->model_backbone_user_role->save($id_user, $id_role_pegawai_negeri_sipil);
+            }
+        }
     }
 
     protected function after_get_data_post() {
