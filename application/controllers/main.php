@@ -32,6 +32,17 @@ class Main extends LWS_Controller {
         return $this->lmanuser->get("user_detail", $this->my_side);
     }
     
+    protected function get_user_detail_from_session_and_db(){
+        if ($this->lmanuser->is_front_end_authenticated()) {
+            $sess_detail = $this->lmanuser->get("user_detail", $this->my_side);
+            if ($sess_detail) {
+                $this->load->model('model_ref_pegawai');
+                return $this->model_ref_pegawai->get_by_nip($sess_detail["nip"]);
+            }
+        }
+        return FALSE;
+    }
+    
     
 }
 
