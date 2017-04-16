@@ -87,7 +87,6 @@ $id_diklat = isset($id_diklat) && $id_diklat ? $id_diklat : "";
             self.data.kuota_diklat = $("#txt-kuota_diklat").val();
             self.data.jumlah_waiting_list = $("#txt-jumlah_waiting_list").val();
             self.data.is_registration_closed = $('input#chk-is_registration_closed').is(':checked') ? "1" : "0";
-            console.log(self.data.is_registration_closed);
             return self.data;
         }
     };
@@ -116,7 +115,9 @@ $id_diklat = isset($id_diklat) && $id_diklat ? $id_diklat : "";
                 data: data,
                 method: 'POST',
                 success: function (response, textStatus) {
-                    window.location.href = "<?php echo base_url("back_end/cdaftar_diklat"); ?>";
+                    
+                    console.log(response);
+//                    window.location.href = "<?php echo base_url("back_end/cdaftar_diklat"); ?>";
                 }
             });
 

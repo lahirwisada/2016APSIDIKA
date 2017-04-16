@@ -16,11 +16,16 @@ class model_tr_peserta_diklat extends Tr_peserta_diklat {
         array("nomor_peserta", "numeric"),
         array("surat_konfirmasi_ok", "numeric"),
         array("path_scan_surat_konfirmasi", ""),
+        array("in_waiting_list", ""),
+        array("terverifikasi", ""),
+        array("is_gugur", ""),
+        array("keterangan_verifikator", ""),
     );
     public $upload_rule = array(
         "upload_path" => "",
         "allowed_types" => "xlsx|xls"
     );
+    
     public $col_map = array(
         "B" => "gelar_depan",
         "C" => "nama_depan",

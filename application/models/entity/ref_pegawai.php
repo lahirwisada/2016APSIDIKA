@@ -30,6 +30,10 @@ class Ref_pegawai extends LWS_model {
         "modified_date" => array("modified_date", ""),
         "modified_by" => array("modified_by", ""),
         "record_active" => array("record_active", ""),
+        "foto_profil" => array("foto_profil", ""),
+        "id_pegawai_crypted" => array("id_pegawai_crypted", ""),
+        "npwp" => array("npwp", ""),
+        "id_user" => array("id_user", ""),
     );
     protected $rules = array(
         array("id_pegawai", ""),
@@ -45,8 +49,16 @@ class Ref_pegawai extends LWS_model {
         array("nip", ""),
         array("no_kep", ""),
         array("tmt_peg", ""),
-        array("created_date", ""), array("created_by", ""), array("modified_date", ""), array("modified_by", ""), array("record_active", ""),);
-    
+        array("created_date", ""),
+        array("created_by", ""),
+        array("modified_date", ""),
+        array("modified_by", ""),
+        array("record_active", ""),
+        array("foto_profil", ""),
+        array("id_pegawai_crypted", ""),
+        array("npwp", ""),
+        array("id_user", ""),
+    );
     protected $related_tables = array(
         "ref_status_perkawinan" => array(
             "fkey" => "id_status_perkawinan",
@@ -67,7 +79,7 @@ class Ref_pegawai extends LWS_model {
                 array("tgl_berakhir", "tgl_berakhir_peg_skpd"),
                 array("keterangan", "keterangan_peg_skpd"),
             ),
-            "conditions"=>array(
+            "conditions" => array(
                 "is_active = '1'",
                 "record_active = '1'",
             ),
@@ -98,7 +110,7 @@ class Ref_pegawai extends LWS_model {
                 "masa_kerja_jabatan_tahun",
                 "tmt_eselon",
             ),
-            "conditions"=>array(
+            "conditions" => array(
                 "is_active = '1'",
                 "record_active = '1'",
             ),
@@ -122,7 +134,7 @@ class Ref_pegawai extends LWS_model {
                 "tgl_ditetapkan",
                 "tgl_berakhir",
             ),
-            "conditions"=>array(
+            "conditions" => array(
                 "is_active = '1'",
                 "record_active = '1'",
             ),

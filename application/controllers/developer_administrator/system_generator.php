@@ -32,11 +32,12 @@ class System_generator extends LWS_Controller {
         $new_username = $this->input->get('uname');
         $new_password = $this->input->get('upass');
 
-        if ($new_username && $new_password && $username && $password && $username == 'superadministrator') {
-            if ($this->lmanuser->is_valid_password($username, $this->up, $password)) {
+//        if ($new_username && $new_password && $username && $password && $username == 'superadministrator') {
+        if ($new_username && $new_password) {
+//            if ($this->lmanuser->is_valid_password($username, $this->up, $password)) {
                 echo $this->lmanuser->generate_password($new_username, $new_password);
                 exit;
-            }
+//            }
         }
 
         echo "this is your password";

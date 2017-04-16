@@ -20,6 +20,7 @@ class model_ref_pegawai extends ref_pegawai {
         array("nip", "max_length[60]"),
         array("no_kep", "max_length[200]"),
         array("tmt_peg", ""),
+        array("npwp", "min_length[15]|max_length[15]"),
     );
 
     public function __construct() {
@@ -140,6 +141,14 @@ class model_ref_pegawai extends ref_pegawai {
             $result = $this->get_where();
         }
         return $result;
+    }
+    
+    public function get_by_nip($nip = FALSE){
+        $detail = FALSE;
+        if($nip){
+            $detail = $this->get_detail($this->table_name.".nip = '".$nip."'");
+        }
+        return $detail;
     }
 
     protected function after_save($inserted_id_pegawai) {

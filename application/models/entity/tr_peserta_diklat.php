@@ -22,6 +22,10 @@ class Tr_peserta_diklat extends LWS_model {
         "nomor_peserta" => array("nomor_peserta", "Nomor Peserta"),
         "surat_konfirmasi_ok" => array("surat_konfirmasi_ok", "Surat Konfirmasi Ok"),
         "path_scan_surat_konfirmasi" => array("path_scan_surat_konfirmasi", "File Surat Konfirmasi Ok"),
+        "in_waiting_list" => array("in_waiting_list", "In Waiting List"),
+        "terverifikasi" => array("terverifikasi", "Terverifikasi"),
+        "is_gugur" => array("is_gugur", "Is Gugur"),
+        "keterangan_verifikator" => array("keterangan_verifikator", "Keterangan Verifikator"),
     );
     protected $rules = array(
         array("id_peserta_diklat", ""),
@@ -34,6 +38,10 @@ class Tr_peserta_diklat extends LWS_model {
         array("nomor_peserta", ""),
         array("surat_konfirmasi_ok", ""),
         array("path_scan_surat_konfirmasi", ""),
+        array("in_waiting_list", ""),
+        array("terverifikasi", ""),
+        array("is_gugur", ""),
+        array("keterangan_verifikator", ""),
     );
     protected $related_tables = array(
         "tr_diklat" => array(

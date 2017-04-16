@@ -1,5 +1,6 @@
 <?php
 $detail = isset($detail) ? $detail : FALSE;
+$user_detail = isset($user_detail) ? $user_detail : FALSE;
 /**
  * this is front_end authentication not back_end
  */
@@ -26,7 +27,7 @@ $is_authenticated = isset($is_authenticated) ? $is_authenticated : FALSE;
 
                 <div class="row">
 
-                    <?php if ($detail): ?>
+                    <?php if ($detail && $is_authenticated): ?>
                         <div class="col-md-8">
                             <div class="row">
                                 Anda akan mendaftarkan diri pada diklat dibawah ini.
@@ -47,24 +48,36 @@ $is_authenticated = isset($is_authenticated) ? $is_authenticated : FALSE;
                                 <div class="fc-row">
                                     <label>Pelaksanaan</label> <?php echo $detail->tgl_pelaksanaan; ?> - <?php echo $detail->tgl_selesai; ?>
                                 </div>
+                                <div class="fc-row">
+                                    <a href="<?php echo base_url(); ?>" class="btn">Kembali ke Kalender Diklat</a>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="fc-row">
-                                    <label>NIP</label> <?php echo "nip"; ?>
+                                    <label>NIP</label> <?php echo $user_detail ? $user_detail->nip : '-'; ?>
                                 </div>
                                 <div class="fc-row">
-                                    <label>Nama</label> <?php echo "Nama Pegawai"; ?>
+                                    <label>Nama</label> <?php echo $user_detail ? $user_detail->nama_sambung : '-'; ?>
                                 </div>
                                 <div class="fc-row">
-                                    <label>Surat Pernyataan</label>
-                                    <input type="file" name="fspernyataan" />
+                                    <label>TTL</label> <?php echo $user_detail ? $user_detail->tempat_lahir.", ". $user_detail->tgl_lahir : '-'; ?>
                                 </div>
-                                <div class="fc-row">
-                                    Dengan ini saya menyatakan kesediaan untuk mengikuti diklat.
-                                    
-                                </div>
+                                <form id="frm-daftar-diklat-mandiri" action="<?php echo base_url('front_end/fdaftar_diklat/mendaftar') . "/" . $detail->id_diklat_crypted; ?>" enctype="multipart/form-data" method="POST" class="form-horizontal">
+                                    <div class="fc-row">
+                                        <label>Surat Pernyataan</label>
+                                        <input id="inp-pernyataan" type="file" name="fspernyataan" />
+                                    </div>
+                                    <div class="fc-row">&nbsp;</div>
+                                    <div class="fc-row">
+                                        Sebelum melakukan pernyataan kesediaan, Cermati data anda terlebih dahulu, jika ada kesalahan atau perubahan silahkan menghubungi Sub Bidang Data.
+                                    </div>
+                                    <div class="fc-row">&nbsp;</div>
+                                    <div class="fc-row">
+                                        <button type="submit" id="btn-submit-pernyataan" class="btn btn-primary">Dengan ini saya menyatakan kesediaan untuk mengikuti diklat.</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     <?php else: ?>
@@ -74,12 +87,8 @@ $is_authenticated = isset($is_authenticated) ? $is_authenticated : FALSE;
                             </div>
                         </div>
                     <?php endif; ?>
-
-
                 </div>
-
             </div>
         </div>
-
     </div>
 </div>

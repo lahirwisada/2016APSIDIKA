@@ -55,7 +55,7 @@ class Cdaftar_diklat extends Back_end {
             "persyaratan_diklat",
             "kuota_diklat",
             "jumlah_waiting_list",
-        ));
+        ), TRUE);
 
         $jenis_diklat = $this->model_ref_jenis_diklat->combobox(array("key" => "id_jenis_diklat", "value" => "jenis_diklat"));
         $this->set("bread_crumb", array(

@@ -45,6 +45,13 @@ $is_authenticated = isset($is_authenticated) ? $is_authenticated : FALSE;
         </ul>
     </li>
     <li>
+        <a href="<?php echo base_url(); ?>">Download</a>
+        <ul>
+            <li><a href="#">Formulir Biodata</a></li>
+            <li><a href="#">Surat Pernyataan Kesediaan</a></li>
+        </ul>
+    </li>
+    <li>
         <?php if ($is_authenticated): ?>
             <a href="<?php echo base_url('front_end/cfpns/logout'); ?>">Keluar (Sign Out)</a>
             <ul>

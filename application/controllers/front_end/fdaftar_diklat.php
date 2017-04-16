@@ -39,6 +39,8 @@ class Fdaftar_diklat extends Front_end {
 
     public function daftar($crypted_id_diklat = FALSE) {
         $detail = FALSE;
+
+        $user_detail = $this->get_user_detail_from_session_and_db();
         if ($crypted_id_diklat) {
             $detail = $this->model_tr_diklat->get_detail_by_crypted($crypted_id_diklat);
             if ($detail) {
@@ -47,7 +49,31 @@ class Fdaftar_diklat extends Front_end {
                  */
             }
         }
+
+        $additional_js = array();
+        if ($this->is_authenticated()) {
+            $additional_js = array_merge($additional_js, array(
+                "front_end/" . $this->_name . "/js/daftar_mandiri_js",
+                "front_end/" . $this->_name . "/js/daftar_js",
+            ));
+        }
+
+        $this->add_jsfiles(array(
+            "atlant/helper.js",
+        ));
+        
+        $this->set("additional_js", $additional_js);
+
+        $this->set("user_detail", $user_detail);
         $this->set("detail", $detail);
+    }
+    
+    public function  mendaftar($id_diklat_crypted = FALSE){
+        if($id_diklat_crypted){
+            var_dump($_FILES);exit;
+            echo '1';
+        }
+        echo '0';
     }
 
     public function cek_spt($md5_text = FALSE) {

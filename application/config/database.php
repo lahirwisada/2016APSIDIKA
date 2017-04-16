@@ -54,6 +54,7 @@ $db['default']['password'] = 'postgres';
 //$db['default']['database'] = 'db_dummy_gurita_store';
 //$db['default']['database'] = 'prod_aplikasi_kosan';
 $db['default']['database'] = 'db_sidika';
+$db['default']['port'] = '5432';
 $db['default']['dbdriver'] = 'postgre';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = FALSE;
