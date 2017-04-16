@@ -4,6 +4,10 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Cpustaka_data extends Main {
+    
+    const RESPONE_DETAIL_NOPOST = 2;
+    const RESPONE_DETAIL_SAVE_SUCCESS = 1;
+    const RESPONE_DETAIL_SAVE_FAILED = 0;
 
     protected $_header_title = '';
     protected $cmodul_name = '';
@@ -53,10 +57,19 @@ class Cpustaka_data extends Main {
         $this->load_paging($this->model, "currpage_" . $this->cmodul_name);
         $this->set("additional_js", "back_end/" . $this->_name . "/js/index_js");
     }
+    
+    protected function after_detail($data_post, $response_data_post){
+        return;
+    }
 
-    protected function detail($id = FALSE, $posted_data = array()) {
+    protected function detail($id = FALSE, $posted_data = array(), $strict_get_post_data = FALSE) {
 //        var_dump(array_diff(array_keys($_POST), $posted_data), $this->{$this->model}->get_data_post(FALSE, $posted_data), $this->{$this->model}->is_valid(), $this->{$this->model});exit;
-        if ($this->{$this->model}->get_data_post(FALSE, $posted_data)) {
+//        var_dump(count($_POST), $_POST, $this->{$this->model}->get_data_post(FALSE, $posted_data));
+//        exit;
+        
+        $response_data_post = FALSE;
+        
+        if ($this->{$this->model}->get_data_post($strict_get_post_data, $posted_data)) {
             if ($this->{$this->model}->is_valid()) {
 
                 $saved_id = $this->{$this->model}->save($id);
@@ -78,6 +91,8 @@ class Cpustaka_data extends Main {
         $detail = $this->{$this->model}->show_detail($id);
 //        var_dump($this->db->last_query(), $detail);exit;
         $this->set("detail", $detail);
+        
+        $this->after_detail($posted_data, $response_data_post);
 
 //        $this->set("bread_crumb", array(
 //            "back_end/cjenis_diklat" => 'Jenis Diklat',
