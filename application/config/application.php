@@ -13,6 +13,8 @@ $config['hashed'] = 'VFUUl2rWS6I5EdSFU2JJyQ==';
 
 $config['appkey'] = '1029384756';
 
+$config['appsalt'] = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
 $config['lmanuser.usingbackendfrontend'] = TRUE;
 $config['user_id_column_name'] = "id_user";
 $config['profil_id_column_name'] = "id_profil";
@@ -54,6 +56,10 @@ $config['another_profil_properties']['related_tables'] = array(
             "nip",
             "no_kep",
             "tmt_peg",
+            "foto_profil",
+            "id_pegawai_crypted",
+            "npwp",
+            "id_user",
         ),
         "referenced" => "LEFT"
     ),
